@@ -79,5 +79,5 @@ theme: landscape
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
   type: git
-  repo: https://github.com/lhyundeadsoul/wanghe4096.github.io.git
+  repo: git@github.com:wanghe4096/wanghe4096.github.io.git
   branch: master
