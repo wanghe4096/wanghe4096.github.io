@@ -81,3 +81,13 @@ deploy:
   type: git
   repo: git@github.com:wanghe4096/wanghe4096.github.io.git
   branch: master
+
+feed:
+  type: atom
+  path: /atom.xml
+  limit: 20
+
+# Social
+social:
+  github: https://github.com/wanghe4096
+  weibo: https://weibo.com/3128659847
