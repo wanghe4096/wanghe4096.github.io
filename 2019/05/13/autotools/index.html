@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>用automake构建你的c项目 | 王贺的日志</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="作为Linux下的程序开发人员，大家都一定遇到过Makefile, 用make命令来编译自己写的程序确实很方便。 一般情况下， 大家都是手工写一个简单的Makefile.例如1234567891011121314151617181920212223242526CC		:= gccC_FLAGS := -Wall -WextraBIN		:= binSRC		:= srcINCLUDE	:= inc">
+<meta property="og:type" content="article">
+<meta property="og:title" content="用automake构建你的c项目">
+<meta property="og:url" content="http://wanghe4096.github.io/2019/05/13/autotools/index.html">
+<meta property="og:site_name" content="王贺的日志">
+<meta property="og:description" content="作为Linux下的程序开发人员，大家都一定遇到过Makefile, 用make命令来编译自己写的程序确实很方便。 一般情况下， 大家都是手工写一个简单的Makefile.例如1234567891011121314151617181920212223242526CC		:= gccC_FLAGS := -Wall -WextraBIN		:= binSRC		:= srcINCLUDE	:= inc">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-05-13T05:54:15.812Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="用automake构建你的c项目">
+<meta name="twitter:description" content="作为Linux下的程序开发人员，大家都一定遇到过Makefile, 用make命令来编译自己写的程序确实很方便。 一般情况下， 大家都是手工写一个简单的Makefile.例如1234567891011121314151617181920212223242526CC		:= gccC_FLAGS := -Wall -WextraBIN		:= binSRC		:= srcINCLUDE	:= inc">
+  
+    <link rel="alternate" href="/atom.xml" title="王贺的日志" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">王贺的日志</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://wanghe4096.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-autotools" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/05/13/autotools/" class="article-date">
+  <time datetime="2019-05-13T05:54:15.812Z" itemprop="datePublished">2019-05-13</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      用automake构建你的c项目
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>作为Linux下的程序开发人员，大家都一定遇到过Makefile, 用make命令来编译自己写的程序确实很方便。 一般情况下， 大家都是手工写一个简单的Makefile.例如<br><figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">CC		:= gcc</span><br><span class="line">C_FLAGS := -Wall -Wextra</span><br><span class="line"></span><br><span class="line">BIN		:= bin</span><br><span class="line">SRC		:= src</span><br><span class="line">INCLUDE	:= <span class="keyword">include</span></span><br><span class="line">LIB		:= lib</span><br><span class="line"></span><br><span class="line">LIBRARIES	:= <span class="variable">$(LIB)</span>/ncurses-6.1</span><br><span class="line"></span><br><span class="line"><span class="keyword">ifeq</span> (<span class="variable">$(OS)</span>,Windows_NT)</span><br><span class="line">EXECUTABLE	:= main.exe</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">EXECUTABLE	:= main</span><br><span class="line"><span class="keyword">endif</span></span><br><span class="line"></span><br><span class="line"><span class="section">all: <span class="variable">$(BIN)</span>/<span class="variable">$(EXECUTABLE)</span></span></span><br><span class="line"></span><br><span class="line"><span class="section">clean:</span></span><br><span class="line">	-<span class="variable">$(RM)</span> <span class="variable">$(BIN)</span>/<span class="variable">$(EXECUTABLE)</span></span><br><span class="line"></span><br><span class="line"><span class="section">run: all</span></span><br><span class="line">	./<span class="variable">$(BIN)</span>/<span class="variable">$(EXECUTABLE)</span></span><br><span class="line"></span><br><span class="line"><span class="variable">$(BIN)</span>/<span class="variable">$(EXECUTABLE)</span>: <span class="variable">$(SRC)</span>/*</span><br><span class="line">	<span class="variable">$(CC)</span> <span class="variable">$(C_FLAGS)</span> -I<span class="variable">$(INCLUDE)</span> -L<span class="variable">$(LIB)</span> <span class="variable">$^</span> -o <span class="variable">$@</span> <span class="variable">$(LIBRARIES)</span></span><br></pre></td></tr></table></figure></p>
+<p>本文中， 介绍如何使用autoconf和automake工具来帮助我们自动生成符合自由软件惯例的makefile. 这样可以象常见的GNU程序一样， 只要使用”./configure”, “make”, “make install” 就可以安装l到inux系统。 我们常用的一些开源项目都是用这套工具来管理其项目构建过程的， 如redis、openssl、libcurl、nucurses等开源项目。<br>本文描述了利用autotools 来编写一个hello world的程序过程。 </p>
+<a id="more"></a>
+<h1 id="安装构建工具"><a href="#安装构建工具" class="headerlink" title="安装构建工具"></a>安装构建工具</h1><h2 id="Macos-安装autotool-工具"><a href="#Macos-安装autotool-工具" class="headerlink" title="Macos 安装autotool 工具"></a>Macos 安装autotool 工具</h2><p>  $ brew install automake </p>
+<h2 id="ubuntu-linux-安装autotool-工具"><a href="#ubuntu-linux-安装autotool-工具" class="headerlink" title="ubuntu linux 安装autotool 工具"></a>ubuntu linux 安装autotool 工具</h2><p>  $ apt-get install automake</p>
+<p>安装完成后， 会如下工具可用</p>
+<ul>
+<li>aclocal</li>
+<li>autoscan</li>
+<li>autoconf</li>
+<li>autoheader</li>
+<li>automake</li>
+</ul>
+<h1 id="工具使用顺序"><a href="#工具使用顺序" class="headerlink" title="工具使用顺序"></a>工具使用顺序</h1>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">automake --&gt;  aclocal --&gt; autoconf --&gt; autoheader --&gt; automake</span><br></pre></td></tr></table></figure>
+<h1 id="快速上手"><a href="#快速上手" class="headerlink" title="快速上手"></a>快速上手</h1><h2 id="第一步"><a href="#第一步" class="headerlink" title="第一步"></a>第一步</h2><p>创建一个hello目录，并在此目录下创一个hello.c文件， 其内容如下:<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt; </span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"hello world!\n"</span>); </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="第二步"><a href="#第二步" class="headerlink" title="第二步"></a>第二步</h2><p>在hello目录下运行autoscan ， 生两个文件： autoscan.log configure.scan </p>
+<h2 id="第三步"><a href="#第三步" class="headerlink" title="第三步"></a>第三步</h2><p>修改configure.scan 的文件名为configure.ac<br>查看configure.ac 的内容：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#                                               -*- Autoconf -*-</span></span><br><span class="line"><span class="comment"># Process this file with autoconf to produce a configure script.</span></span><br><span class="line"></span><br><span class="line">AC_PREREQ([2.69])</span><br><span class="line">AC_INIT([FULL-PACKAGE-NAME], [VERSION], [BUG-REPORT-ADDRESS])</span><br><span class="line">AC_CONFIG_SRCDIR([main.c])</span><br><span class="line">AC_CONFIG_HEADERS([config.h])</span><br><span class="line"></span><br><span class="line"><span class="comment"># Checks for programs.</span></span><br><span class="line">AC_PROG_CC</span><br><span class="line"></span><br><span class="line"><span class="comment"># Checks for libraries.</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Checks for header files.</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Checks for typedefs, structures, and compiler characteristics.</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Checks for library functions.</span></span><br><span class="line"></span><br><span class="line">AC_OUTPUT</span><br></pre></td></tr></table></figure></p>
+<p>解读上面文件内容：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 确保使用的是足够新的Autoconf版本。 如果用于创建configure的Autoconfi版本比version要早，就在标准错误输出打印一条错误消息并不会创建configure </span></span><br><span class="line">AC_PREREQ([2.69])</span><br><span class="line"></span><br><span class="line"><span class="comment"># 初始化软件包的基本信息，包括设置包的全称，版本号以及报告bug时需要用的邮箱</span></span><br><span class="line">AC_INIT([FULL-PACKAGE-NAME], [VERSION], [BUG-REPORT-ADDRESS])</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 用来检测所指定的源码文件是否存在，来确定源码目录的正确性</span></span><br><span class="line">AC_CONFIG_SRCDIR([main.c])</span><br><span class="line"></span><br><span class="line"><span class="comment"># 用于生成config.h文件， 以便autoheader使用</span></span><br><span class="line">AC_CONFIG_HEADERS([config.h])</span><br><span class="line"></span><br><span class="line"><span class="comment"># Checks for programs.</span></span><br><span class="line">AC_PROG_CC</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># Checks for libraries.</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Checks for header files.</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Checks for typedefs, structures, and compiler characteristics.</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Checks for library functions.</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建输出的文件。 会在`configure.ac`的末尾调用本宏一次.</span></span><br><span class="line">AC_OUTPUT</span><br></pre></td></tr></table></figure></p>
+<p>编辑configure.ac文件：</p>
+<ol>
+<li>修改AC_INIT里面的参数： <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">    AC_INIT(hello, 1.0, wanghe4096@icloud.com)</span><br><span class="line">```    </span><br><span class="line">2. 添加宏AM_INIT_AUTOMAKE, 它是automake 所必备的宏。 </span><br><span class="line">3. 在AC_OUTPUT后添加输出文件Makefile</span><br><span class="line"></span><br><span class="line">修改后的结果</span><br><span class="line"></span><br><span class="line">```bash</span><br><span class="line">#                                               -*- Autoconf -*-</span><br><span class="line"># Process this file with autoconf to produce a configure script.</span><br><span class="line"></span><br><span class="line">AC_PREREQ([2.69])</span><br><span class="line">AC_INIT(hello, 1.0, wanghe4096@icloud.com)</span><br><span class="line">AC_CONFIG_SRCDIR([hello.c])</span><br><span class="line">AC_CONFIG_HEADERS([config.h])</span><br><span class="line"></span><br><span class="line">AM_INIT_AUTOMAKE</span><br><span class="line"># Checks for programs.</span><br><span class="line">AC_PROG_CC</span><br><span class="line"></span><br><span class="line"># Checks for libraries.</span><br><span class="line"></span><br><span class="line"># Checks for header files.</span><br><span class="line"></span><br><span class="line"># Checks for typedefs, structures, and compiler characteristics.</span><br><span class="line"></span><br><span class="line"># Checks for library functions.</span><br><span class="line"></span><br><span class="line">AC_OUTPUT([Makefile])</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h1 id="第四步："><a href="#第四步：" class="headerlink" title="第四步："></a>第四步：</h1><p>运行aclocal,生成一个aclocal.m4文件和一个缓冲文件夹autom4te.cache，该文件主要处理本地宏定义。 </p>
+<h1 id="第五步："><a href="#第五步：" class="headerlink" title="第五步："></a>第五步：</h1><p>运行autoconf, 生成configure脚本<br>此时目录下的文件有<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">aclocal.m4     autom4te.cache autoscan.log   configure      configure.ac   hello          main.c</span><br></pre></td></tr></table></figure></p>
+<h1 id="第六步："><a href="#第六步：" class="headerlink" title="第六步："></a>第六步：</h1><p>运行autoheader, 它负责生成config.h.in。该工具通常会从”acconfig.h”文件中复制用户附加的符号定义， 因此此处没符号定义，所以不需要创建”acconfig.h”文件<br>此时目录：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">aclocal.m4     autom4te.cache autoscan.log   config.h.in    configure      configure.ac   hello          main.c</span><br></pre></td></tr></table></figure></p>
+<h1 id="第七步："><a href="#第七步：" class="headerlink" title="第七步："></a>第七步：</h1><p>创建Makefile.am。这一步是创建makefile很重要的一步， automake 要用的脚本配置文件是Makefile.am， 用户需要自己创建相应的文件。 之后， automake工具转换成Makefile.in</p>
+<p>Makefile.am内容如下：<br><figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">AUTOMAKE_OPTIONS=gnu</span><br><span class="line">bin_PROGRAMS=hello</span><br><span class="line">hello_SOURCES=hello.c</span><br></pre></td></tr></table></figure></p>
+<p>下面是对这个脚本文件的解释</p>
+<ul>
+<li><p>AUTOMAKE_OPTIONS为设置automake的选项</p>
+<p>由于GNU对自己发布的软件有严格的规范， 比如必须附带许可证声明文件COPYING等， 否automake执行时会报错。 automake 提供了三种软件等级： foreign 、gnu和gnits ，让用户选择采用。 默认等级为gnu. foreign等级只检测必须的文件 </p>
+</li>
+<li><p>bin_PROGRAMS定义了要产生的执行文件名。 如果产生多个执行文件，每个文件用空格隔开。 </p>
+</li>
+<li><p>hello_SOURCES 定义“hello”这个执行程序所需要的原始文件。 如果“hello“这个程序是由多个原始文件所产生的， 则必须把它所用到的所有原始文件都列出来， 并用空格隔开。 例如： 若目标体“hello”需要用”hello.c” “sum.c” “hello.h” 三个依赖文件， 则定义</p>
+<p>hello_SOURCES hello.c sum.c hello.h 。 </p>
+<p>要注意的是， 如果要定义多个执行文件， 则对每个执行程序都要定义相应的file_SOURCES. </p>
+<p>其次， 使用automake 对其生成的“configure.in”文件， 在这里使用选项“–add-missing ”可以让automake 自动添加有一些必须的脚本文件。 </p>
+</li>
+</ul>
+<h1 id="第八步："><a href="#第八步：" class="headerlink" title="第八步："></a>第八步：</h1><p>运行configure，在这一此中，通过运行自动配置设置文件configure，把Makefile.in变成了最终的Makefile. </p>
+<p>运行结果如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">checking for a BSD-compatible install... /usr/bin/install -c</span><br><span class="line">checking whether build environment is sane... yes</span><br><span class="line">checking for a thread-safe mkdir -p... ./install-sh -c -d</span><br><span class="line">checking for gawk... no</span><br><span class="line">checking for mawk... no</span><br><span class="line">checking for nawk... no</span><br><span class="line">checking for awk... awk</span><br><span class="line">checking whether make sets $(MAKE)... yes</span><br><span class="line">checking whether make supports nested variables... yes</span><br><span class="line">checking for gcc... gcc</span><br><span class="line">checking whether the C compiler works... yes</span><br><span class="line">checking for C compiler default output file name... a.out</span><br><span class="line">checking for suffix of executables...</span><br><span class="line">checking whether we are cross compiling... no</span><br><span class="line">checking for suffix of object files... o</span><br><span class="line">checking whether we are using the GNU C compiler... yes</span><br><span class="line">checking whether gcc accepts -g... yes</span><br><span class="line">checking for gcc option to accept ISO C89... none needed</span><br><span class="line">checking whether gcc understands -c and -o together... yes</span><br><span class="line">checking whether make supports the include directive... yes (GNU style)</span><br><span class="line">checking dependency style of gcc... gcc3</span><br><span class="line">checking that generated files are newer than configure... done</span><br><span class="line">configure: creating ./config.status</span><br><span class="line">config.status: creating Makefile</span><br><span class="line">config.status: creating config.h</span><br><span class="line">config.status: executing depfiles commands</span><br></pre></td></tr></table></figure></p>
+<h1 id="第九步："><a href="#第九步：" class="headerlink" title="第九步："></a>第九步：</h1><p>  运行make </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">/Applications/Xcode.app/Contents/Developer/usr/bin/make  all-am</span><br><span class="line">gcc -DHAVE_CONFIG_H -I.     -g -O2 -MT hello.o -MD -MP -MF .deps/hello.Tpo -c -o hello.o hello.c</span><br><span class="line">mv -f .deps/hello.Tpo .deps/hello.Po</span><br><span class="line">gcc  -g -O2   -o hello hello.o</span><br></pre></td></tr></table></figure>
+<h1 id="第十步"><a href="#第十步" class="headerlink" title="第十步"></a>第十步</h1><p>$ ./hello</p>
+<h1 id="完整的项目地址"><a href="#完整的项目地址" class="headerlink" title="完整的项目地址"></a>完整的项目地址</h1><p><a href="https://github.com/wanghe4096/hello" target="_blank" rel="noopener">https://github.com/wanghe4096/hello</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://wanghe4096.github.io/2019/05/13/autotools/" data-id="cjvlzo3fp000146fymcur1bhn" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/05/13/tuning-the-go-http-client-library-for-load-testing/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          压力测试中的Go http Client 参数调优
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/05/13/avoiding-memory-leak-in-golang-api/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">在Golang API 中避免内存泄漏</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+
+
+
+
+  <div id="gitalk-container"></div>
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+<script type="text/javascript">
+  
+  
+  var gitalk = new Gitalk({
+    clientID: '676995b3169b0460f579',
+    clientSecret: 'fcc2b957d39e2cf013d9289418e59a6e1740aa14',
+    id: "用automake构建你的c项目",
+    repo: 'wanghe4096.github.io',
+    owner: 'wanghe4096',
+    admin: 'wanghe4096',
+    distractionFreeMode: 'true',
+  })
+
+  gitalk.render('gitalk-container')
+</script>
+
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis-跳表/">redis 跳表</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/译/">译</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/redis-跳表/" style="font-size: 10px;">redis 跳表</a> <a href="/tags/译/" style="font-size: 10px;">译</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/05/13/yangming-note/">此心光明，亦复何求? --《知行合一：王阳明》</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/13/go2-draft-designs/">Go 2 设计草案(译)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/13/go2-draft-error-handling-problem-overview/">Go2设计草案——错误处理问题概述</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/13/gophercon-2018-binary-search-tree-algorithms/">Gophercon 2018 - 简明二叉搜索树</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/13/redis-jump-list/">为什么redis一定要用跳跃表来实现有序集合</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 王贺<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

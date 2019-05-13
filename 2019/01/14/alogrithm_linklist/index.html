@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>基础数据结构--链表 | 王贺的日志</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="介绍这篇文章重点在于描述一个链表的设计和实现 链表的数据结构  单链表     最简单的链表。 元素之间由一个单独的指针链接。 这种结构的链表允许从第一个元素开始遍历到最后一个元素。     双向链表     这种形式的链表元素之间通过两个指针链接。 双向链表可以正向遍历， 也可以反向遍历。    循环链表     这种形式的链表最后个元素的指针指向链表的首元素， 而不是设置为NULL。 这种结构">
+<meta property="og:type" content="article">
+<meta property="og:title" content="基础数据结构--链表">
+<meta property="og:url" content="http://wanghe4096.github.io/2019/01/14/alogrithm_linklist/index.html">
+<meta property="og:site_name" content="王贺的日志">
+<meta property="og:description" content="介绍这篇文章重点在于描述一个链表的设计和实现 链表的数据结构  单链表     最简单的链表。 元素之间由一个单独的指针链接。 这种结构的链表允许从第一个元素开始遍历到最后一个元素。     双向链表     这种形式的链表元素之间通过两个指针链接。 双向链表可以正向遍历， 也可以反向遍历。    循环链表     这种形式的链表最后个元素的指针指向链表的首元素， 而不是设置为NULL。 这种结构">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-05-13T05:54:15.812Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="基础数据结构--链表">
+<meta name="twitter:description" content="介绍这篇文章重点在于描述一个链表的设计和实现 链表的数据结构  单链表     最简单的链表。 元素之间由一个单独的指针链接。 这种结构的链表允许从第一个元素开始遍历到最后一个元素。     双向链表     这种形式的链表元素之间通过两个指针链接。 双向链表可以正向遍历， 也可以反向遍历。    循环链表     这种形式的链表最后个元素的指针指向链表的首元素， 而不是设置为NULL。 这种结构">
+  
+    <link rel="alternate" href="/atom.xml" title="王贺的日志" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">王贺的日志</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://wanghe4096.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-alogrithm_linklist" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/01/14/alogrithm_linklist/" class="article-date">
+  <time datetime="2019-01-13T16:00:00.000Z" itemprop="datePublished">2019-01-14</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      基础数据结构--链表
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h1><p>这篇文章重点在于描述一个链表的设计和实现</p>
+<h2 id="链表的数据结构"><a href="#链表的数据结构" class="headerlink" title="链表的数据结构"></a>链表的数据结构</h2><ul>
+<li><font color="green"> <strong>单链表</strong> </font>
+
+<p>  最简单的链表。 元素之间由一个单独的指针链接。 这种结构的链表允许从第一个元素开始遍历到最后一个元素。</p>
+</li>
+</ul>
+<ul>
+<li><font color="green"> <strong>双向链表</strong> </font>
+
+<p>  这种形式的链表元素之间通过两个指针链接。 双向链表可以正向遍历， 也可以反向遍历。 </p>
+</li>
+<li><font color="green"> <strong>循环链表</strong> </font>
+
+<p>  这种形式的链表最后个元素的指针指向链表的首元素， 而不是设置为NULL。 这种结构的链表允许循环遍历。 </p>
+</li>
+</ul>
+<h2 id="链表的应用场景："><a href="#链表的应用场景：" class="headerlink" title="链表的应用场景："></a>链表的应用场景：</h2><ul>
+<li><font color="green"> <strong>滚动列表</strong> </font>
+
+<p>  图形用户界面中常能看到这种组件。 通常在滚动列表中与每个条目相关的数据并不显示出来。 一种管理这种“隐藏”数据的方式是维护一个链表， 链表中每个元素保存一个在滚动列表中出现的条目数据。</p>
+</li>
+<li><font color="green"> <strong>多项式计算</strong></font>
+
+<p>  数学中的一个重要组成部分。 但对于大多数编程语言来说，并没有将其作为原生的数据类型加以支持。如果让链表中的每个元素存储多项式中的一项， 那么链表对于表示一个多项式是非常有用的,比如 $3x^2+2x+1$</p>
+</li>
+<li><font color="green"><strong>内存管理</strong></font>
+
+<p>  内存管理是操作系统中一个重要组成部分。 操作系统必须决定如何为系统中运行的进程分配和回收存储空间。 链表能够用来跟踪可供分配的内存片段信息。 </p>
+</li>
+<li><font color="green"><strong>文件的链式分配</strong></font>
+
+<p>  为了消除磁盘上的外部碎片而采用的一种文件分配方式， 但只适合于顺序访问。 文件按照块的方式进行组织， 每一块都包含一个指向文件下一块数据指针。 </p>
+</li>
+<li><font color="green"><strong>其他数据结构</strong></font>
+
+<p>  有一些数据结构的实现需要依赖于链表， 它们是栈、队列、集合、哈希表和图。 </p>
+</li>
+</ul>
+<a id="more"></a>
+<h2 id="链表描述"><a href="#链表描述" class="headerlink" title="链表描述"></a>链表描述</h2><h1 id="C语言实现"><a href="#C语言实现" class="headerlink" title="C语言实现"></a>C语言实现</h1><h2 id="链表的抽象数据类型头文件"><a href="#链表的抽象数据类型头文件" class="headerlink" title="链表的抽象数据类型头文件"></a>链表的抽象数据类型头文件</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> LIST_H</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LIST_H</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* Define a structure for linked list elements. */</span> </span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">ListElmt_</span> </span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	<span class="keyword">void</span> *data;</span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">ListElmt_</span> *<span class="title">next</span>;</span> </span><br><span class="line">&#125;ListElmt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/* Defin a structure for linked list. */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">List_</span> </span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	<span class="keyword">int</span> size; </span><br><span class="line">	<span class="keyword">int</span> (*match)(<span class="keyword">const</span> <span class="keyword">void</span> *key1, <span class="keyword">const</span> <span class="keyword">void</span>*key2); </span><br><span class="line">	<span class="keyword">void</span> (*destroy)(<span class="keyword">void</span> *data);</span><br><span class="line"></span><br><span class="line">	ListElmt *head; </span><br><span class="line">	ListElmt *tail;</span><br><span class="line"></span><br><span class="line">&#125;List;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* Public Interface */</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">list_init</span><span class="params">(List *<span class="built_in">list</span>, <span class="keyword">void</span> (*destroy)(<span class="keyword">void</span> *data))</span></span>; </span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">list_destroy</span><span class="params">(List *<span class="built_in">list</span>)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">list_ins_next</span><span class="params">(List *<span class="built_in">list</span>, ListElmt *element, <span class="keyword">const</span> <span class="keyword">void</span> *data)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">list_rem_next</span><span class="params">(List *<span class="built_in">list</span>, ListElmt *element, <span class="keyword">void</span> **data)</span></span>;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> list_size(list) ((list)-&gt;size)</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> list_head(list) ((list)-&gt;head)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> list_tail(list) ((list)-&gt;tail)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> list_is_head(list, element) ((element) == (list)-&gt;head ? 1 : 0)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> list_is_tail(list, element) ((element) == (list)-&gt;tail ? 1: 0 ) </span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> list_data(element) ((element)-&gt;data)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> list_next(element) ((element)-&gt;next)</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br></pre></td></tr></table></figure>
+<h2 id="链表的抽象数据类型的实现"><a href="#链表的抽象数据类型的实现" class="headerlink" title="链表的抽象数据类型的实现"></a>链表的抽象数据类型的实现</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"list.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* list_init */</span> </span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">list_init</span><span class="params">(List *<span class="built_in">list</span>, <span class="keyword">void</span> (*destroy)(<span class="keyword">void</span> *data))</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="comment">/* Initilize the list. */</span> </span><br><span class="line">	<span class="built_in">list</span>-&gt;size = <span class="number">0</span>; </span><br><span class="line">	<span class="built_in">list</span>-&gt;destroy = destroy; </span><br><span class="line">	<span class="built_in">list</span>-&gt;head = <span class="literal">NULL</span>;</span><br><span class="line">	<span class="built_in">list</span>-&gt;tail = <span class="literal">NULL</span>;</span><br><span class="line">	<span class="keyword">return</span> ;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/* list_destroy */</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">list_destroy</span><span class="params">(List *<span class="built_in">list</span>)</span> </span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">void</span> *data; </span><br><span class="line"></span><br><span class="line">	<span class="comment">/* Remove each element. */</span></span><br><span class="line">	<span class="keyword">while</span>(list_size(<span class="built_in">list</span>)&gt;<span class="number">0</span>) </span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span> (list_rem_next(<span class="built_in">list</span>, <span class="literal">NULL</span>, (<span class="keyword">void</span> **)&amp;data) == <span class="number">0</span> &amp;&amp; <span class="built_in">list</span>-&gt;destroy != <span class="literal">NULL</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="comment">/* Call a user-defined function to free dynamically allocated data */</span></span><br><span class="line">			<span class="built_in">list</span>-&gt;destroy(data);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/* No operations are allowed now, but clear the structure as precaution. */</span></span><br><span class="line">	<span class="built_in">memset</span>(<span class="built_in">list</span>, <span class="number">0</span>, <span class="keyword">sizeof</span>(List));</span><br><span class="line">	<span class="keyword">return</span> ; </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * list_int_next</span></span><br><span class="line"><span class="comment"> **/</span> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">list_int_next</span><span class="params">(List *<span class="built_in">list</span>, ListElmt *element, <span class="keyword">const</span> <span class="keyword">void</span> *data)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	ListElmt *new_element = <span class="literal">NULL</span>; </span><br><span class="line"></span><br><span class="line">	<span class="comment">/* Allocate storage for the element. */</span> </span><br><span class="line">	<span class="keyword">if</span> ((new_element = (ListElmt *)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(ListElmt))) == <span class="literal">NULL</span>) </span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/* Insert the element into the list. */</span></span><br><span class="line">	new_element-&gt;data = (<span class="keyword">void</span> *)data; </span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (element == <span class="literal">NULL</span>) &#123;</span><br><span class="line">		<span class="comment">/* Handle insertion at the head of the list. */</span> </span><br><span class="line">		<span class="keyword">if</span> (list_size(<span class="built_in">list</span>) == <span class="number">0</span>) &#123;</span><br><span class="line">			<span class="comment">// 只有一个节点的情况下， 头节点=尾节点，当前节点的下一个节点也是头节点</span></span><br><span class="line">			<span class="built_in">list</span>-&gt;tail = new_element;</span><br><span class="line">			new_element-&gt;next = <span class="built_in">list</span>-&gt;head; </span><br><span class="line">			<span class="built_in">list</span>-&gt;head = new_element; </span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">	&#125;<span class="keyword">else</span> &#123;</span><br><span class="line">		<span class="comment">/* Handle insertion somewhere other than at the head */</span></span><br><span class="line">		<span class="keyword">if</span> (element-&gt;next == <span class="literal">NULL</span>) &#123;</span><br><span class="line">			<span class="built_in">list</span>-&gt;tail = new_element;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		new_element-&gt;next = element-&gt;next;</span><br><span class="line">		element-&gt;next = new_element;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/* Adjust the size of the list to acount for the inserted element. */</span></span><br><span class="line">	<span class="built_in">list</span>-&gt;size ++ ;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * list_rem_next</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">list_rem_next</span><span class="params">(List *<span class="built_in">list</span>, ListElmt *element, <span class="keyword">void</span> **data)</span> </span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	ListElmt *old_element = <span class="literal">NULL</span>; </span><br><span class="line">	<span class="comment">/* Do not allow removal from an empty list. */</span> </span><br><span class="line">	<span class="keyword">if</span> (list_size(<span class="built_in">list</span>) == <span class="number">0</span>) &#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/* Remove the element from the list. */</span></span><br><span class="line">	<span class="keyword">if</span> (element == <span class="literal">NULL</span>) &#123;</span><br><span class="line">		<span class="comment">/* Handle removal from the head of the list. */</span></span><br><span class="line">		*data = <span class="built_in">list</span>-&gt;head-&gt;data; </span><br><span class="line">		old_element = <span class="built_in">list</span>-&gt;head; </span><br><span class="line">		<span class="built_in">list</span>-&gt;head = <span class="built_in">list</span>-&gt;head-&gt;next;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">if</span> (list_size(<span class="built_in">list</span>) == <span class="number">1</span>)&#123;</span><br><span class="line">			<span class="built_in">list</span>-&gt;tail = <span class="literal">NULL</span>;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">	&#125;<span class="keyword">else</span> &#123;</span><br><span class="line">		<span class="comment">/* Handle removal from somewhere other than the head. */</span> </span><br><span class="line">		<span class="keyword">if</span> (element-&gt;next == <span class="literal">NULL</span>) &#123;</span><br><span class="line">			<span class="keyword">return</span>  <span class="number">-1</span>;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		*data = element-&gt;next-&gt;data;</span><br><span class="line">		old_element = element-&gt;next; </span><br><span class="line">		element-&gt;next = element-&gt;next-&gt;next;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">if</span> (element-&gt;next == <span class="literal">NULL</span>)&#123;</span><br><span class="line">			<span class="built_in">list</span>-&gt;tail = element;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/* Free the storage allocated by the abstract datatype. */</span> </span><br><span class="line">	<span class="built_in">free</span>(old_element);</span><br><span class="line"></span><br><span class="line">	<span class="comment">/* Adjust the size of the list to account for the removed element.*/</span> </span><br><span class="line">	<span class="built_in">list</span>-&gt;size--; </span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="Go语言实现"><a href="#Go语言实现" class="headerlink" title="Go语言实现"></a>Go语言实现</h1><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> list</span><br><span class="line"></span><br><span class="line"><span class="comment">// Node  链表节点</span></span><br><span class="line"><span class="keyword">type</span> Node <span class="keyword">struct</span> &#123;</span><br><span class="line">	Data <span class="keyword">interface</span>&#123;&#125;</span><br><span class="line">	Next *Node</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// LinkList 链表定义</span></span><br><span class="line"><span class="keyword">type</span> LinkList <span class="keyword">struct</span> &#123;</span><br><span class="line">	Size <span class="keyword">int</span></span><br><span class="line">	Head *Node</span><br><span class="line">	Tail *Node</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// New 初始链表</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">New</span><span class="params">()</span> *<span class="title">LinkList</span></span> &#123;</span><br><span class="line">	<span class="keyword">return</span> &amp;LinkList&#123;Size: <span class="number">0</span>, Head: <span class="literal">nil</span>, Tail:<span class="literal">nil</span>&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// InsertNode 插入节点</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(linklist *LinkList)</span> <span class="title">InsertNode</span><span class="params">(prevNode *Node, data <span class="keyword">interface</span>&#123;&#125;)</span> <span class="params">(err error)</span></span> &#123;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	newNode := &amp;Node&#123;Data:data&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> prevNode == Nil &#123;</span><br><span class="line">		<span class="keyword">if</span> linklist.Size == <span class="number">0</span> &#123;</span><br><span class="line">			linklist.Tail = newNode</span><br><span class="line">			newNode.Next = linklist.Head</span><br><span class="line">			linklist.Head = newNode</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;<span class="keyword">else</span> &#123;</span><br><span class="line">		<span class="keyword">if</span> prevNode.Next == Nil &#123;</span><br><span class="line">			linklist.Tail = newNode</span><br><span class="line">		&#125;</span><br><span class="line">		newNode.Next = prevNode.Next</span><br><span class="line">		prevNode.Next = newNode</span><br><span class="line">	&#125;</span><br><span class="line">	linklist.Size ++</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// RemoveNode 移除节点</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(linklist *LinkList)</span> <span class="title">RemoveNode</span><span class="params">(prevNode *Node, data <span class="keyword">interface</span>&#123;&#125;)</span></span>  &#123;</span><br><span class="line">	<span class="keyword">if</span> linklist.Size == <span class="number">0</span> &#123;</span><br><span class="line">		<span class="keyword">return</span></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	<span class="comment">// 如果前一个节点是空的， 删除头节点</span></span><br><span class="line">	<span class="keyword">if</span> prevNode == Nil &#123;</span><br><span class="line">		data = linklist.Head.Data</span><br><span class="line">		linklist.Head = linklist.Head.Next</span><br><span class="line"></span><br><span class="line">		<span class="keyword">if</span> linklist.Size == <span class="number">1</span> &#123;</span><br><span class="line">			linklist.Tail = <span class="literal">nil</span></span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">	&#125;<span class="keyword">else</span> &#123;</span><br><span class="line">		<span class="comment">// 如果前一个节点是空的</span></span><br><span class="line">		<span class="keyword">if</span> prevNode == <span class="literal">nil</span> &#123;</span><br><span class="line">			<span class="keyword">return</span></span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="comment">// 前一个节点不是空的</span></span><br><span class="line">		data = prevNode.Next.Data</span><br><span class="line">		prevNode.Next = prevNode.Next.Next</span><br><span class="line"></span><br><span class="line">		<span class="comment">// 当前节点是空的</span></span><br><span class="line">		<span class="keyword">if</span> prevNode.Next == <span class="literal">nil</span> &#123;</span><br><span class="line">			linklist.Tail = prevNode</span><br><span class="line">		&#125;</span><br><span class="line">		linklist.Size--</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://wanghe4096.github.io/2019/01/14/alogrithm_linklist/" data-id="cjvlzo3fk000046fyycfxlyux" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/05/13/go-dynamic-nginx-router/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          (译) 基于Go的动态Nginx 路由
+        
+      </div>
+    </a>
+  
+  
+</nav>
+
+  
+</article>
+
+
+
+
+
+
+  <div id="gitalk-container"></div>
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+<script type="text/javascript">
+  
+  
+  var gitalk = new Gitalk({
+    clientID: '676995b3169b0460f579',
+    clientSecret: 'fcc2b957d39e2cf013d9289418e59a6e1740aa14',
+    id: "基础数据结构--链表",
+    repo: 'wanghe4096.github.io',
+    owner: 'wanghe4096',
+    admin: 'wanghe4096',
+    distractionFreeMode: 'true',
+  })
+
+  gitalk.render('gitalk-container')
+</script>
+
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis-跳表/">redis 跳表</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/译/">译</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/redis-跳表/" style="font-size: 10px;">redis 跳表</a> <a href="/tags/译/" style="font-size: 10px;">译</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/05/13/yangming-note/">此心光明，亦复何求? --《知行合一：王阳明》</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/13/go2-draft-designs/">Go 2 设计草案(译)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/13/go2-draft-error-handling-problem-overview/">Go2设计草案——错误处理问题概述</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/13/gophercon-2018-binary-search-tree-algorithms/">Gophercon 2018 - 简明二叉搜索树</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/13/redis-jump-list/">为什么redis一定要用跳跃表来实现有序集合</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 王贺<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>在Golang API 中避免内存泄漏 | 王贺的日志</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="原文： https://hackernoon.com/avoiding-memory-leak-in-golang-api-1843ef45fca8 在你向生产环境发布你的Golang API之前， 你一定要读这篇文章。  根据在Kurio的真实案例，由于我们没有采用正确的方法，因此我们每次上线发布都变得极为艰难。  几个星期以前，   我们正忙于在我们的主要服务中，修复一个离奇且难以发现的BUG">
+<meta property="og:type" content="article">
+<meta property="og:title" content="在Golang API 中避免内存泄漏">
+<meta property="og:url" content="http://wanghe4096.github.io/2019/05/13/avoiding-memory-leak-in-golang-api/index.html">
+<meta property="og:site_name" content="王贺的日志">
+<meta property="og:description" content="原文： https://hackernoon.com/avoiding-memory-leak-in-golang-api-1843ef45fca8 在你向生产环境发布你的Golang API之前， 你一定要读这篇文章。  根据在Kurio的真实案例，由于我们没有采用正确的方法，因此我们每次上线发布都变得极为艰难。  几个星期以前，   我们正忙于在我们的主要服务中，修复一个离奇且难以发现的BUG">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://cdn-images-1.medium.com/max/1600/1*b8KqwAtasbTzt96hYntjMQ.png">
+<meta property="og:image" content="https://cdn-images-1.medium.com/max/1600/1*bqsD1tLb4gAvHw4kJOnvjA.jpeg">
+<meta property="og:image" content="https://cdn-images-1.medium.com/max/1600/1*hw-Mdt7ctshVu2SbsM4Vhw.png">
+<meta property="og:updated_time" content="2019-05-13T05:54:15.812Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="在Golang API 中避免内存泄漏">
+<meta name="twitter:description" content="原文： https://hackernoon.com/avoiding-memory-leak-in-golang-api-1843ef45fca8 在你向生产环境发布你的Golang API之前， 你一定要读这篇文章。  根据在Kurio的真实案例，由于我们没有采用正确的方法，因此我们每次上线发布都变得极为艰难。  几个星期以前，   我们正忙于在我们的主要服务中，修复一个离奇且难以发现的BUG">
+<meta name="twitter:image" content="https://cdn-images-1.medium.com/max/1600/1*b8KqwAtasbTzt96hYntjMQ.png">
+  
+    <link rel="alternate" href="/atom.xml" title="王贺的日志" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">王贺的日志</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://wanghe4096.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-avoiding-memory-leak-in-golang-api" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/05/13/avoiding-memory-leak-in-golang-api/" class="article-date">
+  <time datetime="2019-05-13T05:54:15.812Z" itemprop="datePublished">2019-05-13</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      在Golang API 中避免内存泄漏
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>原文： <a href="https://hackernoon.com/avoiding-memory-leak-in-golang-api-1843ef45fca8" target="_blank" rel="noopener">https://hackernoon.com/avoiding-memory-leak-in-golang-api-1843ef45fca8</a></p>
+<p>在你向生产环境发布你的Golang API之前， 你一定要读这篇文章。  根据在Kurio的真实案例，由于我们没有采用正确的方法，因此我们每次上线发布都变得极为艰难。 </p>
+<p>几个星期以前，   我们正忙于在我们的主要服务中，修复一个离奇且难以发现的BUG 。 我尝试了许多办法调试和修复它。 这个BUG并非业务逻辑上的bug。 在生产环境上运行了几个星期。 由于我们的自动申缩机制的补救， 它看起来仍然运行良好。  </p>
+<p>直到最后， 我们发现是我们的代码中没有正确的处理。<br><a id="more"></a></p>
+<h1 id="架构"><a href="#架构" class="headerlink" title="架构"></a>架构</h1><p>仅供参考， 我们采用微服务架构模式。 我们拥有一个统一的api网关。 我们称之为核心API， 它直接为我们的用户提供服务。 他的作用类似于api网关。 它的任务仅仅是处理用户请求，转发给需要的服务， 并且构建响应给用户。 这个 main API 完全由Go语言编写。 选择Golang的理由是另一个故事，这里不讨论。 </p>
+<p>如果画出架构图， 我们的系统看起来是下面的样子：<br><img src="https://cdn-images-1.medium.com/max/1600/1*b8KqwAtasbTzt96hYntjMQ.png" alt="Kurio architecture"></p>
+<h1 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h1><p>我们花了非常多的时间和精力来使用我们的main API, 但它频烦的荡机并且返回长的响应给我们的移动APP，有时会导致我们的API不能访问。 当我们的API大盘变红时， 这是一件非常危险的事情，给工程师很大压力，让我们的工程师变得焦头烂额。 </p>
+<p>另外一个问题是， 我们的CPU和内存负载越来越高。 如果出现这样的问题我们只能手动重启并直到等它再次运行。 </p>
+<p><img src="https://cdn-images-1.medium.com/max/1600/1*bqsD1tLb4gAvHw4kJOnvjA.jpeg" alt="Our API response time up-to 86 seconds for a single request."><br>Our API response time up-to 86 seconds for a single request.</p>
+<p><img src="https://cdn-images-1.medium.com/max/1600/1*hw-Mdt7ctshVu2SbsM4Vhw.png" alt="graph our API response time, and doing restart manually for safety."><br>graph our API response time, and doing restart manually for safety.</p>
+<p>这个BUG让我们的感到非常难受， 因为我们没有任何关于这个BUG的日志和关于这个BUG更多的精确的提示。 我们仅仅知道接口的响应时间变的很长。 CPU 和内存使用量持续增长。 这个BUG就像一个噩梦。 </p>
+<h1 id="阶段1：-使用自定义的http-Client"><a href="#阶段1：-使用自定义的http-Client" class="headerlink" title="阶段1： 使用自定义的http.Client"></a>阶段1： 使用自定义的http.Client</h1><p>当我们开发这个服务的过程中， 我们真切的学到了这点。 那就是不要相信默认http.Client的配置 。 </p>
+<p>我们使用自定义的 http.Client 来替代从http 包中默认的参数配置。 </p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">client := http.Client&#123;&#125; <span class="comment">//default</span></span><br></pre></td></tr></table></figure>
+<p>我们根据我们的需要引入了一些配置。 因为我们需连接复用，因此我们在transport中加了一些配置并且控制maxidle连接复用。 </p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">keepAliveTimeout:= <span class="number">600</span> * time.Second</span><br><span class="line">timeout:= <span class="number">2</span> * time.Second</span><br><span class="line">defaultTransport := &amp;http.Transport&#123;</span><br><span class="line">    Dial: (&amp;net.Dialer&#123;</span><br><span class="line">                     KeepAlive: keepAliveTimeout,&#125;</span><br><span class="line">           ).Dial,</span><br><span class="line">    MaxIdleConns: <span class="number">100</span>,</span><br><span class="line">    MaxIdleConnsPerHost: <span class="number">100</span>,</span><br><span class="line">&#125;</span><br><span class="line">client:= &amp;http.Client&#123;</span><br><span class="line">           Transport: defaultTransport,</span><br><span class="line">           Timeout:   timeout,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这个配置帮我们降低了调用其他服务的最大开销时间。 </p>
+<h1 id="阶段2：-避免由于未关闭响应体导致的内存泄漏"><a href="#阶段2：-避免由于未关闭响应体导致的内存泄漏" class="headerlink" title="阶段2： 避免由于未关闭响应体导致的内存泄漏"></a>阶段2： 避免由于未关闭响应体导致的内存泄漏</h1><p>这个阶段我们了解到： 如果我们想要将连接池复用的其他服务，我们必须在读完响应体后关闭它。</p>
+<p>我们的 main API 仅仅是调用其他服务，我们犯了一个致命的错误。 由于我们的 main API 认为不论什么情况从http.Client可用连接都是可以复用的。 我们必须读响应体，即使我们不需要它。我也必须关闭响应体。  这两个被用于避免我们的服务器内存泄漏。 </p>
+<p>在我们的代码中， 我们的忘了关闭我们的响应体（response.Body)。这点在我们的生产环境能导致巨大的灾难。  </p>
+<p>解决方案是： 我关闭响应体并且读它尽管我们不需这个数据。下面是修复后的代码： </p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">req, err:= http.NewRequest(<span class="string">"GET"</span>,<span class="string">"http://example.com?q=one"</span>,<span class="literal">nil</span>)</span><br><span class="line"><span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> err</span><br><span class="line">&#125;</span><br><span class="line">resp, err:= client.Do(req)</span><br><span class="line"><span class="comment">//=================================================</span></span><br><span class="line"><span class="comment">// CLOSE THE RESPONSE BODY</span></span><br><span class="line"><span class="comment">//=================================================</span></span><br><span class="line"><span class="keyword">if</span> resp != <span class="literal">nil</span> &#123;</span><br><span class="line">    <span class="keyword">defer</span> resp.Body.Close() <span class="comment">// MUST CLOSED THIS </span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> err</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//=================================================</span></span><br><span class="line"><span class="comment">// READ THE BODY EVEN THE DATA IS NOT IMPORTANT</span></span><br><span class="line"><span class="comment">// THIS MUST TO DO, TO AVOID MEMORY LEAK WHEN REUSING HTTP </span></span><br><span class="line"><span class="comment">// CONNECTION</span></span><br><span class="line"><span class="comment">//=================================================</span></span><br><span class="line">_, err = io.Copy(ioutil.Discard, resp.Body) <span class="comment">// WE READ THE BODY</span></span><br><span class="line"><span class="keyword">if</span> err != <span class="literal">nil</span> &#123; </span><br><span class="line">   <span class="keyword">return</span> err</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在我们读完这篇文章后，修复这个问题： </p>
+<ul>
+<li><p><a href="http://devs.cloudimmunity.com/gotchas-and-common-mistakes-in-go-golang" target="_blank" rel="noopener">http://devs.cloudimmunity.com/gotchas-and-common-mistakes-in-go-golang</a></p>
+</li>
+<li><p><a href="http://tleyden.github.io/blog/2016/11/21/tuning-the-go-http-client-library-for-load-testing/" target="_blank" rel="noopener">http://tleyden.github.io/blog/2016/11/21/tuning-the-go-http-client-library-for-load-testing/</a></p>
+</li>
+</ul>
+<p>第一阶段和第二阶段帮在自动申缩的帮助下成功减少这个BUG出现的次数。 很好， 事实上从2017.3月以来，这个BUG再没有出现。 </p>
+<h1 id="阶段3：-在Golang-channel-中做超时控制"><a href="#阶段3：-在Golang-channel-中做超时控制" class="headerlink" title="阶段3： 在Golang channel 中做超时控制"></a>阶段3： 在Golang channel 中做超时控制</h1><p>稳定运行了几个月之后。 这个BUG再次出现。 在2018二月的第一个星期。 我们其中一个服务被main API 所调用。 然后了一个错误: content service 服务被踢掉。 原因是它无法访问。 </p>
+<p>所以当我们的 “content service” 被踢掉， 我们的 “main API” 再次着火。 API仪表盘在次变红。 API 响应时间变得更高更高慢。 我们的CPU 和内存又次彪升，即使们使用了自动扩容。 </p>
+<p>又一次， 我们努力想找到问题根源。 好的， 我们重启这个 “content service” ，他在一次运行良好。 </p>
+<p>在那个过程中， 我们非常好奇。 为什么再一次出现这个问题。 因为我们认为， 我们已经在http.Client 中设置了超时deadline, 在这种情况下， 它将永远不可能发生。<br>我们仔细研究了我们的代码中潜在的问题， 然后我们发现了一些非常危险的代码。 </p>
+<p>简化后的代码，看看起来下面的样子：<br>*ps: 这个函数只是一个例子， 但于我们的问题比类似</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> sampleChannel <span class="keyword">struct</span>&#123;</span><br><span class="line">  Data *Sample</span><br><span class="line">  Err error</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(u *usecase)</span> <span class="title">GetSample</span><span class="params">(id <span class="keyword">int64</span>, someparam <span class="keyword">string</span>, anotherParam <span class="keyword">string</span>)</span> <span class="params">([]*Sample, error)</span></span> &#123;</span><br><span class="line"></span><br><span class="line">	chanSample := <span class="built_in">make</span>(<span class="keyword">chan</span> sampleChannel, <span class="number">3</span>)</span><br><span class="line">	wg := sync.WaitGroup&#123;&#125;</span><br><span class="line"></span><br><span class="line">	wg.Add(<span class="number">1</span>)</span><br><span class="line">	<span class="keyword">go</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</span><br><span class="line">		<span class="keyword">defer</span> wg.Done()</span><br><span class="line">       		chanSample &lt;- u.getDataFromGoogle(id, anotherParam) <span class="comment">// just example of function</span></span><br><span class="line">	&#125;()</span><br><span class="line"></span><br><span class="line">	wg.Add(<span class="number">1</span>)</span><br><span class="line">	<span class="keyword">go</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</span><br><span class="line">		<span class="keyword">defer</span> wg.Done()</span><br><span class="line">    		chanSample &lt;- u.getDataFromFacebook(id, anotherParam)</span><br><span class="line">	&#125;()</span><br><span class="line"></span><br><span class="line">	wg.Add(<span class="number">1</span>)</span><br><span class="line">	<span class="keyword">go</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</span><br><span class="line">		<span class="keyword">defer</span> wg.Done()</span><br><span class="line">    		chanSample &lt;- u.getDataFromTwitter(id,anotherParam)</span><br><span class="line">	&#125;()</span><br><span class="line"></span><br><span class="line">	wg.Wait()</span><br><span class="line">	<span class="built_in">close</span>(chanSample)</span><br><span class="line"></span><br><span class="line">	result := <span class="built_in">make</span>([]*Sample, <span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> sampleItem := <span class="keyword">range</span> chanSample &#123;</span><br><span class="line">		<span class="keyword">if</span> sampleItem.Error != <span class="literal">nil</span> &#123;</span><br><span class="line">			logrus.Error(sampleItem.Err)</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span> sampleItem.Data == <span class="literal">nil</span> &#123; </span><br><span class="line">			<span class="keyword">continue</span></span><br><span class="line">		&#125;</span><br><span class="line">         result = <span class="built_in">append</span>(result, sampleItem.Data)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> result</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如果我们看上面的代码， 他看起来没有什么问题。 但是这个函数被大量的调用。 在我们的main API 压力巨大。 因为这个函数会用巨大的处理做3个API调用。<br>我们在channel中使用超时控制的方法来改进这个它。 因为使用上面的样式代码-使用WaitGroup 会等待所有的进程完成-我们必须等所有的api调用必须完成。  所以我们才可以处理并且返回响应给用户。 </p>
+<p>这是我们犯的严重错误的其中之一。 当我们其中一个服务挂了以后，这段代码将导致一个场巨大的灾难。  因为那将要等待很长的时间直到挂掉的服务被重新拉起。  在每秒5k的调用中这当然是一场灾难。 </p>
+<h2 id="首次尝试解决方案："><a href="#首次尝试解决方案：" class="headerlink" title="首次尝试解决方案："></a>首次尝试解决方案：</h2><p>我们用增加超时的办法修改它。 所以我们的用户将不用在等待很长时间。 它们仅仅是获得一个服务器内部错误。 </p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(u *usecase)</span> <span class="title">GetSample</span><span class="params">(id <span class="keyword">int64</span>, someparam <span class="keyword">string</span>, anotherParam <span class="keyword">string</span>)</span> <span class="params">([]*Sample, error)</span></span> &#123;</span><br><span class="line">	chanSample := <span class="built_in">make</span>(<span class="keyword">chan</span> sampleChannel, <span class="number">3</span>)</span><br><span class="line">	<span class="keyword">defer</span> <span class="built_in">close</span>(chanSample)</span><br><span class="line"> 	<span class="keyword">go</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</span><br><span class="line">       		chanSample &lt;- u.getDataFromGoogle(id, anotherParam) <span class="comment">// just example of function</span></span><br><span class="line">	&#125;()</span><br><span class="line"></span><br><span class="line"> </span><br><span class="line">	<span class="keyword">go</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</span><br><span class="line">    		chanSample &lt;- u.getDataFromFacebook(id, anotherParam)</span><br><span class="line">	&#125;()</span><br><span class="line"></span><br><span class="line">   </span><br><span class="line">	<span class="keyword">go</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</span><br><span class="line">   		chanSample &lt;- u.getDataFromTwitter(id,anotherParam)</span><br><span class="line">	&#125;()</span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">	result := <span class="built_in">make</span>([]*feed.Feed, <span class="number">0</span>)</span><br><span class="line">	timeout := time.After(time.Second * <span class="number">2</span>)</span><br><span class="line">		<span class="keyword">for</span> loop := <span class="number">0</span>; loop &lt; <span class="number">3</span>; loop++ &#123;</span><br><span class="line">			<span class="keyword">select</span> &#123;</span><br><span class="line">			<span class="keyword">case</span> sampleItem := &lt;-chanSample:</span><br><span class="line">				<span class="keyword">if</span> sampleItem.Err != <span class="literal">nil</span> &#123;</span><br><span class="line">					logrus.Error(sampleItem.Err)</span><br><span class="line">					<span class="keyword">continue</span></span><br><span class="line">				&#125;</span><br><span class="line">				<span class="keyword">if</span> feedItem.Data == <span class="literal">nil</span> &#123;</span><br><span class="line">					<span class="keyword">continue</span></span><br><span class="line">				&#125;</span><br><span class="line">				 result = <span class="built_in">append</span>(result,sampleItem.Data)</span><br><span class="line">			<span class="keyword">case</span> &lt;-timeout:</span><br><span class="line">			      err := fmt.Errorf(<span class="string">"Timeout to get sample id: %d. "</span>, id)</span><br><span class="line">			      result = <span class="built_in">make</span>([]*sample, <span class="number">0</span>)</span><br><span class="line">			      <span class="keyword">return</span> result, err</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> result, <span class="literal">nil</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="阶段4：-使用Contest-做超时控制"><a href="#阶段4：-使用Contest-做超时控制" class="headerlink" title="阶段4： 使用Contest 做超时控制"></a>阶段4： 使用Contest 做超时控制</h1><p>在做完第3阶段后， 我们的问题仍然没有完全被解决。 我们的main API 仍在消耗着很高的CPU和内存。这是因为，即使我们已经将服务器内部错误返回给我们的用户， 但我们的goroutine 仍然存在。 我们想要的是， 如果我们已经返回了响应， 那么所有相应的资源也要一同清理，没有例外， 包括在后台运行的goroutine 和api调用。 </p>
+<p>之后， 我们读了这篇文章 ： </p>
+<p><a href="http://dahernan.github.io/2015/02/04/context-and-cancellation-of-goroutines/" target="_blank" rel="noopener">http://dahernan.github.io/2015/02/04/context-and-cancellation-of-goroutines/</a></p>
+<p>我们发现了一些在golang中还没有意识的到有趣的特性。 那就是使用Context 来帮助我们取消go-routine 。 </p>
+<p>我们使用context.Context 来代替time.After 做超时处理。 使用这种新的方法， 使们的服务变得更加稳定。 </p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(u *usecase)</span> <span class="title">GetSample</span><span class="params">(c context.Context, id <span class="keyword">int64</span>, someparam <span class="keyword">string</span>, anotherParam <span class="keyword">string</span>)</span> <span class="params">([]*Sample, error)</span></span> &#123;</span><br><span class="line">	</span><br><span class="line">  <span class="keyword">if</span> c== <span class="literal">nil</span> &#123;</span><br><span class="line">    c= context.Background()</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  ctx, cancel := context.WithTimeout(c, time.Second * <span class="number">2</span>)</span><br><span class="line">  <span class="keyword">defer</span> cancel()</span><br><span class="line">  </span><br><span class="line">  chanSample := <span class="built_in">make</span>(<span class="keyword">chan</span> sampleChannel, <span class="number">3</span>)</span><br><span class="line">  <span class="keyword">defer</span> <span class="built_in">close</span>(chanSample)</span><br><span class="line"> 	<span class="keyword">go</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</span><br><span class="line">       		chanSample &lt;- u.getDataFromGoogle(ctx, id, anotherParam) <span class="comment">// just example of function</span></span><br><span class="line">	&#125;()</span><br><span class="line"></span><br><span class="line"> </span><br><span class="line">	<span class="keyword">go</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</span><br><span class="line">    		chanSample &lt;- u.getDataFromFacebook(ctx, id, anotherParam)</span><br><span class="line">	&#125;()</span><br><span class="line"></span><br><span class="line">   </span><br><span class="line">	<span class="keyword">go</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</span><br><span class="line">   		chanSample &lt;- u.getDataFromTwitter(ctx, id,anotherParam)</span><br><span class="line">	&#125;()</span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">	result := <span class="built_in">make</span>([]*feed.Feed, <span class="number">0</span>)</span><br><span class="line">	<span class="keyword">for</span> loop := <span class="number">0</span>; loop &lt; <span class="number">3</span>; loop++ &#123;</span><br><span class="line">	  <span class="keyword">select</span> &#123;</span><br><span class="line">		<span class="keyword">case</span> sampleItem := &lt;-chanSample:</span><br><span class="line">			<span class="keyword">if</span> sampleItem.Err != <span class="literal">nil</span> &#123;</span><br><span class="line">				<span class="keyword">continue</span></span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">if</span> feedItem.Data == <span class="literal">nil</span> &#123;</span><br><span class="line">				<span class="keyword">continue</span></span><br><span class="line">			&#125;</span><br><span class="line">			 result = <span class="built_in">append</span>(result,sampleItem.Data)</span><br><span class="line">		  <span class="comment">// ============================================================</span></span><br><span class="line">		  <span class="comment">// CATCH IF THE CONTEXT ALREADY EXCEEDED THE TIMEOUT</span></span><br><span class="line">		  <span class="comment">// FOR AVOID INCONSISTENT DATA, WE JUST SENT EMPTY ARRAY TO </span></span><br><span class="line">		  <span class="comment">// USER AND ERROR MESSAGE</span></span><br><span class="line">		  <span class="comment">// ============================================================</span></span><br><span class="line">      		<span class="keyword">case</span> &lt;-ctx.Done(): <span class="comment">// To get the notify signal that the context already exceeded the timeout</span></span><br><span class="line">		      err := fmt.Errorf(<span class="string">"Timeout to get sample id: %d. "</span>, id)</span><br><span class="line">		      result = <span class="built_in">make</span>([]*sample, <span class="number">0</span>)</span><br><span class="line">		      <span class="keyword">return</span> result, err</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> result, <span class="literal">nil</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>所以我们在我们的代码中每个gorotuine 调用的时都使用了Context. 帮我们释放内存并帮助我们终止goroutine调用。 </p>
+<p>总之， 为了更可控更可靠，我们也在我们的http请求中传入context . </p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">( u *usecase)</span> <span class="title">getDataFromFacebook</span><span class="params">(ctx context.Context, id <span class="keyword">int64</span>, param <span class="keyword">string</span>)</span> <span class="title">sampleChanel</span></span>&#123;</span><br><span class="line"> </span><br><span class="line">  req,err := http.NewRequest(<span class="string">"GET"</span>,<span class="string">"https://facebook.com"</span>,<span class="literal">nil</span>)</span><br><span class="line">  <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> sampleChannel&#123;</span><br><span class="line">      Err: err,</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// ============================================================</span></span><br><span class="line">  <span class="comment">// THEN WE PASS THE CONTEXT TO OUR REQUEST.</span></span><br><span class="line">  <span class="comment">// THIS FEATURE CAN BE USED FROM GO 1.7</span></span><br><span class="line">  <span class="comment">// ============================================================</span></span><br><span class="line">  <span class="keyword">if</span> ctx != <span class="literal">nil</span> &#123;</span><br><span class="line">    req = req.WithContext(ctx) <span class="comment">// NOTICE THIS. WE ARE USING CONTEXT TO OUR HTTP CALL REQUEST</span></span><br><span class="line">  &#125;</span><br><span class="line">  resp, err:= u.httpClient.Do(req)</span><br><span class="line">  <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> sampleChannel&#123;</span><br><span class="line">      Err: err,</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  body,err:= ioutils.ReadAll(resp.Body)</span><br><span class="line">  <span class="keyword">if</span> err!= <span class="literal">nil</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> sampleChannel&#123;</span><br><span class="line">      Err:err,</span><br><span class="line">    &#125;</span><br><span class="line">    sample:= <span class="built_in">new</span>(Sample)</span><br><span class="line">    err:= json.Unmarshall(body,&amp;sample)</span><br><span class="line">    <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> sampleChannle&#123;</span><br><span class="line">        Err:err,</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> sampleChannel&#123;</span><br><span class="line">      Err:<span class="literal">nil</span>,</span><br><span class="line">      Data:sample,</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<p>通过这些设置和控制控制，我们的系统更安全可控。 </p>
+<h1 id="我们学到的"><a href="#我们学到的" class="headerlink" title="我们学到的"></a>我们学到的</h1><ul>
+<li>在生产环境中，任何时候都不要使用默认的配置 </li>
+</ul>
+<p>只是不要使用默认的配置 。 如果你在正在构建一个高并发服务。 请不要使用默认配置 。 </p>
+<ul>
+<li>多读、多试、多失败反复尝试。<br>我们这些经验中学到了很多。 这些经验只能在真实的案例和真实用户场景收益。 在修复这个BUG的过程中，我很高兴能参与其。 </li>
+</ul>
+<h1 id="参考阅读"><a href="#参考阅读" class="headerlink" title="参考阅读"></a>参考阅读</h1><ul>
+<li><a href="http://dahernan.github.io/2015/02/04/context-and-cancellation-of-goroutines/" target="_blank" rel="noopener">http://dahernan.github.io/2015/02/04/context-and-cancellation-of-goroutines/</a></li>
+<li><a href="http://devs.cloudimmunity.com/gotchas-and-common-mistakes-in-go-golang/index.html#close_http_resp_body" target="_blank" rel="noopener">http://devs.cloudimmunity.com/gotchas-and-common-mistakes-in-go-golang/index.html#close_http_resp_body</a></li>
+<li><a href="http://tleyden.github.io/blog/2016/11/21/tuning-the-go-http-client-library-for-load-testing/" target="_blank" rel="noopener">http://tleyden.github.io/blog/2016/11/21/tuning-the-go-http-client-library-for-load-testing/</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://wanghe4096.github.io/2019/05/13/avoiding-memory-leak-in-golang-api/" data-id="cjvlzo3fr000246fyfikeszcf" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/05/13/autotools/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          用automake构建你的c项目
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/05/13/context-and-cancellation-of-goroutines/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">利用context终止goroutine</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+
+
+
+
+  <div id="gitalk-container"></div>
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+<script type="text/javascript">
+  
+  
+  var gitalk = new Gitalk({
+    clientID: '676995b3169b0460f579',
+    clientSecret: 'fcc2b957d39e2cf013d9289418e59a6e1740aa14',
+    id: "在Golang API 中避免内存泄漏",
+    repo: 'wanghe4096.github.io',
+    owner: 'wanghe4096',
+    admin: 'wanghe4096',
+    distractionFreeMode: 'true',
+  })
+
+  gitalk.render('gitalk-container')
+</script>
+
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis-跳表/">redis 跳表</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/译/">译</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/redis-跳表/" style="font-size: 10px;">redis 跳表</a> <a href="/tags/译/" style="font-size: 10px;">译</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/05/13/yangming-note/">此心光明，亦复何求? --《知行合一：王阳明》</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/13/go2-draft-designs/">Go 2 设计草案(译)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/13/go2-draft-error-handling-problem-overview/">Go2设计草案——错误处理问题概述</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/13/gophercon-2018-binary-search-tree-algorithms/">Gophercon 2018 - 简明二叉搜索树</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/13/redis-jump-list/">为什么redis一定要用跳跃表来实现有序集合</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 王贺<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>手动编写json解析器(译) | 王贺的日志</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="原文地址： http://notes.eatonphil.com/writing-a-simple-json-parser.html 编写一个json解析器是一种最容易熟悉json解析原理方式。 它的格式非常简单。 因为递归式定义，所以与解析BrainFuck相比， 稍微有些挑战。 你可能已经在使用json了。 除了最后一点之外， 解析Scheme的S表达式也许是更简单的任务。  如果你只是想看看">
+<meta property="og:type" content="article">
+<meta property="og:title" content="手动编写json解析器(译)">
+<meta property="og:url" content="http://wanghe4096.github.io/2019/05/13/writing-a-simple-json-parser/index.html">
+<meta property="og:site_name" content="王贺的日志">
+<meta property="og:description" content="原文地址： http://notes.eatonphil.com/writing-a-simple-json-parser.html 编写一个json解析器是一种最容易熟悉json解析原理方式。 它的格式非常简单。 因为递归式定义，所以与解析BrainFuck相比， 稍微有些挑战。 你可能已经在使用json了。 除了最后一点之外， 解析Scheme的S表达式也许是更简单的任务。  如果你只是想看看">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-05-13T05:54:15.813Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="手动编写json解析器(译)">
+<meta name="twitter:description" content="原文地址： http://notes.eatonphil.com/writing-a-simple-json-parser.html 编写一个json解析器是一种最容易熟悉json解析原理方式。 它的格式非常简单。 因为递归式定义，所以与解析BrainFuck相比， 稍微有些挑战。 你可能已经在使用json了。 除了最后一点之外， 解析Scheme的S表达式也许是更简单的任务。  如果你只是想看看">
+  
+    <link rel="alternate" href="/atom.xml" title="王贺的日志" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">王贺的日志</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://wanghe4096.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-writing-a-simple-json-parser" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/05/13/writing-a-simple-json-parser/" class="article-date">
+  <time datetime="2019-05-13T05:54:15.813Z" itemprop="datePublished">2019-05-13</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      手动编写json解析器(译)
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>原文地址： <a href="http://notes.eatonphil.com/writing-a-simple-json-parser.html" target="_blank" rel="noopener">http://notes.eatonphil.com/writing-a-simple-json-parser.html</a></p>
+<p>编写一个json解析器是一种最容易熟悉json解析原理方式。 它的格式非常简单。 因为递归式定义，所以与解析BrainFuck相比， 稍微有些挑战。 你可能已经在使用json了。 除了最后一点之外， 解析Scheme的S表达式也许是更简单的任务。 </p>
+<p>如果你只是想看看这个库的代码，  请在github点击查看。<br><a id="more"></a></p>
+<h1 id="关于解析的定义"><a href="#关于解析的定义" class="headerlink" title="关于解析的定义"></a>关于解析的定义</h1><p>解析一般分为两个阶段，即： 词法分析和语法分析。 词法分析将源输入分解为一门语言最为简单的元素， 被称之为”tokens”。 语法分析（通常也称作语法解析)接收这些“token”列表，然后试图从中找出和被解析语言相匹配的模式。 </p>
+<p>解析不能确定输入源的语义可行性。 一个输入源的语议可行性可能包括一个变量在定义前是否被定议。 一个被函数被调用时参数是否正确，或者一个变量某作用域下被二次声明。 </p>
+<p>当然， 人们选择解析和应用语议规则的方式总是有所不同， 但我假设用一种”传统“的方法来解释核概念。 </p>
+<h1 id="JSON库的接口"><a href="#JSON库的接口" class="headerlink" title="JSON库的接口"></a>JSON库的接口</h1><p>最终，应该有一个from_string 方法来接收json编码的字符串，并返回等价于python 字典。 </p>
+<p>例如： </p>
+<p>assert_equal(from_string(‘{“foo”: 1}’),<br>             {“foo”: 1})</p>
+<h1 id="词法分析"><a href="#词法分析" class="headerlink" title="词法分析"></a>词法分析</h1><p>词法分析将输入源分解为多个token.  注释和空格通常在词法分析的过程会被丢弃， 因此您只需要一个简单的输入即可在语法分析过程搜索匹配语法。 </p>
+<p>假设有一个简单的词法分析器， 你也许可以在一个输入字符串(或流) 中迭代所有字符， 并将它们拆分为最基本的组成部分， 非递归的语言构造像整型、字符串或布尔类类型，特别像字符串必须是词法分析的一部分， 由于你在不知道空格是否是字符串的一部分的情况，不能丢弃空格。 </p>
+<p>“在一个优秀的词分析器中， 持续追踪被忽略的空格、注释、当前行号和文件， 以便你能在源码分析过程所有产生的错误中引用这些信息。 javascript v8 引擎最近能够复现一个函数的确切源码。 这至少需要引入词法分析器的帮助才能成为可能。”</p>
+<h1 id="实现一个json词法分析器"><a href="#实现一个json词法分析器" class="headerlink" title="实现一个json词法分析器"></a>实现一个json词法分析器</h1><p>json词法分析器要点是迭代输入源，并尝试查找字符串， 数字，布尔值， 空值或JSON语法中的模式，最终将这些元素作为列表返回。 </p>
+<p>以下是词法分析器应该为示例输入所返回的内容：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">assert_equal(lex(<span class="string">'&#123;"foo": [1, 2, &#123;"bar": 2&#125;]&#125;'</span>),</span><br><span class="line">             [<span class="string">'&#123;'</span>, <span class="string">'foo'</span>, <span class="string">':'</span>, <span class="string">'['</span>, <span class="number">1</span>, <span class="string">','</span>, <span class="number">2</span>, <span class="string">'&#123;'</span>, <span class="string">'bar'</span>, <span class="string">':'</span>, <span class="number">2</span>, <span class="string">'&#125;'</span>, <span class="string">']'</span>, <span class="string">'&#125;'</span>])</span><br></pre></td></tr></table></figure></p>
+<p>词法分析的逻辑可能开始看起来类似于如下代码逻辑：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">lex</span><span class="params">(string)</span>:</span></span><br><span class="line">    tokens = []</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> len(string):</span><br><span class="line">        json_string, string = lex_string(string)</span><br><span class="line">        <span class="keyword">if</span> json_string <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">            tokens.append(json_string)</span><br><span class="line">            <span class="keyword">continue</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># <span class="doctag">TODO:</span> lex booleans, nulls, numbers</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> string[<span class="number">0</span>] <span class="keyword">in</span> JSON_WHITESPACE:</span><br><span class="line">            string = string[<span class="number">1</span>:]</span><br><span class="line">        <span class="keyword">elif</span> string[<span class="number">0</span>] <span class="keyword">in</span> JSON_SYNTAX:</span><br><span class="line">            tokens.append(string[<span class="number">0</span>])</span><br><span class="line">            string = string[<span class="number">1</span>:]</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">raise</span> Exception(<span class="string">'Unexpected character: &#123;&#125;'</span>.format(string[<span class="number">0</span>]))</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> tokens</span><br></pre></td></tr></table></figure>
+<p>这段代码目的是匹配字符串，数字， 布尔值和空值并将它们添加到tokens 列表中。 如果这些都不匹配，检查字符串是否为空格，如果是， 则将其丢弃。 否则将其作为一个token 存储. 如果是json语法的一部分，也将其做为token存储。  如果字符/字符串没有对应的模式，那么最终抛出一个异常。 </p>
+<p>让我们在此扩展这个核心的逻辑，让其支持所有的类型并添加函数存根。 </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">lex_string</span><span class="params">(string)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">None</span>, string</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">lex_number</span><span class="params">(string)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">None</span>, string</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">lex_bool</span><span class="params">(string)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">None</span>, string</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">lex_null</span><span class="params">(string)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">None</span>, string</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">lex</span><span class="params">(string)</span>:</span></span><br><span class="line">    tokens = []</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> len(string):</span><br><span class="line">        json_string, string = lex_string(string)</span><br><span class="line">        <span class="keyword">if</span> json_string <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">            tokens.append(json_string)</span><br><span class="line">            <span class="keyword">continue</span></span><br><span class="line"></span><br><span class="line">        json_number, string = lex_number(string)</span><br><span class="line">        <span class="keyword">if</span> json_number <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">            tokens.append(json_number)</span><br><span class="line">            <span class="keyword">continue</span></span><br><span class="line"></span><br><span class="line">        json_bool, string = lex_bool(string)</span><br><span class="line">        <span class="keyword">if</span> json_bool <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">            tokens.append(json_bool)</span><br><span class="line">            <span class="keyword">continue</span></span><br><span class="line"></span><br><span class="line">        json_null, string = lex_null(string)</span><br><span class="line">        <span class="keyword">if</span> json_null <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">            tokens.append(<span class="literal">None</span>)</span><br><span class="line">            <span class="keyword">continue</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> string[<span class="number">0</span>] <span class="keyword">in</span> JSON_WHITESPACE:</span><br><span class="line">            string = string[<span class="number">1</span>:]</span><br><span class="line">        <span class="keyword">elif</span> string[<span class="number">0</span>] <span class="keyword">in</span> JSON_SYNTAX:</span><br><span class="line">            tokens.append(string[<span class="number">0</span>])</span><br><span class="line">            string = string[<span class="number">1</span>:]</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">raise</span> Exception(<span class="string">'Unexpected character: &#123;&#125;'</span>.format(string[<span class="number">0</span>]))</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> tokens</span><br></pre></td></tr></table></figure>
+<h2 id="string-词法"><a href="#string-词法" class="headerlink" title="string 词法"></a>string 词法</h2><p>对于lex_string函数， 要点是检查第一个字符是否引号。如果是，则迭代输入字符串，直到找到结束引号。 如果找不到初始引用， 则返回None和原始列表。 如果找到的初始引号和结束引号， 则返回引号内的字符串和未选中的输入字符串的其余部分。 </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">lex_string</span><span class="params">(string)</span>:</span></span><br><span class="line">    json_string = <span class="string">''</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> string[<span class="number">0</span>] == JSON_QUOTE:</span><br><span class="line">        string = string[<span class="number">1</span>:]</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">None</span>, string</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> c <span class="keyword">in</span> string:</span><br><span class="line">        <span class="keyword">if</span> c == JSON_QUOTE:</span><br><span class="line">            <span class="keyword">return</span> json_string, string[len(json_string)+<span class="number">1</span>:]</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            json_string += c</span><br><span class="line"></span><br><span class="line">    <span class="keyword">raise</span> Exception(<span class="string">'Expected end-of-string quote'</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="Number词法"><a href="#Number词法" class="headerlink" title="Number词法"></a>Number词法</h2><p>对于lex_number 函数， 要点是一直迭代输入， 直到找到不能成为数字一部分的字符。 （当然， 这是一个非常简单的定义，更精确的实现留给读者作为练习) 找到一个不能为数字一部分的字符后， 如果你累计的数字大于0，那返回一个浮点数或整数。 </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">lex_number</span><span class="params">(string)</span>:</span></span><br><span class="line">    json_number = <span class="string">''</span></span><br><span class="line"></span><br><span class="line">    number_characters = [str(d) <span class="keyword">for</span> d <span class="keyword">in</span> range(<span class="number">0</span>, <span class="number">10</span>)] + [<span class="string">'-'</span>, <span class="string">'e'</span>, <span class="string">'.'</span>]</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> c <span class="keyword">in</span> string:</span><br><span class="line">        <span class="keyword">if</span> c <span class="keyword">in</span> number_characters:</span><br><span class="line">            json_number += c</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line"></span><br><span class="line">    rest = string[len(json_number):]</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> len(json_number):</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">None</span>, string</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> <span class="string">'.'</span> <span class="keyword">in</span> json_number:</span><br><span class="line">        <span class="keyword">return</span> float(json_number), rest</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> int(json_number), rest</span><br></pre></td></tr></table></figure>
+<h2 id="布尔和null词法"><a href="#布尔和null词法" class="headerlink" title="布尔和null词法"></a>布尔和null词法</h2><p>查到布尔和null值是一个非常简单的字符串匹配。 </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">lex_bool</span><span class="params">(string)</span>:</span></span><br><span class="line">    string_len = len(string)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> string_len &gt;= TRUE_LEN <span class="keyword">and</span> \</span><br><span class="line">       string[:TRUE_LEN] == <span class="string">'true'</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">True</span>, string[TRUE_LEN:]</span><br><span class="line">    <span class="keyword">elif</span> string_len &gt;= FALSE_LEN <span class="keyword">and</span> \</span><br><span class="line">         string[:FALSE_LEN] == <span class="string">'false'</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span>, string[FALSE_LEN:]</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">None</span>, string</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">lex_null</span><span class="params">(string)</span>:</span></span><br><span class="line">    string_len = len(string)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> string_len &gt;= NULL_LEN <span class="keyword">and</span> \</span><br><span class="line">       string[:NULL_LEN] == <span class="string">'null'</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">True</span>, string[NULL_LEN]</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">None</span>, string</span><br></pre></td></tr></table></figure>
+<p>现在，词法解析器就完成了! 完整代码可以点击这里<a href="https://github.com/eatonphil/pj/blob/master/pj/lexer.py" target="_blank" rel="noopener">pj/lexer.py</a></p>
+<h1 id="语法分析"><a href="#语法分析" class="headerlink" title="语法分析"></a>语法分析</h1><p>语法分析器的（基本)工作是迭代一维分词列表。 并根据语言的定义将分词组匹配的语言的各个部分。 如果在语法分析的过程中， 解析器无法将当前的分词集合与语言的有效的语法匹配， 那么解析器的解析将会失败， 并且可能会为您提供有用的信息， 千知您所提供的内容， 位置以及预期内容。  </p>
+<h2 id="实现一个JSON-解析器"><a href="#实现一个JSON-解析器" class="headerlink" title="实现一个JSON 解析器"></a>实现一个JSON 解析器</h2><p>JSON解析器的要点是迭代调用lex后收到的token，并尝试将token与对象，列表或普通值进行匹配。</p>
+<p>以下是解析器应返回的示例输入：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">tokens = lex(<span class="string">'&#123;"foo": [1, 2, &#123;"bar": 2&#125;]&#125;'</span>)</span><br><span class="line">assert_equal(tokens,</span><br><span class="line">             [<span class="string">'&#123;'</span>, <span class="string">'foo'</span>, <span class="string">':'</span>, <span class="string">'['</span>, <span class="number">1</span>, <span class="string">','</span>, <span class="number">2</span>, <span class="string">'&#123;'</span>, <span class="string">'bar'</span>, <span class="string">':'</span>, <span class="number">2</span>, <span class="string">'&#125;'</span>, <span class="string">']'</span>, <span class="string">'&#125;'</span>])</span><br><span class="line">assert_equal(parse(tokens),</span><br><span class="line">             &#123;<span class="string">'foo'</span>: [<span class="number">1</span>, <span class="number">2</span>, &#123;<span class="string">'bar'</span>: <span class="number">2</span>&#125;]&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>最初的逻辑可能是下面的样子：<br><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">parse_array</span><span class="params">(tokens)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> [], tokens</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">parse_object</span><span class="params">(tokens)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> &#123;&#125;, tokens</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">parse</span><span class="params">(tokens)</span>:</span></span><br><span class="line">    t = tokens[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> t == JSON_LEFTBRACKET:</span><br><span class="line">        <span class="keyword">return</span> parse_array(tokens[<span class="number">1</span>:])</span><br><span class="line">    <span class="keyword">elif</span> t == JSON_LEFTBRACE:</span><br><span class="line">        <span class="keyword">return</span> parse_object(tokens[<span class="number">1</span>:])</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> t, tokens[<span class="number">1</span>:]</span><br></pre></td></tr></table></figure></p>
+<p>这个词法分析器和解析器之间的关键结构差异是词法分析器返回一维token数组。解析器通常以递归方式定义，并返回递归的类似于树的对象。由于JSON是一种数据序列化格式而不是语言，因此解析器应该在Python中生成对象而不是语法树，您可以在其上执行更多分析（或者在编译器的的代码生成过程中生成对象）</p>
+<p>而且， 使词法分析独立于解析器的优点是两段代码都更简单，只需要关注特定元素。 </p>
+<h2 id="解析数组"><a href="#解析数组" class="headerlink" title="解析数组"></a>解析数组</h2><p>解析数组是一个解析数组内成员并期望它们之间的逗号标记或指示数组末尾的右括号的问题。 </p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">parse_array</span><span class="params">(tokens)</span>:</span></span><br><span class="line">    json_array = []</span><br><span class="line"></span><br><span class="line">    t = tokens[<span class="number">0</span>]</span><br><span class="line">    <span class="keyword">if</span> t == JSON_RIGHTBRACKET:</span><br><span class="line">        <span class="keyword">return</span> json_array, tokens[<span class="number">1</span>:]</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        json, tokens = parse(tokens)</span><br><span class="line">        json_array.append(json)</span><br><span class="line"></span><br><span class="line">        t = tokens[<span class="number">0</span>]</span><br><span class="line">        <span class="keyword">if</span> t == JSON_RIGHTBRACKET:</span><br><span class="line">            <span class="keyword">return</span> json_array, tokens[<span class="number">1</span>:]</span><br><span class="line">        <span class="keyword">elif</span> t != JSON_COMMA:</span><br><span class="line">            <span class="keyword">raise</span> Exception(<span class="string">'Expected comma after object in array'</span>)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            tokens = tokens[<span class="number">1</span>:]</span><br><span class="line"></span><br><span class="line">    <span class="keyword">raise</span> Exception(<span class="string">'Expected end-of-array bracket'</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="解析对象"><a href="#解析对象" class="headerlink" title="解析对象"></a>解析对象</h2><p>  解析对象是解析内部由冒号分隔的键值对，并用逗逗分隔，直到到达对象的末尾。 </p>
+  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">parse_object</span><span class="params">(tokens)</span>:</span></span><br><span class="line">  json_object = &#123;&#125;</span><br><span class="line"></span><br><span class="line">  t = tokens[<span class="number">0</span>]</span><br><span class="line">  <span class="keyword">if</span> t == JSON_RIGHTBRACE:</span><br><span class="line">      <span class="keyword">return</span> json_object, tokens[<span class="number">1</span>:]</span><br><span class="line"></span><br><span class="line">  <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">      json_key = tokens[<span class="number">0</span>]</span><br><span class="line">      <span class="keyword">if</span> type(json_key) <span class="keyword">is</span> str:</span><br><span class="line">          tokens = tokens[<span class="number">1</span>:]</span><br><span class="line">      <span class="keyword">else</span>:</span><br><span class="line">          <span class="keyword">raise</span> Exception(<span class="string">'Expected string key, got: &#123;&#125;'</span>.format(json_key))</span><br><span class="line"></span><br><span class="line">      <span class="keyword">if</span> tokens[<span class="number">0</span>] != JSON_COLON:</span><br><span class="line">          <span class="keyword">raise</span> Exception(<span class="string">'Expected colon after key in object, got: &#123;&#125;'</span>.format(t))</span><br><span class="line"></span><br><span class="line">      json_value, tokens = parse(tokens[<span class="number">1</span>:])</span><br><span class="line"></span><br><span class="line">      json_object[json_key] = json_value</span><br><span class="line"></span><br><span class="line">      t = tokens[<span class="number">0</span>]</span><br><span class="line">      <span class="keyword">if</span> t == JSON_RIGHTBRACE:</span><br><span class="line">          <span class="keyword">return</span> json_object, tokens[<span class="number">1</span>:]</span><br><span class="line">      <span class="keyword">elif</span> t != JSON_COMMA:</span><br><span class="line">          <span class="keyword">raise</span> Exception(<span class="string">'Expected comma after pair in object, got: &#123;&#125;'</span>.format(t))</span><br><span class="line"></span><br><span class="line">      tokens = tokens[<span class="number">1</span>:]</span><br><span class="line"></span><br><span class="line">  <span class="keyword">raise</span> Exception(<span class="string">'Expected end-of-object brace'</span>)</span><br></pre></td></tr></table></figure>
+<p>  现在，解析器的代码已经写完了！ 点击这里查看完整的代码. <a href="https://github.com/eatonphil/pj/blob/master/pj/parser.py" target="_blank" rel="noopener">pj/parser.py</a></p>
+<h1 id="统一的库"><a href="#统一的库" class="headerlink" title="统一的库"></a>统一的库</h1><p>提供一个理想的接口， 创建一个from_string函数来封装lex 和 parse 函数。</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">from_string</span><span class="params">(string)</span>:</span></span><br><span class="line">    tokens = lex(string)</span><br><span class="line">    <span class="keyword">return</span> parse(tokens)[<span class="number">0</span>]</span><br></pre></td></tr></table></figure>
+<p>这个库也完成了。 github地址在<a href="https://github.com/eatonphil/pj" target="_blank" rel="noopener">project on Github</a> </p>
+<h1 id="附录-A：-单步解析"><a href="#附录-A：-单步解析" class="headerlink" title="附录 A： 单步解析"></a>附录 A： 单步解析</h1><p>在某些解析器中， 选择在一个阶段中实现词法和句法分析。 对于某些语言， 这可以完全简化解析步骤。 或者， 在更强大的语言(如Common Lisp) 中， 它允许您使用读取器宏来动态库展词法分析器和语法解析器。</p>
+<p>我用python 编写了这个库， 使更多的人可以访问它。 但是， 所使和的许多技术更适合具有ssaj式切尔西和支持单值运算法的语言。 像ML . 如果你对标准ML感兴趣，请查看<a href="https://github.com/eatonphil/ponyo/blob/master/src/Encoding/Json.sml" target="_blank" rel="noopener">Ponyo中的JSON代码</a>. </p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://wanghe4096.github.io/2019/05/13/writing-a-simple-json-parser/" data-id="cjvlzo3g7000d46fycv29lorz" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/05/13/trie-tree/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          前缀树
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/05/13/tuning-the-go-http-client-library-for-load-testing/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">压力测试中的Go http Client 参数调优</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+
+
+
+
+  <div id="gitalk-container"></div>
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+<script type="text/javascript">
+  
+  
+  var gitalk = new Gitalk({
+    clientID: '676995b3169b0460f579',
+    clientSecret: 'fcc2b957d39e2cf013d9289418e59a6e1740aa14',
+    id: "手动编写json解析器(译)",
+    repo: 'wanghe4096.github.io',
+    owner: 'wanghe4096',
+    admin: 'wanghe4096',
+    distractionFreeMode: 'true',
+  })
+
+  gitalk.render('gitalk-container')
+</script>
+
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis-跳表/">redis 跳表</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/译/">译</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/redis-跳表/" style="font-size: 10px;">redis 跳表</a> <a href="/tags/译/" style="font-size: 10px;">译</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/05/13/yangming-note/">此心光明，亦复何求? --《知行合一：王阳明》</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/13/go2-draft-designs/">Go 2 设计草案(译)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/13/go2-draft-error-handling-problem-overview/">Go2设计草案——错误处理问题概述</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/13/gophercon-2018-binary-search-tree-algorithms/">Gophercon 2018 - 简明二叉搜索树</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/13/redis-jump-list/">为什么redis一定要用跳跃表来实现有序集合</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 王贺<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
