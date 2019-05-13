@@ -35,3 +35,13 @@ twitter:
 google_plus:
 fb_admins:
 fb_app_id:
+
+# Gitalk
+gitalk: 
+  enable: true    #用来做启用判断可以不用
+  clientID: 676995b3169b0460f579    #上面生成Client Id的往这里怼
+  clientSecret: fcc2b957d39e2cf013d9289418e59a6e1740aa14   #同上Client Secret 
+  repo: wanghe4096.github.io    #仓库名称
+  owner: wanghe4096 #github用户名
+  admin: wanghe4096
+  distractionFreeMode: true

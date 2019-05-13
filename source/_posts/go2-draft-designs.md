@@ -3,7 +3,7 @@ title: Go 2 设计草案(译)
 ---
 原文： [Go 2 draft Designs ](https://go.googlesource.com/proposal/+/master/design/go2draft.md )
 
-![fff](/fiveyears.jpg)
+
 作为Go 2设计过程五的一部分， 我们发布了这些设计草案，并在社区开始讨论关于以下三个主题： 
 - 泛型 
 - 错误处理
