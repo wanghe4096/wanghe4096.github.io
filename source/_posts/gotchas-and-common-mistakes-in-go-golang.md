@@ -1,5 +1,6 @@
 ---
 title: Golang新手可能会踩的50个坑
+date: 2019-2-21
 ---
 
 英文原文： http://devs.cloudimmunity.com/gotchas-and-common-mistakes-in-go-golang/index.html#close_http_resp_body

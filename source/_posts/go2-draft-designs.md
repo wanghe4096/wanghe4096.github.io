@@ -1,5 +1,6 @@
 ---
 title: Go 2 设计草案(译)
+date: 2019-1-1
 ---
 原文： [Go 2 draft Designs ](https://go.googlesource.com/proposal/+/master/design/go2draft.md )
 
