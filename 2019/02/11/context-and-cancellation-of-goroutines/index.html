@@ -5,18 +5,19 @@
   
 
   
-  <title>Archives: 2019/5 | 王贺的日志</title>
+  <title>利用context终止goroutine | 王贺的日志</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="后端技术博客">
-<meta property="og:type" content="website">
-<meta property="og:title" content="王贺的日志">
-<meta property="og:url" content="http://wanghe4096.github.io/archives/2019/05/index.html">
+  <meta name="description" content="原文：http://dahernan.github.io/2015/02/04/context-and-cancellation-of-goroutines/ 本文讲述了利用golang context 包来管理goroutine 超时终止的方法和思路。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="利用context终止goroutine">
+<meta property="og:url" content="http://wanghe4096.github.io/2019/02/11/context-and-cancellation-of-goroutines/index.html">
 <meta property="og:site_name" content="王贺的日志">
-<meta property="og:description" content="后端技术博客">
+<meta property="og:description" content="原文：http://dahernan.github.io/2015/02/04/context-and-cancellation-of-goroutines/ 本文讲述了利用golang context 包来管理goroutine 超时终止的方法和思路。">
 <meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-06-05T12:04:09.993Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="王贺的日志">
-<meta name="twitter:description" content="后端技术博客">
+<meta name="twitter:title" content="利用context终止goroutine">
+<meta name="twitter:description" content="原文：http://dahernan.github.io/2015/02/04/context-and-cancellation-of-goroutines/ 本文讲述了利用golang context 包来管理goroutine 超时终止的方法和思路。">
   
     <link rel="alternate" href="/atom.xml" title="王贺的日志" type="application/atom+xml">
   
@@ -63,96 +64,87 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2019/05/14/desgin-pattern/" class="archive-article-date">
-  <time datetime="2019-05-13T16:00:00.000Z" itemprop="datePublished">May 14</time>
+        <section id="main"><article id="post-context-and-cancellation-of-goroutines" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/02/11/context-and-cancellation-of-goroutines/" class="article-date">
+  <time datetime="2019-02-10T16:00:00.000Z" itemprop="datePublished">2019-02-11</time>
 </a>
-      
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/05/14/desgin-pattern/">设计模式</a>
+    <h1 class="article-title" itemprop="name">
+      利用context终止goroutine
     </h1>
   
 
-    </header>
-  </div>
-</article>
-  
+      </header>
     
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2019/05/14/mit_alogrithm_introduce/" class="archive-article-date">
-  <time datetime="2019-05-13T16:00:00.000Z" itemprop="datePublished">May 14</time>
-</a>
+    <div class="article-entry" itemprop="articleBody">
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/05/14/mit_alogrithm_introduce/">学习算法一些学习资料</a>
-    </h1>
-  
+        <p>原文：<br><a href="http://dahernan.github.io/2015/02/04/context-and-cancellation-of-goroutines/" target="_blank" rel="noopener">http://dahernan.github.io/2015/02/04/context-and-cancellation-of-goroutines/</a></p>
+<p>本文讲述了利用golang context 包来管理goroutine 超时终止的方法和思路。<br><a id="more"></a></p>
 
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2019/05/13/redis-jump-list/" class="archive-article-date">
-  <time datetime="2019-05-12T16:00:00.000Z" itemprop="datePublished">May 13</time>
-</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/05/13/redis-jump-list/">为什么redis一定要用跳跃表来实现有序集合</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2019/05/12/trie-tree/" class="archive-article-date">
-  <time datetime="2019-05-11T16:00:00.000Z" itemprop="datePublished">May 12</time>
-</a>
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://wanghe4096.github.io/2019/02/11/context-and-cancellation-of-goroutines/" data-id="cjwj6uem70003pnfyln71r55x" class="article-share-link">Share</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/05/12/trie-tree/">前缀树</a>
-    </h1>
-  
-
-    </header>
+      
+    </footer>
   </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/02/21/gotchas-and-common-mistakes-in-go-golang/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Golang新手可能会踩的50个坑
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/02/01/gophercon-2018-binary-search-tree-algorithms/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Gophercon 2018 - 简明二叉搜索树</div>
+    </a>
+  
+</nav>
+
+  
 </article>
+
+
+
+
+
+
+  <div id="gitalk-container"></div>
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+<script type="text/javascript">
   
   
-    </div></section>
-  
+  var gitalk = new Gitalk({
+    clientID: '676995b3169b0460f579',
+    clientSecret: 'fcc2b957d39e2cf013d9289418e59a6e1740aa14',
+    id: "利用context终止goroutine",
+    repo: 'wanghe4096.github.io',
+    owner: 'wanghe4096',
+    admin: 'wanghe4096',
+    distractionFreeMode: 'true',
+  })
+
+  gitalk.render('gitalk-container')
+</script>
+
 
 
 </section>

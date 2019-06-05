@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>前缀树 | 王贺的日志</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Trie 树，又叫字典树、前缀树（Prefix Tree) 、单词查找树或键树，是一种多叉树结构.如图： 上图是一棵Trie 树， 表示了关键字集合{“a”, “to”, “tea”, “ted”, “ten”, “i”, “in” , “inn”}  根结点不包含字符， 除根节点外的每一个子节点都包含一个字符。  从根节点到某一个节点， 路径上经过的字符连接起来， 为该节点对应的字符串。  每">
+<meta property="og:type" content="article">
+<meta property="og:title" content="前缀树">
+<meta property="og:url" content="http://wanghe4096.github.io/2019/05/12/trie-tree/index.html">
+<meta property="og:site_name" content="王贺的日志">
+<meta property="og:description" content="Trie 树，又叫字典树、前缀树（Prefix Tree) 、单词查找树或键树，是一种多叉树结构.如图： 上图是一棵Trie 树， 表示了关键字集合{“a”, “to”, “tea”, “ted”, “ten”, “i”, “in” , “inn”}  根结点不包含字符， 除根节点外的每一个子节点都包含一个字符。  从根节点到某一个节点， 路径上经过的字符连接起来， 为该节点对应的字符串。  每">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://upload.wikimedia.org/wikipedia/commons/thumb/b/be/Trie_example.svg/500px-Trie_example.svg.png">
+<meta property="og:updated_time" content="2019-06-05T12:04:09.996Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="前缀树">
+<meta name="twitter:description" content="Trie 树，又叫字典树、前缀树（Prefix Tree) 、单词查找树或键树，是一种多叉树结构.如图： 上图是一棵Trie 树， 表示了关键字集合{“a”, “to”, “tea”, “ted”, “ten”, “i”, “in” , “inn”}  根结点不包含字符， 除根节点外的每一个子节点都包含一个字符。  从根节点到某一个节点， 路径上经过的字符连接起来， 为该节点对应的字符串。  每">
+<meta name="twitter:image" content="https://upload.wikimedia.org/wikipedia/commons/thumb/b/be/Trie_example.svg/500px-Trie_example.svg.png">
+  
+    <link rel="alternate" href="/atom.xml" title="王贺的日志" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">王贺的日志</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://wanghe4096.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-trie-tree" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/05/12/trie-tree/" class="article-date">
+  <time datetime="2019-05-11T16:00:00.000Z" itemprop="datePublished">2019-05-12</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      前缀树
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Trie 树，又叫字典树、前缀树（Prefix Tree) 、单词查找树或键树，是一种多叉树结构.如图：<br><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/be/Trie_example.svg/500px-Trie_example.svg.png" alt></p>
+<p>上图是一棵Trie 树， 表示了关键字集合{“a”, “to”, “tea”, “ted”, “ten”, “i”, “in” , “inn”}</p>
+<ol>
+<li>根结点不包含字符， 除根节点外的每一个子节点都包含一个字符。 </li>
+<li>从根节点到某一个节点， 路径上经过的字符连接起来， 为该节点对应的字符串。 </li>
+<li>每个节点的所有子节点包含的字符互不相同。 </li>
+</ol>
+<p>通常在实现的时候， 会在节点结构中设置一个标志， 用来标记该结点处是否构成一个单词(关键字)。 </p>
+<p>可以看出，Trie树的关键字一般都是字符串，而且Trie树把每个关键字保存在一条路径上，而不是一个结点中。另外，两个有公共前缀的关键字，在Trie树中前缀部分的路径相同，所以Trie树又叫做前缀树（Prefix Tree）</p>
+<p>Trie树的核心思想是空间换时间，利用字符串的公共前缀来减少无谓的字符串比较以达到提高查询效率的目的。<br><a id="more"></a></p>
+<h1 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h1><ol>
+<li>当hash函数很好的时候， Trie树的查找效率会低于哈希搜索. </li>
+<li>空间消耗大</li>
+</ol>
+<h1 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h1><ol>
+<li>插入和查询的效率很高， 都为O(m), 其中m是待插入/查询的字符串的长度. <ul>
+<li>关于查询， 会有人说hash表时间复杂度是O(1),不是更快？ 但是，哈稀搜索的效率通常取决于hash函数的好坏， 若一个坏的hash函数导致的冲突很多， 效率并不一定比Trie树高。</li>
+</ul>
+</li>
+<li>Trie树中不同的关键字不会产生冲突。 </li>
+<li>Trie 树只有在允许一个关键字关联多个值的情况下才有类似hash碰撞发生。</li>
+<li><p>Trie 树不用求hash值， 对短字符串有更快的速度。 通常求hash值也是需要遍历字符串的。 </p>
+</li>
+<li><p>Trie树可以对关键字按字典序排序。 </p>
+</li>
+</ol>
+<h1 id="Trie树的应用"><a href="#Trie树的应用" class="headerlink" title="Trie树的应用"></a>Trie树的应用</h1><ol>
+<li>字符串检索<br>检索/查询功能是Trie树最原始的功能。 思路就是从根节点开始一个一个字符串进行比较： <ul>
+<li>如果沿路比较， 发现不同的字符， 则表示该字符串在集合中不存在</li>
+<li>如果所有的字符全部比较完并且全部相同， 还需判断最后一个节点的标志位（标记该节点是否代表一个关键字)。</li>
+</ul>
+</li>
+<li>词频统计</li>
+<li>字符串排序</li>
+<li>前缀匹配</li>
+<li>作为其他数据结构和算法的辅助结构</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://wanghe4096.github.io/2019/05/12/trie-tree/" data-id="cjwj6uemg000bpnfyfljv2z31" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/05/13/redis-jump-list/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          为什么redis一定要用跳跃表来实现有序集合
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/04/20/go-dynamic-nginx-router/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">(译) 基于Go的动态Nginx 路由</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+
+
+
+
+  <div id="gitalk-container"></div>
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+<script type="text/javascript">
+  
+  
+  var gitalk = new Gitalk({
+    clientID: '676995b3169b0460f579',
+    clientSecret: 'fcc2b957d39e2cf013d9289418e59a6e1740aa14',
+    id: "前缀树",
+    repo: 'wanghe4096.github.io',
+    owner: 'wanghe4096',
+    admin: 'wanghe4096',
+    distractionFreeMode: 'true',
+  })
+
+  gitalk.render('gitalk-container')
+</script>
+
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/06/05/关于python/">第1章 Python 入门（Day 1）</a>
+          </li>
+        
+          <li>
+            <a href="/2019/06/05/developer_getting_started/">开发者零基础入门教程</a>
+          </li>
+        
+          <li>
+            <a href="/2019/06/05/2019-05-24/">本周阅读</a>
+          </li>
+        
+          <li>
+            <a href="/2019/06/05/2019-06-05/">三百个国外优秀网站</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/14/desgin-pattern/">设计模式</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 王贺<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

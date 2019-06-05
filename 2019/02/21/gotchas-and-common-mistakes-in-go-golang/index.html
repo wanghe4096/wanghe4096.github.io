@@ -5,18 +5,19 @@
   
 
   
-  <title>Archives: 2019/5 | 王贺的日志</title>
+  <title>Golang新手可能会踩的50个坑 | 王贺的日志</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="后端技术博客">
-<meta property="og:type" content="website">
-<meta property="og:title" content="王贺的日志">
-<meta property="og:url" content="http://wanghe4096.github.io/archives/2019/05/index.html">
+  <meta name="description" content="英文原文： http://devs.cloudimmunity.com/gotchas-and-common-mistakes-in-go-golang/index.html#close_http_resp_body 中文翻译： https://wuyin.io/2018/03/07/50-shades-of-golang-traps-gotchas-mistakes/ Go 是一门简单有趣的编程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Golang新手可能会踩的50个坑">
+<meta property="og:url" content="http://wanghe4096.github.io/2019/02/21/gotchas-and-common-mistakes-in-go-golang/index.html">
 <meta property="og:site_name" content="王贺的日志">
-<meta property="og:description" content="后端技术博客">
+<meta property="og:description" content="英文原文： http://devs.cloudimmunity.com/gotchas-and-common-mistakes-in-go-golang/index.html#close_http_resp_body 中文翻译： https://wuyin.io/2018/03/07/50-shades-of-golang-traps-gotchas-mistakes/ Go 是一门简单有趣的编程">
 <meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-06-05T12:04:09.995Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="王贺的日志">
-<meta name="twitter:description" content="后端技术博客">
+<meta name="twitter:title" content="Golang新手可能会踩的50个坑">
+<meta name="twitter:description" content="英文原文： http://devs.cloudimmunity.com/gotchas-and-common-mistakes-in-go-golang/index.html#close_http_resp_body 中文翻译： https://wuyin.io/2018/03/07/50-shades-of-golang-traps-gotchas-mistakes/ Go 是一门简单有趣的编程">
   
     <link rel="alternate" href="/atom.xml" title="王贺的日志" type="application/atom+xml">
   
@@ -63,96 +64,88 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2019/05/14/desgin-pattern/" class="archive-article-date">
-  <time datetime="2019-05-13T16:00:00.000Z" itemprop="datePublished">May 14</time>
+        <section id="main"><article id="post-gotchas-and-common-mistakes-in-go-golang" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/02/21/gotchas-and-common-mistakes-in-go-golang/" class="article-date">
+  <time datetime="2019-02-20T16:00:00.000Z" itemprop="datePublished">2019-02-21</time>
 </a>
-      
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/05/14/desgin-pattern/">设计模式</a>
+    <h1 class="article-title" itemprop="name">
+      Golang新手可能会踩的50个坑
     </h1>
   
 
-    </header>
-  </div>
-</article>
-  
+      </header>
     
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2019/05/14/mit_alogrithm_introduce/" class="archive-article-date">
-  <time datetime="2019-05-13T16:00:00.000Z" itemprop="datePublished">May 14</time>
-</a>
+    <div class="article-entry" itemprop="articleBody">
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/05/14/mit_alogrithm_introduce/">学习算法一些学习资料</a>
-    </h1>
-  
+        <p>英文原文： <a href="http://devs.cloudimmunity.com/gotchas-and-common-mistakes-in-go-golang/index.html#close_http_resp_body" target="_blank" rel="noopener">http://devs.cloudimmunity.com/gotchas-and-common-mistakes-in-go-golang/index.html#close_http_resp_body</a></p>
+<p>中文翻译： <a href="https://wuyin.io/2018/03/07/50-shades-of-golang-traps-gotchas-mistakes/" target="_blank" rel="noopener">https://wuyin.io/2018/03/07/50-shades-of-golang-traps-gotchas-mistakes/</a></p>
+<p>Go 是一门简单有趣的编程语言，与其他语言一样，在使用时不免会遇到很多坑，不过它们大多不是 Go 本身的设计缺陷。如果你刚从其他语言转到 Go，那这篇文章里的坑多半会踩到。<br>如果花时间学习官方 doc、wiki、讨论邮件列表、 Rob Pike 的大量文章以及 Go 的源码，会发现这篇文章中的坑是很常见的，新手跳过这些坑，能减少大量调试代码的时间。<br><a id="more"></a></p>
 
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2019/05/13/redis-jump-list/" class="archive-article-date">
-  <time datetime="2019-05-12T16:00:00.000Z" itemprop="datePublished">May 13</time>
-</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/05/13/redis-jump-list/">为什么redis一定要用跳跃表来实现有序集合</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2019/05/12/trie-tree/" class="archive-article-date">
-  <time datetime="2019-05-11T16:00:00.000Z" itemprop="datePublished">May 12</time>
-</a>
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://wanghe4096.github.io/2019/02/21/gotchas-and-common-mistakes-in-go-golang/" data-id="cjwj6uemc0008pnfyo36lu83i" class="article-share-link">Share</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/05/12/trie-tree/">前缀树</a>
-    </h1>
-  
-
-    </header>
+      
+    </footer>
   </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/03/13/avoiding-memory-leak-in-golang-api/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          在Golang API 中避免内存泄漏
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/02/11/context-and-cancellation-of-goroutines/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">利用context终止goroutine</div>
+    </a>
+  
+</nav>
+
+  
 </article>
+
+
+
+
+
+
+  <div id="gitalk-container"></div>
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+<script type="text/javascript">
   
   
-    </div></section>
-  
+  var gitalk = new Gitalk({
+    clientID: '676995b3169b0460f579',
+    clientSecret: 'fcc2b957d39e2cf013d9289418e59a6e1740aa14',
+    id: "Golang新手可能会踩的50个坑",
+    repo: 'wanghe4096.github.io',
+    owner: 'wanghe4096',
+    admin: 'wanghe4096',
+    distractionFreeMode: 'true',
+  })
+
+  gitalk.render('gitalk-container')
+</script>
+
 
 
 </section>
