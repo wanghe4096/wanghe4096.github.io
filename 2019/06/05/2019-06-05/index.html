@@ -5,22 +5,19 @@
   
 
   
-  <title>Gophercon 2018 - 简明二叉搜索树 | 王贺的日志</title>
+  <title>三百个国外优秀网站 | 王贺的日志</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="译文原文： https://about.sourcegraph.com/go/gophercon-2018-binary-search-tree-algorithms/ 算法学习一直是一件另沮丧和头疼的事，事实上并非如此， 这次分享中， Kaylyn 使用go语言来解释二叉搜索树算法。    介绍Kaylyn 在最近几年才开始对算法开始产生兴趣， 算法对你来说似乎很奇怪， 尤其对Kaylyn来说，">
-<meta name="keywords" content="译">
+  <meta name="description" content="豆瓣">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Gophercon 2018 - 简明二叉搜索树">
-<meta property="og:url" content="http://wanghe4096.github.io/2019/05/13/gophercon-2018-binary-search-tree-algorithms/index.html">
+<meta property="og:title" content="三百个国外优秀网站">
+<meta property="og:url" content="http://wanghe4096.github.io/2019/06/05/2019-06-05/index.html">
 <meta property="og:site_name" content="王贺的日志">
-<meta property="og:description" content="译文原文： https://about.sourcegraph.com/go/gophercon-2018-binary-search-tree-algorithms/ 算法学习一直是一件另沮丧和头疼的事，事实上并非如此， 这次分享中， Kaylyn 使用go语言来解释二叉搜索树算法。    介绍Kaylyn 在最近几年才开始对算法开始产生兴趣， 算法对你来说似乎很奇怪， 尤其对Kaylyn来说，">
+<meta property="og:description" content="豆瓣">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="https://user-images.githubusercontent.com/9022011/44757761-fdfd3100-aaed-11e8-8efb-bcac3d9aebb4.png">
-<meta property="og:updated_time" content="2019-05-13T05:54:15.813Z">
+<meta property="og:updated_time" content="2019-06-05T12:01:57.520Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Gophercon 2018 - 简明二叉搜索树">
-<meta name="twitter:description" content="译文原文： https://about.sourcegraph.com/go/gophercon-2018-binary-search-tree-algorithms/ 算法学习一直是一件另沮丧和头疼的事，事实上并非如此， 这次分享中， Kaylyn 使用go语言来解释二叉搜索树算法。    介绍Kaylyn 在最近几年才开始对算法开始产生兴趣， 算法对你来说似乎很奇怪， 尤其对Kaylyn来说，">
-<meta name="twitter:image" content="https://user-images.githubusercontent.com/9022011/44757761-fdfd3100-aaed-11e8-8efb-bcac3d9aebb4.png">
+<meta name="twitter:title" content="三百个国外优秀网站">
+<meta name="twitter:description" content="豆瓣">
   
     <link rel="alternate" href="/atom.xml" title="王贺的日志" type="application/atom+xml">
   
@@ -67,10 +64,10 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-gophercon-2018-binary-search-tree-algorithms" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-2019-06-05" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2019/05/13/gophercon-2018-binary-search-tree-algorithms/" class="article-date">
-  <time datetime="2019-05-13T05:54:15.813Z" itemprop="datePublished">2019-05-13</time>
+    <a href="/2019/06/05/2019-06-05/" class="article-date">
+  <time datetime="2019-06-05T12:01:57.520Z" itemprop="datePublished">2019-06-05</time>
 </a>
     
   </div>
@@ -81,7 +78,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Gophercon 2018 - 简明二叉搜索树
+      三百个国外优秀网站
     </h1>
   
 
@@ -89,57 +86,34 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>译文原文： <a href="https://about.sourcegraph.com/go/gophercon-2018-binary-search-tree-algorithms/" target="_blank" rel="noopener">https://about.sourcegraph.com/go/gophercon-2018-binary-search-tree-algorithms/</a></p>
-<p>算法学习一直是一件另沮丧和头疼的事，事实上并非如此， 这次分享中， Kaylyn 使用go语言来解释二叉搜索树算法。   </p>
-<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>Kaylyn 在最近几年才开始对算法开始产生兴趣， 算法对你来说似乎很奇怪， 尤其对Kaylyn来说，更显示怪异， 大学时Kaylyn非常讨厌学习算法课程。 她的教授总是用一些诲涩难懂的专业名词来解析一个很明显的概念。 最终结果是他只能学到足够的知识， 通过她的工作面试并继续她的剩余的职业生涯。  </p>
-<p>她对算法态度的转变， 缘于她曾经用Go语言重新实现这些算法时。   将那些用C++和java实现的算法用Go语言实现，另人意外的容易， 这是她继大学毕业之后，对算法有了更深刻的理解。  </p>
-<p>Kaylyn 将会解释关于什么是二叉搜索树和怎样在Go中实现这一算法。  但在这之前我们先要搞清楚为什么我们在学习算法的过程中感到如此糟糕。  </p>
-<p><img src="https://user-images.githubusercontent.com/9022011/44757761-fdfd3100-aaed-11e8-8efb-bcac3d9aebb4.png" alt="ffff"></p>
-<p>这张截图来源于CLRS(算法导论）介绍二叉树的算法的章节。 CLRS被认为是算法书籍中的“圣经“， 在作者看来，  在这本书1989年出版之前， 并没有一本算法较好的算法教材。<br>然而，任何读过CLRS的读者都可以看出来， 这本书是由那些具有学术思想的教授们编写的。   </p>
-<p>示例 ： </p>
-<ul>
-<li>本文提及了一些其他地方使用的专业术语， 所以你需要理解像下面内容： <ul>
-<li>什么是卫星数据</li>
-<li>什么是链表</li>
-<li>先序遍历和后序遍历是什么意思</li>
-</ul>
-</li>
-</ul>
-<p>如果你没有在书中作过笔记， 你可以就不知道这些是什么</p>
-<ul>
-<li><p>如果你和Kaylyn 一样， 你第一要做的事就是从书中找到这些代码。 然而， 这些代码只是解释了二叉树的遍历， 这并不是一个真正的二叉搜索树。</p>
-</li>
-<li><p>这一部分的底下的四分之一都定理和证明。 </p>
-</li>
-</ul>
+        <p><a href="https://www.douban.com/group/topic/4002607/" target="_blank" rel="noopener">豆瓣</a></p>
+<a id="more"></a>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://wanghe4096.github.io/2019/05/13/gophercon-2018-binary-search-tree-algorithms/" data-id="cjwj6mpzs0005czfymnpgg7he" class="article-share-link">Share</a>
+      <a data-url="http://wanghe4096.github.io/2019/06/05/2019-06-05/" data-id="cjwj6mpzm0001czfyi3q9sdqh" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/译/">译</a></li></ul>
-
     </footer>
   </div>
   
     
 <nav id="article-nav">
   
-    <a href="/2019/05/13/trie-tree/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2019/06/05/2019-05-24/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
-          前缀树
+          本周阅读
         
       </div>
     </a>
   
   
-    <a href="/2019/05/13/go2-draft-error-handling-problem-overview/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2019/05/13/yangming-note/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">Go2设计草案——错误处理问题概述</div>
+      <div class="article-nav-title">此心光明，亦复何求?</div>
     </a>
   
 </nav>
@@ -161,7 +135,7 @@
   var gitalk = new Gitalk({
     clientID: '676995b3169b0460f579',
     clientSecret: 'fcc2b957d39e2cf013d9289418e59a6e1740aa14',
-    id: "Gophercon 2018 - 简明二叉搜索树",
+    id: "三百个国外优秀网站",
     repo: 'wanghe4096.github.io',
     owner: 'wanghe4096',
     admin: 'wanghe4096',
