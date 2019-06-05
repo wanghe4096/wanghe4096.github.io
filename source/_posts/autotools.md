@@ -1,5 +1,6 @@
 ---
 title: 用automake构建你的c项目
+date: 2019-4-13
 ---
 
 作为Linux下的程序开发人员，大家都一定遇到过Makefile, 用make命令来编译自己写的程序确实很方便。 一般情况下， 大家都是手工写一个简单的Makefile.例如

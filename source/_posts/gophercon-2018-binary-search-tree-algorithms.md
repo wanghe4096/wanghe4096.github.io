@@ -1,6 +1,6 @@
 ---
 title: Gophercon 2018 - 简明二叉搜索树
-tags: 译
+date: 2019-2-1
 ---
 
 译文原文： https://about.sourcegraph.com/go/gophercon-2018-binary-search-tree-algorithms/

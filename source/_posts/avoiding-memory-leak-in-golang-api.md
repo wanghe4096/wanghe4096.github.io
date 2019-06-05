@@ -1,5 +1,6 @@
 ---
 title: 在Golang API 中避免内存泄漏
+date: 2019-3-13
 ---
 原文： https://hackernoon.com/avoiding-memory-leak-in-golang-api-1843ef45fca8
 

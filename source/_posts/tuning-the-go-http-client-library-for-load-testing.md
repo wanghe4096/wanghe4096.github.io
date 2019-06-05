@@ -1,5 +1,6 @@
 ---
 title:  压力测试中的Go http Client 参数调优
+date: 2019-4-9
 ---
 原文： http://tleyden.github.io/blog/2016/11/21/tuning-the-go-http-client-library-for-load-testing/
 

@@ -1,5 +1,6 @@
 ---
 title: 前缀树
+date: 2019-5-12
 ---
 Trie 树，又叫字典树、前缀树（Prefix Tree) 、单词查找树或键树，是一种多叉树结构.如图： 
 ![](https://upload.wikimedia.org/wikipedia/commons/thumb/b/be/Trie_example.svg/500px-Trie_example.svg.png)

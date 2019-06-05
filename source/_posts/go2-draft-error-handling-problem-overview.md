@@ -1,5 +1,6 @@
 ---
 title: Go2设计草案——错误处理问题概述
+date: 2019-1-10
 ---
 原文地址：[Go2 设计草案--错误处理] https://go.googlesource.com/proposal/+/master/design/go2draft-error-handling-overview.md 
 
