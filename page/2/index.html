@@ -65,9 +65,9 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-autotools" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-writing-a-simple-json-parser" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2019/04/13/autotools/" class="article-date">
+    <a href="/2019/04/13/writing-a-simple-json-parser/" class="article-date">
   <time datetime="2019-04-12T16:00:00.000Z" itemprop="datePublished">2019-04-13</time>
 </a>
     
@@ -79,7 +79,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/04/13/autotools/">用automake构建你的c项目</a>
+      <a class="article-title" href="/2019/04/13/writing-a-simple-json-parser/">手动编写json解析器(译)</a>
     </h1>
   
 
@@ -87,17 +87,18 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>作为Linux下的程序开发人员，大家都一定遇到过Makefile, 用make命令来编译自己写的程序确实很方便。 一般情况下， 大家都是手工写一个简单的Makefile.例如<br><figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">CC		:= gcc</span><br><span class="line">C_FLAGS := -Wall -Wextra</span><br><span class="line"></span><br><span class="line">BIN		:= bin</span><br><span class="line">SRC		:= src</span><br><span class="line">INCLUDE	:= <span class="keyword">include</span></span><br><span class="line">LIB		:= lib</span><br><span class="line"></span><br><span class="line">LIBRARIES	:= <span class="variable">$(LIB)</span>/ncurses-6.1</span><br><span class="line"></span><br><span class="line"><span class="keyword">ifeq</span> (<span class="variable">$(OS)</span>,Windows_NT)</span><br><span class="line">EXECUTABLE	:= main.exe</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">EXECUTABLE	:= main</span><br><span class="line"><span class="keyword">endif</span></span><br><span class="line"></span><br><span class="line"><span class="section">all: <span class="variable">$(BIN)</span>/<span class="variable">$(EXECUTABLE)</span></span></span><br><span class="line"></span><br><span class="line"><span class="section">clean:</span></span><br><span class="line">	-<span class="variable">$(RM)</span> <span class="variable">$(BIN)</span>/<span class="variable">$(EXECUTABLE)</span></span><br><span class="line"></span><br><span class="line"><span class="section">run: all</span></span><br><span class="line">	./<span class="variable">$(BIN)</span>/<span class="variable">$(EXECUTABLE)</span></span><br><span class="line"></span><br><span class="line"><span class="variable">$(BIN)</span>/<span class="variable">$(EXECUTABLE)</span>: <span class="variable">$(SRC)</span>/*</span><br><span class="line">	<span class="variable">$(CC)</span> <span class="variable">$(C_FLAGS)</span> -I<span class="variable">$(INCLUDE)</span> -L<span class="variable">$(LIB)</span> <span class="variable">$^</span> -o <span class="variable">$@</span> <span class="variable">$(LIBRARIES)</span></span><br></pre></td></tr></table></figure></p>
-<p>本文中， 介绍如何使用autoconf和automake工具来帮助我们自动生成符合自由软件惯例的makefile. 这样可以象常见的GNU程序一样， 只要使用”./configure”, “make”, “make install” 就可以安装l到inux系统。 我们常用的一些开源项目都是用这套工具来管理其项目构建过程的， 如redis、openssl、libcurl、nucurses等开源项目。<br>本文描述了利用autotools 来编写一个hello world的程序过程。 </p>
+        <p>原文地址： <a href="http://notes.eatonphil.com/writing-a-simple-json-parser.html" target="_blank" rel="noopener">http://notes.eatonphil.com/writing-a-simple-json-parser.html</a></p>
+<p>编写一个json解析器是一种最容易熟悉json解析原理方式。 它的格式非常简单。 因为递归式定义，所以与解析BrainFuck相比， 稍微有些挑战。 你可能已经在使用json了。 除了最后一点之外， 解析Scheme的S表达式也许是更简单的任务。 </p>
+<p>如果你只是想看看这个库的代码，  请在github点击查看。<br>
         
-          <p class="article-more-link">
-            <a href="/2019/04/13/autotools/#more">Read More</a>
+          </p><p class="article-more-link">
+            <a href="/2019/04/13/writing-a-simple-json-parser/#more">Read More</a>
           </p>
         
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://wanghe4096.github.io/2019/04/13/autotools/" data-id="cjwj6uem60002pnfymlqf91iu" class="article-share-link">Share</a>
+      <a data-url="http://wanghe4096.github.io/2019/04/13/writing-a-simple-json-parser/" data-id="cjwj6vzvv000huafybz2x388u" class="article-share-link">Share</a>
       
       
     </footer>
@@ -144,7 +145,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://wanghe4096.github.io/2019/04/09/tuning-the-go-http-client-library-for-load-testing/" data-id="cjwj6uemh000cpnfypk4d4f6k" class="article-share-link">Share</a>
+      <a data-url="http://wanghe4096.github.io/2019/04/09/tuning-the-go-http-client-library-for-load-testing/" data-id="cjwj6vzve000cuafy6tepfyf8" class="article-share-link">Share</a>
       
       
     </footer>
@@ -193,7 +194,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://wanghe4096.github.io/2019/03/13/avoiding-memory-leak-in-golang-api/" data-id="cjwj6uemn000epnfy4g1g3zyb" class="article-share-link">Share</a>
+      <a data-url="http://wanghe4096.github.io/2019/03/13/avoiding-memory-leak-in-golang-api/" data-id="cjwj6vzvr000euafyo0xd9mu6" class="article-share-link">Share</a>
       
       
     </footer>
@@ -241,7 +242,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://wanghe4096.github.io/2019/02/21/gotchas-and-common-mistakes-in-go-golang/" data-id="cjwj6uemc0008pnfyo36lu83i" class="article-share-link">Share</a>
+      <a data-url="http://wanghe4096.github.io/2019/02/21/gotchas-and-common-mistakes-in-go-golang/" data-id="cjwj6vzv90007uafym4s5ufyx" class="article-share-link">Share</a>
       
       
     </footer>
@@ -288,7 +289,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://wanghe4096.github.io/2019/02/11/context-and-cancellation-of-goroutines/" data-id="cjwj6uem70003pnfyln71r55x" class="article-share-link">Share</a>
+      <a data-url="http://wanghe4096.github.io/2019/02/11/context-and-cancellation-of-goroutines/" data-id="cjwj6vzv50003uafyss9ygk40" class="article-share-link">Share</a>
       
       
     </footer>
@@ -352,7 +353,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://wanghe4096.github.io/2019/02/01/gophercon-2018-binary-search-tree-algorithms/" data-id="cjwj6uemc0007pnfy2vip6nho" class="article-share-link">Share</a>
+      <a data-url="http://wanghe4096.github.io/2019/02/01/gophercon-2018-binary-search-tree-algorithms/" data-id="cjwj6vzv90008uafyh3c1dxu4" class="article-share-link">Share</a>
       
       
     </footer>
@@ -436,7 +437,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://wanghe4096.github.io/2019/01/14/alogrithm_linklist/" data-id="cjwj6uem40001pnfylxz4en6p" class="article-share-link">Share</a>
+      <a data-url="http://wanghe4096.github.io/2019/01/14/alogrithm_linklist/" data-id="cjwj6vzv40002uafykvc3qmhe" class="article-share-link">Share</a>
       
       
     </footer>
@@ -488,7 +489,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://wanghe4096.github.io/2019/01/10/go2-draft-error-handling-problem-overview/" data-id="cjwj6uem90005pnfypkr9s1pu" class="article-share-link">Share</a>
+      <a data-url="http://wanghe4096.github.io/2019/01/10/go2-draft-error-handling-problem-overview/" data-id="cjwj6vzv70006uafyzdom81bf" class="article-share-link">Share</a>
       
       
     </footer>
@@ -541,7 +542,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://wanghe4096.github.io/2019/01/01/go2-draft-designs/" data-id="cjwj6uemb0006pnfyro4096t4" class="article-share-link">Share</a>
+      <a data-url="http://wanghe4096.github.io/2019/01/01/go2-draft-designs/" data-id="cjwj6vzv60005uafy5lqw3h57" class="article-share-link">Share</a>
       
       
     </footer>
@@ -587,7 +588,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://wanghe4096.github.io/2018/04/13/yangming-note/" data-id="cjwj6uemi000dpnfys69fkcxg" class="article-share-link">Share</a>
+      <a data-url="http://wanghe4096.github.io/2018/04/13/yangming-note/" data-id="cjwj6vzve000duafylkgnsuqw" class="article-share-link">Share</a>
       
       
     </footer>
