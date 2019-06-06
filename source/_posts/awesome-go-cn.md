@@ -1,5 +1,6 @@
 ---
 title: Go 资源大全中文版
+date: 2019-06-06
 ---
 
 [Go 资源大全中文版](https://github.com/jobbole/awesome-go-cn)
