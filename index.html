@@ -107,86 +107,16 @@
 - Microsoft Window
 - MacOs : 基于FreeBSD Unix 操作系统深度定制的
 - iOS / Android
-</code></pre><h5 id="理论"><a href="#理论" class="headerlink" title="理论"></a>理论</h5><ul>
-<li>进程、线程</li>
-<li>临界资源访问 </li>
-<li>锁、信号量</li>
-</ul>
-<h3 id="网络基础"><a href="#网络基础" class="headerlink" title="网络基础"></a>网络基础</h3><pre><code>- 计算机互联网络
-- 网络协议： 物理层、数据链路层、网络层、传输层、应用层, TCP/IP ： tcp, ip, udp, arp, darp . 
-    - IP : Internal Protocol 网际传输协议
-    - TCP: transfer control protocol 传输控制协议
-    - UDP: user datagram protocol 用户数据报协议
-    - http: 超文本传输协议
-    - SMTP: 邮件发送协议
-    - POP: 邮件接收协议
-</code></pre><h3 id="计算机体系结构"><a href="#计算机体系结构" class="headerlink" title="计算机体系结构"></a>计算机体系结构</h3><pre><code>- 中央处理器
-- 内存储器
-- 外存储器
-- 输入设备
-- 输出设备
-</code></pre><h3 id="开发者工具"><a href="#开发者工具" class="headerlink" title="开发者工具"></a>开发者工具</h3><h4 id="IDE"><a href="#IDE" class="headerlink" title="IDE"></a>IDE</h4><pre><code>- Intelli IDEA 
-- Eclispe 
-</code></pre><h4 id="编辑器"><a href="#编辑器" class="headerlink" title="编辑器"></a>编辑器</h4><pre><code>- visual studio code 
-- vim 
-- emacs 
-- sublime 
-- atom 
-</code></pre><h1 id="Hello-World"><a href="#Hello-World" class="headerlink" title="Hello World"></a>Hello World</h1><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">h1</span>&gt;</span> hello world <span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">print</span> <span class="string">'hello world'</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main </span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    fmt.Println(<span class="string">"hello world"</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt; </span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"hello world\n"</span>); </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="string">"hello world"</span>);</span><br></pre></td></tr></table></figure>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8 "</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width, initial-scale=1.0"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"X-UA-Compatible"</span> <span class="attr">content</span>=<span class="string">"ie=edge"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined">		body &#123;</span></span><br><span class="line"><span class="undefined">			background-color:red;</span></span><br><span class="line"><span class="undefined">			color: white; </span></span><br><span class="line"><span class="undefined">		&#125;</span></span><br><span class="line"><span class="undefined">		</span></span><br><span class="line"><span class="undefined">	</span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">script</span> <span class="attr">lang</span>=<span class="string">"javascript"</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript">		<span class="function"><span class="keyword">function</span> <span class="title">greet</span>(<span class="params"></span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">			<span class="built_in">console</span>.log(<span class="string">"你好， 大璐!!!!"</span>)</span></span><br><span class="line"><span class="javascript">			alert(<span class="string">"hello"</span>)</span></span><br><span class="line"><span class="javascript">			e = <span class="built_in">document</span>.getElementsByTagName(<span class="string">"body"</span>).</span></span><br><span class="line"><span class="undefined">		&#125;</span></span><br><span class="line"><span class="undefined">	</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">h1</span>&gt;</span> hello world <span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">p</span>&gt;</span></span><br><span class="line">		The flutter-io.cn server is a provisional mirror for Flutter dependencies and packages maintained by GDG China. The Flutter team cannot guarantee long-term availability of this service. You’re free to use other mirrors if they become available. If you’re interested in setting up your own mirror in China, contact flutter-dev@googlegroups.com for assistance.</span><br><span class="line">	<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">button</span> <span class="attr">onclick</span>=<span class="string">"greet()"</span>&gt;</span>你好，大璐<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://wanghe4096.github.io/2019/06/05/developer_getting_started/" data-id="cjwj6zlix00042hfy2h1gsr7c" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-  
-    <article id="post-2019-05-24" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/06/05/2019-05-24/" class="article-date">
-  <time datetime="2019-06-05T12:02:17.727Z" itemprop="datePublished">2019-06-05</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
+</code></pre>
         
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/06/05/2019-05-24/">本周阅读</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><a href="https://medium.com/the-code-review/make-your-terminal-more-colourful-and-productive-with-iterm2-and-zsh-11b91607b98c#8f6c" target="_blank" rel="noopener">打造好看又好玩的终端工具</a></p>
-<p><a href="http://www.andrews-corner.org/linux/mutt.html#download" target="_blank" rel="noopener">Using Mutt with Gmail</a></p>
-<p><a href="https://files.dyne.org/jaromail/jaromail-manual.pdf" target="_blank" rel="noopener">Jaro Email Manual</a></p>
-
+          <p class="article-more-link">
+            <a href="/2019/06/05/developer_getting_started/#more">Read More</a>
+          </p>
+        
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://wanghe4096.github.io/2019/06/05/2019-05-24/" data-id="cjwj6zlio00002hfyepnal027" class="article-share-link">Share</a>
+      <a data-url="http://wanghe4096.github.io/2019/06/05/developer_getting_started/" data-id="cjwj71zp300049ffyzkocwpkv" class="article-share-link">Share</a>
       
       
     </footer>
@@ -232,7 +162,55 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://wanghe4096.github.io/2019/06/05/2019-06-05/" data-id="cjwj6zljp000i2hfy6shye5hj" class="article-share-link">Share</a>
+      <a data-url="http://wanghe4096.github.io/2019/06/05/2019-06-05/" data-id="cjwj71zpu000i9ffy8ixcvm09" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+  
+    <article id="post-2019-05-24" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/05/24/2019-05-24/" class="article-date">
+  <time datetime="2019-05-23T16:00:00.000Z" itemprop="datePublished">2019-05-24</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/05/24/2019-05-24/">本周阅读</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a href="https://medium.com/the-code-review/make-your-terminal-more-colourful-and-productive-with-iterm2-and-zsh-11b91607b98c#8f6c" target="_blank" rel="noopener">打造好看又好玩的终端工具</a></p>
+<p><a href="http://www.andrews-corner.org/linux/mutt.html#download" target="_blank" rel="noopener">Using Mutt with Gmail</a></p>
+<p><a href="https://files.dyne.org/jaromail/jaromail-manual.pdf" target="_blank" rel="noopener">Jaro Email Manual</a></p>
+        
+          <p class="article-more-link">
+            <a href="/2019/05/24/2019-05-24/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://wanghe4096.github.io/2019/05/24/2019-05-24/" data-id="cjwj71zow00009ffy81oygzba" class="article-share-link">Share</a>
       
       
     </footer>
@@ -311,7 +289,54 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://wanghe4096.github.io/2019/05/22/关于python/" data-id="cjwj6zljq000j2hfypbeagxiv" class="article-share-link">Share</a>
+      <a data-url="http://wanghe4096.github.io/2019/05/22/关于python/" data-id="cjwj71zpx000j9ffysro1wvkm" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+  
+    <article id="post-mit_alogrithm_introduce" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/05/14/mit_alogrithm_introduce/" class="article-date">
+  <time datetime="2019-05-13T16:00:00.000Z" itemprop="datePublished">2019-05-14</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/05/14/mit_alogrithm_introduce/">学习算法一些学习资料</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="MIT-算法导论导公开课"><a href="#MIT-算法导论导公开课" class="headerlink" title="MIT 算法导论导公开课"></a>MIT 算法导论导公开课</h1><p><a href="https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-046j-introduction-to-algorithms-sma-5503-fall-2005/" target="_blank" rel="noopener">MIT 公开课网官网——算法导论 </a></p>
+<h1 id="网易公开课（带中英文字幕"><a href="#网易公开课（带中英文字幕" class="headerlink" title="网易公开课（带中英文字幕)"></a>网易公开课（带中英文字幕)</h1><p><a href="http://open.163.com/special/opencourse/algorithms.html" target="_blank" rel="noopener">麻省理工学院公开课：算法导论</a></p>
+        
+          <p class="article-more-link">
+            <a href="/2019/05/14/mit_alogrithm_introduce/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://wanghe4096.github.io/2019/05/14/mit_alogrithm_introduce/" data-id="cjwj71zp800099ffytfnyl9bo" class="article-share-link">Share</a>
       
       
     </footer>
@@ -361,54 +386,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://wanghe4096.github.io/2019/05/14/desgin-pattern/" data-id="cjwj6zljc000f2hfytvx5988w" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-  
-    <article id="post-mit_alogrithm_introduce" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/05/14/mit_alogrithm_introduce/" class="article-date">
-  <time datetime="2019-05-13T16:00:00.000Z" itemprop="datePublished">2019-05-14</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/05/14/mit_alogrithm_introduce/">学习算法一些学习资料</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="MIT-算法导论导公开课"><a href="#MIT-算法导论导公开课" class="headerlink" title="MIT 算法导论导公开课"></a>MIT 算法导论导公开课</h1><p><a href="https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-046j-introduction-to-algorithms-sma-5503-fall-2005/" target="_blank" rel="noopener">MIT 公开课网官网——算法导论 </a></p>
-<h1 id="网易公开课（带中英文字幕"><a href="#网易公开课（带中英文字幕" class="headerlink" title="网易公开课（带中英文字幕)"></a>网易公开课（带中英文字幕)</h1><p><a href="http://open.163.com/special/opencourse/algorithms.html" target="_blank" rel="noopener">麻省理工学院公开课：算法导论</a></p>
-        
-          <p class="article-more-link">
-            <a href="/2019/05/14/mit_alogrithm_introduce/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://wanghe4096.github.io/2019/05/14/mit_alogrithm_introduce/" data-id="cjwj6zlj100092hfyb7cy8ykj" class="article-share-link">Share</a>
+      <a data-url="http://wanghe4096.github.io/2019/05/14/desgin-pattern/" data-id="cjwj71zpj000f9ffya3ixiion" class="article-share-link">Share</a>
       
       
     </footer>
@@ -457,7 +435,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://wanghe4096.github.io/2019/05/13/redis-jump-list/" data-id="cjwj6zlj2000a2hfyjm7qp7gu" class="article-share-link">Share</a>
+      <a data-url="http://wanghe4096.github.io/2019/05/13/redis-jump-list/" data-id="cjwj71zp9000a9ffyfl7tpzyv" class="article-share-link">Share</a>
       
       
     </footer>
@@ -512,7 +490,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://wanghe4096.github.io/2019/05/12/trie-tree/" data-id="cjwj6zlj6000c2hfy4ash5tow" class="article-share-link">Share</a>
+      <a data-url="http://wanghe4096.github.io/2019/05/12/trie-tree/" data-id="cjwj71zpd000b9ffyor3twpov" class="article-share-link">Share</a>
       
       
     </footer>
@@ -558,7 +536,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://wanghe4096.github.io/2019/04/20/go-dynamic-nginx-router/" data-id="cjwj6zljd000g2hfytptk100g" class="article-share-link">Share</a>
+      <a data-url="http://wanghe4096.github.io/2019/04/20/go-dynamic-nginx-router/" data-id="cjwj71zpk000g9ffybegk1jfv" class="article-share-link">Share</a>
       
       
     </footer>
@@ -605,7 +583,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://wanghe4096.github.io/2019/04/13/autotools/" data-id="cjwj6zliu00022hfyjl59is86" class="article-share-link">Share</a>
+      <a data-url="http://wanghe4096.github.io/2019/04/13/autotools/" data-id="cjwj71zp100029ffy1smjylu3" class="article-share-link">Share</a>
       
       
     </footer>
@@ -660,11 +638,11 @@
           </li>
         
           <li>
-            <a href="/2019/06/05/2019-05-24/">本周阅读</a>
+            <a href="/2019/06/05/2019-06-05/">三百个国外优秀网站</a>
           </li>
         
           <li>
-            <a href="/2019/06/05/2019-06-05/">三百个国外优秀网站</a>
+            <a href="/2019/05/24/2019-05-24/">本周阅读</a>
           </li>
         
           <li>
@@ -672,7 +650,7 @@
           </li>
         
           <li>
-            <a href="/2019/05/14/desgin-pattern/">设计模式</a>
+            <a href="/2019/05/14/mit_alogrithm_introduce/">学习算法一些学习资料</a>
           </li>
         
       </ul>
