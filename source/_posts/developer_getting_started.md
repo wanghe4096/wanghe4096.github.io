@@ -31,6 +31,7 @@ title: 开发者零基础入门教程
     - Microsoft Window
     - MacOs : 基于FreeBSD Unix 操作系统深度定制的
     - iOS / Android
+<!-- more -->
 
 ##### 理论
 - 进程、线程
