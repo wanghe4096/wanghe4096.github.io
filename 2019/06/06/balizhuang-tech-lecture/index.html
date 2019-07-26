@@ -5,19 +5,19 @@
   
 
   
-  <title>压力测试中的Go http Client 参数调优 | 王贺的日志</title>
+  <title>八里庄技术沙龙——基于MySQL MGR读写一致性数据库架构详解 | 王贺的日志</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="原文： http://tleyden.github.io/blog/2016/11/21/tuning-the-go-http-client-library-for-load-testing/ 在Go中使用压力测试工具时，遇到了有数万个socket 处于TIME_WAIT的状态。本文列出发生这种情况的几原因， 并给出了如何修复这种情况。">
+  <meta name="description" content="本次分享，将重点介绍滴滴自研基于 MGR 的读写强一致性数据库架构的设计思路及应用实践，在集群维度提供全局读取一致性，为金融交易场景提供了一套完善的解决方案，以及在 MGR 方向上的服务化实践及后续规划。 田佳伟，来自滴滴出行的中间件开发专家。曾就职于百度、Thomson Reuters 等公司，现就职于滴滴，负责数据库产品的架构及研发工作；多年中间件和数据库开发经验，研究方向主要为分布式数据库系">
 <meta property="og:type" content="article">
-<meta property="og:title" content="压力测试中的Go http Client 参数调优">
-<meta property="og:url" content="http://wanghe4096.github.io/2019/04/09/tuning-the-go-http-client-library-for-load-testing/index.html">
+<meta property="og:title" content="八里庄技术沙龙——基于MySQL MGR读写一致性数据库架构详解">
+<meta property="og:url" content="http://wanghe4096.github.io/2019/06/06/balizhuang-tech-lecture/index.html">
 <meta property="og:site_name" content="王贺的日志">
-<meta property="og:description" content="原文： http://tleyden.github.io/blog/2016/11/21/tuning-the-go-http-client-library-for-load-testing/ 在Go中使用压力测试工具时，遇到了有数万个socket 处于TIME_WAIT的状态。本文列出发生这种情况的几原因， 并给出了如何修复这种情况。">
+<meta property="og:description" content="本次分享，将重点介绍滴滴自研基于 MGR 的读写强一致性数据库架构的设计思路及应用实践，在集群维度提供全局读取一致性，为金融交易场景提供了一套完善的解决方案，以及在 MGR 方向上的服务化实践及后续规划。 田佳伟，来自滴滴出行的中间件开发专家。曾就职于百度、Thomson Reuters 等公司，现就职于滴滴，负责数据库产品的架构及研发工作；多年中间件和数据库开发经验，研究方向主要为分布式数据库系">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-06-05T12:04:09.997Z">
+<meta property="og:updated_time" content="2019-06-06T08:14:53.809Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="压力测试中的Go http Client 参数调优">
-<meta name="twitter:description" content="原文： http://tleyden.github.io/blog/2016/11/21/tuning-the-go-http-client-library-for-load-testing/ 在Go中使用压力测试工具时，遇到了有数万个socket 处于TIME_WAIT的状态。本文列出发生这种情况的几原因， 并给出了如何修复这种情况。">
+<meta name="twitter:title" content="八里庄技术沙龙——基于MySQL MGR读写一致性数据库架构详解">
+<meta name="twitter:description" content="本次分享，将重点介绍滴滴自研基于 MGR 的读写强一致性数据库架构的设计思路及应用实践，在集群维度提供全局读取一致性，为金融交易场景提供了一套完善的解决方案，以及在 MGR 方向上的服务化实践及后续规划。 田佳伟，来自滴滴出行的中间件开发专家。曾就职于百度、Thomson Reuters 等公司，现就职于滴滴，负责数据库产品的架构及研发工作；多年中间件和数据库开发经验，研究方向主要为分布式数据库系">
   
     <link rel="alternate" href="/atom.xml" title="王贺的日志" type="application/atom+xml">
   
@@ -64,10 +64,10 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-tuning-the-go-http-client-library-for-load-testing" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-balizhuang-tech-lecture" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2019/04/09/tuning-the-go-http-client-library-for-load-testing/" class="article-date">
-  <time datetime="2019-04-08T16:00:00.000Z" itemprop="datePublished">2019-04-09</time>
+    <a href="/2019/06/06/balizhuang-tech-lecture/" class="article-date">
+  <time datetime="2019-06-06T08:13:21.232Z" itemprop="datePublished">2019-06-06</time>
 </a>
     
   </div>
@@ -78,7 +78,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      压力测试中的Go http Client 参数调优
+      八里庄技术沙龙——基于MySQL MGR读写一致性数据库架构详解
     </h1>
   
 
@@ -86,13 +86,13 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>原文： <a href="http://tleyden.github.io/blog/2016/11/21/tuning-the-go-http-client-library-for-load-testing/" target="_blank" rel="noopener">http://tleyden.github.io/blog/2016/11/21/tuning-the-go-http-client-library-for-load-testing/</a></p>
-<p>在Go中使用压力测试工具时，遇到了有数万个socket 处于TIME_WAIT的状态。<br>本文列出发生这种情况的几原因， 并给出了如何修复这种情况。<br><a id="more"></a></p>
-
+        <p>本次分享，将重点介绍滴滴自研基于 MGR 的读写强一致性数据库架构的设计思路及应用实践，在集群维度提供全局读取一致性，为金融交易场景提供了一套完善的解决方案，以及在 MGR 方向上的服务化实践及后续规划。</p>
+<p>田佳伟，来自滴滴出行的中间件开发专家。曾就职于百度、Thomson Reuters 等公司，现就职于滴滴，负责数据库产品的架构及研发工作；多年中间件和数据库开发经验，研究方向主要为分布式数据库系统的理论与实践。</p>
+<a id="more"></a>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://wanghe4096.github.io/2019/04/09/tuning-the-go-http-client-library-for-load-testing/" data-id="cjyjjgm24000cvqfyv3ofjuru" class="article-share-link">Share</a>
+      <a data-url="http://wanghe4096.github.io/2019/06/06/balizhuang-tech-lecture/" data-id="cjyjjgm26000evqfywfwqci80" class="article-share-link">Share</a>
       
       
     </footer>
@@ -101,19 +101,10 @@
     
 <nav id="article-nav">
   
-    <a href="/2019/04/13/autotools/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          用automake构建你的c项目
-        
-      </div>
-    </a>
   
-  
-    <a href="/2019/03/13/avoiding-memory-leak-in-golang-api/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2019/06/06/awesome-go-cn/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">在Golang API 中避免内存泄漏</div>
+      <div class="article-nav-title">Go 资源大全中文版</div>
     </a>
   
 </nav>
@@ -135,7 +126,7 @@
   var gitalk = new Gitalk({
     clientID: '676995b3169b0460f579',
     clientSecret: 'fcc2b957d39e2cf013d9289418e59a6e1740aa14',
-    id: "压力测试中的Go http Client 参数调优",
+    id: "八里庄技术沙龙——基于MySQL MGR读写一致性数据库架构详解",
     repo: 'wanghe4096.github.io',
     owner: 'wanghe4096',
     admin: 'wanghe4096',
