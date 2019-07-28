@@ -3,11 +3,11 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: 王贺的日志 
+title: 日拱一卒，功不唐捐
 subtitle:
-description: 后端技术博客
+description:
 keywords:
-author: 王贺 
+author: 王贺
 language:
 timezone:
 
@@ -43,16 +43,16 @@ highlight:
   line_number: true
   auto_detect: false
   tab_replace:
-  
+
 # Home page setting
 # path: Root path for your blogs index page. (default = '')
 # per_page: Posts displayed per page. (0 = disable pagination)
 # order_by: Posts order. (Order by date descending by default)
 index_generator:
-  path: ''
+  path: ""
   per_page: 10
   order_by: -date
-  
+
 # Category & Tag
 default_category: uncategorized
 category_map:
@@ -91,6 +91,3 @@ feed:
 social:
   github: https://github.com/wanghe4096
   weibo: https://weibo.com/3128659847
-
-
-  
