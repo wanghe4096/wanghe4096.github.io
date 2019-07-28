@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+
+<svg x="0px" height="1191.970325px" xmlns:xlink="http://www.w3.org/1999/xlink" y="0px" xmlns="http://www.w3.org/2000/svg" width="1685.199425px" version="1.1" viewBox="0 0 1685.199425 1191.970325">
+    <g ID="eUMLGClass_31CC0899-9442-43CE-A7DA-EC33AFEED7B2" dclass="DiaUMLClass" element_type="eUMLGClass">
+        <g>
+            <path d=" M 60.221881 144.923967 L 493.722646 144.923967 L 493.722646 490.828125 L 60.221881 490.828125 Z M 60.221881 144.923967" dclass="DKReshapableShape" stroke="#000000" stroke-opacity="1.000000" stroke-width="1.000000" fill="#000000" stroke-linecap="butt" fill-opacity="0.000000" stroke-linejoin="miter" ID="contour"></path>
+        </g>
+        <g dclass="NSArray">
+            <g partOfOwnerWidth="1.000000" paddingLeftRight="0.145335" column="0" row="0" spanRows="0" partOfOwnerHeight="0.320147" spanColumns="0" paddingMode="0" paddingTopBottom="0.048894" paddingTopBottomAbs="1.847124" paddingLeftRightAbs="45.983645" dclass="DiaTextCell">
+                <path d=" M 60.221881 144.923967 L 493.722646 144.923967 L 493.722646 255.664070 L 60.221881 255.664070 Z M 60.221881 144.923967" fill="#FFFFFF" fill-opacity="1.000000"></path>
+                <g>
+                    <text style="font-family:PingFang SC; font-size:24.000000; fill: #000000;" transform="matrix(1.000000,0.000000,-0.000000,1.000000,276.972263,192.044018)" text-anchor="middle">&lt;&lt; interface &gt;&gt;
+</text>
+                    <text style="font-family:PingFang SC; font-size:24.000000; fill: #000000;" transform="matrix(1.000000,0.000000,-0.000000,1.000000,276.972263,225.044018)" text-anchor="middle">Data Channel</text>
+                </g>
+            </g>
+            <g partOfOwnerWidth="1.000000" paddingLeftRight="0.145335" column="0" row="1" spanRows="0" partOfOwnerHeight="0.411896" spanColumns="0" paddingMode="0" paddingTopBottom="0.048894" paddingTopBottomAbs="1.847124" paddingLeftRightAbs="45.983645" dclass="DiaTextCell">
+                <path d=" M 60.221881 255.664070 L 493.722646 255.664070 L 493.722646 398.140636 L 60.221881 398.140636 Z M 60.221881 255.664070" fill="#FFFFFF" fill-opacity="1.000000"></path>
+                <g>
+                    <text style="font-family:PingFang SC; font-size:24.000000; fill: #000000;" transform="matrix(1.000000,0.000000,-0.000000,1.000000,276.972263,318.652353)" text-anchor="middle">+ Send(b byte)
+</text>
+                    <text style="font-family:PingFang SC; font-size:24.000000; fill: #000000;" transform="matrix(1.000000,0.000000,-0.000000,1.000000,276.972263,351.652353)" text-anchor="middle">+ Recv()</text>
+                </g>
+            </g>
+            <g partOfOwnerWidth="1.000000" paddingLeftRight="0.145335" column="0" row="2" spanRows="0" partOfOwnerHeight="0.267957" spanColumns="0" paddingMode="0" paddingTopBottom="0.048894" paddingTopBottomAbs="1.140871" paddingLeftRightAbs="45.983645" dclass="DiaTextCell">
+                <path d=" M 60.221881 398.140636 L 493.722646 398.140636 L 493.722646 490.828125 L 60.221881 490.828125 Z M 60.221881 398.140636" fill="#FFFFFF" fill-opacity="1.000000"></path>
+                <g></g>
+            </g>
+            <g dclass="NSArray">
+                <path d=" M 60.221881 255.664070 L 493.722646 255.664070" stroke-width="1.000000" stroke="#000000" stroke-opacity="1.000000"></path>
+                <path d=" M 60.221881 398.140636 L 493.722646 398.140636" stroke-width="1.000000" stroke="#000000" stroke-opacity="1.000000"></path>
+            </g>
+        </g>
+        <Hotspots>
+            <StickySpot id_sticky_spot="C8936034-5778-405A-9E86-DBCED4ACC341_32770" relative_location="{0.074269,0.500000}" position_kind="1"></StickySpot>
+            <StickySpot id_sticky_spot="C8936034-5778-405A-9E86-DBCED4ACC341_32768" relative_location="{-0.500000,0.000000}" position_kind="0"></StickySpot>
+            <StickySpot id_sticky_spot="C8936034-5778-405A-9E86-DBCED4ACC341_32769" relative_location="{0.500000,0.000000}" position_kind="0"></StickySpot>
+            <StickySpot id_sticky_spot="C8936034-5778-405A-9E86-DBCED4ACC341_32771" relative_location="{0.000000,-0.500000}" position_kind="0"></StickySpot>
+        </Hotspots>
+    </g>
+    <g ID="eUMLGClass_76AC7B90-2F5A-4137-9C23-9F925C6C32DA" dclass="DiaUMLClass" element_type="eUMLGClass">
+        <g>
+            <path d=" M 590.464073 144.631077 L 1015.660923 144.631077 L 1015.660923 489.244350 L 590.464073 489.244350 Z M 590.464073 144.631077" dclass="DKReshapableShape" stroke="#000000" stroke-opacity="1.000000" stroke-width="1.000000" fill="#000000" stroke-linecap="butt" fill-opacity="0.000000" stroke-linejoin="miter" ID="contour"></path>
+        </g>
+        <g dclass="NSArray">
+            <g partOfOwnerWidth="1.000000" paddingLeftRight="0.050000" column="0" row="0" spanRows="0" partOfOwnerHeight="0.323363" spanColumns="0" paddingMode="0" paddingTopBottom="0.050000" paddingTopBottomAbs="1.166667" paddingLeftRightAbs="4.500000" dclass="DiaTextCell">
+                <path d=" M 590.464073 144.631077 L 1015.660923 144.631077 L 1015.660923 256.066400 L 590.464073 256.066400 Z M 590.464073 144.631077" fill="#FFFFFF" fill-opacity="1.000000"></path>
+                <g>
+                    <text style="font-family:PingFang SC; font-size:24.000000; fill: #000000;" transform="matrix(1.000000,0.000000,-0.000000,1.000000,803.062498,192.098739)" text-anchor="middle">&lt;&lt; interface &gt;&gt;
+</text>
+                    <text style="font-family:PingFang SC; font-size:24.000000; fill: #000000;" transform="matrix(1.000000,0.000000,-0.000000,1.000000,803.062498,225.098739)" text-anchor="middle">Connection</text>
+                </g>
+            </g>
+            <g partOfOwnerWidth="1.000000" paddingLeftRight="0.050000" column="0" row="1" spanRows="0" partOfOwnerHeight="0.418284" spanColumns="0" paddingMode="0" paddingTopBottom="0.050000" paddingTopBottomAbs="1.166667" paddingLeftRightAbs="4.500000" dclass="DiaTextCell">
+                <path d=" M 590.464073 256.066400 L 1015.660923 256.066400 L 1015.660923 400.212769 L 590.464073 400.212769 Z M 590.464073 256.066400" fill="#FFFFFF" fill-opacity="1.000000"></path>
+                <g>
+                    <text style="font-family:PingFang SC; font-size:24.000000; fill: #000000;" transform="matrix(1.000000,0.000000,-0.000000,1.000000,803.062498,319.889585)" text-anchor="middle">+ Dial(pro string)
+</text>
+                    <text style="font-family:PingFang SC; font-size:24.000000; fill: #000000;" transform="matrix(1.000000,0.000000,-0.000000,1.000000,803.062498,352.889585)" text-anchor="middle">+ Hangup()</text>
+                </g>
+            </g>
+            <g partOfOwnerWidth="1.000000" paddingLeftRight="0.050000" column="0" row="2" spanRows="0" partOfOwnerHeight="0.258352" spanColumns="0" paddingMode="0" paddingTopBottom="0.050000" paddingTopBottomAbs="1.166667" paddingLeftRightAbs="4.500000" dclass="DiaTextCell">
+                <path d=" M 590.464073 400.212769 L 1015.660923 400.212769 L 1015.660923 489.244350 L 590.464073 489.244350 Z M 590.464073 400.212769" fill="#FFFFFF" fill-opacity="1.000000"></path>
+                <g></g>
+            </g>
+            <g dclass="NSArray">
+                <path d=" M 590.464073 256.066400 L 1015.660923 256.066400" stroke-width="1.000000" stroke="#000000" stroke-opacity="1.000000"></path>
+                <path d=" M 590.464073 400.212769 L 1015.660923 400.212769" stroke-width="1.000000" stroke="#000000" stroke-opacity="1.000000"></path>
+            </g>
+        </g>
+        <Hotspots>
+            <StickySpot id_sticky_spot="0ED77B5A-0339-44AD-9050-390F79947588_32770" relative_location="{0.000000,0.500000}" position_kind="0"></StickySpot>
+            <StickySpot id_sticky_spot="0ED77B5A-0339-44AD-9050-390F79947588_32768" relative_location="{-0.500000,0.000000}" position_kind="0"></StickySpot>
+            <StickySpot id_sticky_spot="0ED77B5A-0339-44AD-9050-390F79947588_32769" relative_location="{0.500000,0.000000}" position_kind="0"></StickySpot>
+            <StickySpot id_sticky_spot="0ED77B5A-0339-44AD-9050-390F79947588_32771" relative_location="{0.000000,-0.500000}" position_kind="0"></StickySpot>
+        </Hotspots>
+    </g>
+    <g ID="eUMLGRectangleLarge_1E17E2FF-015B-4BA3-9320-C6E0C5E43CEE" dclass="DiaElement" element_type="eUMLGRectangleLarge">
+        <path ID="contour_88AA3DCB-3CCA-457C-A3B4-FEFD88F6081D" d=" M 417.457029 603.371094 L 664.828105 603.371094 L 664.828105 704.050775 L 417.457029 704.050775 Z M 417.457029 603.371094" dclass="DKDrawableShape" fill-opacity="1.000000" fill="#FFFFFF"></path>
+        <path ID="eUMLGRectangleLarge_30B514F0-20C3-4B2C-A951-8E6AD049BB9F" d=" M 417.457029 603.371094 L 664.828105 603.371094 L 664.828105 704.050775 L 417.457029 704.050775 Z M 417.457029 603.371094" dclass="DKDrawableShape" stroke="#000000" stroke-opacity="1.000000" stroke-width="1.000000" fill="#000000" stroke-linecap="butt" fill-opacity="0.000000" stroke-linejoin="miter"></path>
+        <Hotspots>
+            <StickySpot id_sticky_spot="20619A82-54AE-4454-B696-76A8A8B33661_32774" relative_location="{0.500000,0.000000}" position_kind="2"></StickySpot>
+            <StickySpot id_sticky_spot="20619A82-54AE-4454-B696-76A8A8B33661_32772" relative_location="{-0.500000,0.000000}" position_kind="1"></StickySpot>
+            <StickySpot id_sticky_spot="20619A82-54AE-4454-B696-76A8A8B33661_32768" relative_location="{-0.500000,0.000000}" position_kind="0"></StickySpot>
+            <StickySpot id_sticky_spot="20619A82-54AE-4454-B696-76A8A8B33661_32769" relative_location="{0.500000,0.000000}" position_kind="0"></StickySpot>
+            <StickySpot id_sticky_spot="20619A82-54AE-4454-B696-76A8A8B33661_32770" relative_location="{0.000000,0.500000}" position_kind="0"></StickySpot>
+            <StickySpot id_sticky_spot="20619A82-54AE-4454-B696-76A8A8B33661_32771" relative_location="{0.000000,-0.500000}" position_kind="0"></StickySpot>
+            <StickySpot id_sticky_spot="20619A82-54AE-4454-B696-76A8A8B33661_32773" relative_location="{-0.500000,0.000000}" position_kind="2"></StickySpot>
+        </Hotspots>
+        <g>
+            <text style="font-family:PingFang SC; font-size:24.000000; fill: #000000;" transform="matrix(1.000000,0.000000,-0.000000,1.000000,541.142567,645.460935)" text-anchor="middle">Modem </text>
+            <text style="font-family:PingFang SC; font-size:24.000000; fill: #000000;" transform="matrix(1.000000,0.000000,-0.000000,1.000000,541.142567,678.460935)" text-anchor="middle">Implementation</text>
+        </g>
+    </g>
+    <defs></defs>
+    <g dclass="DiaConnector">
+        <g fill="none" enabled="1" ID="5B7148F7-64DF-41FB-B00D-272D22985CDE" dclass="DiaConnectorStyle">
+            <path d=" M 417.457022 653.210935 L 407.457029 653.210935 L 309.168077 653.210935 L 309.668077 653.710935 L 309.668077 593.371094 L 309.668077 500.828125 L 309.668077 500.369083 L 308.668077 500.369083 L 308.668077 500.828125 L 308.668077 593.371094 L 308.668077 653.710935 C 308.668077 653.987077 308.891935 654.210935 309.168077 654.210935 L 407.457029 654.210935 L 417.457022 654.210935 L 417.457022 653.210935 Z M 417.457022 653.210935" fill="#000000" dclass="DKArrowStroke"></path>
+            <path d=" M 309.168077 490.369083 L 305.268077 500.369084 L 313.068077 500.369083 Z M 309.168077 490.369083" stroke-width="1.00" stroke="#000000" fill="#FFFFFF" dclass="DKArrowStroke"></path>
+        </g>
+        <ConnectorEndPoint id_target_sticky_spot="20619A82-54AE-4454-B696-76A8A8B33661_32773" is_start="1" location="{417.45702177160354, 653.71093462981707}"></ConnectorEndPoint>
+        <ConnectorEndPoint id_target_sticky_spot="C8936034-5778-405A-9E86-DBCED4ACC341_32770" is_start="0" location="{309.16807693434305, 487.36908343715083}"></ConnectorEndPoint>
+        <text style="font-family:Helvetica; font-size:14.000000; fill: #000000;">
+            <textPath xlink:href="#302CD753-AD65-458E-A1E1-7236F39869F3" baseline-shift="0.000000" startOffset="0.000000%"></textPath>
+        </text>
+    </g>
+    <g dclass="DiaConnector">
+        <g fill="none" enabled="1" ID="4CFE4981-DC1D-488F-988E-9DCC63527C0D" dclass="DiaConnectorStyle">
+            <path d=" M 664.828112 654.210935 L 674.828105 654.210935 L 803.062498 654.210935 C 803.338640 654.210935 803.562498 653.987077 803.562498 653.710935 L 803.562498 593.371094 L 803.562498 500.828125 L 803.562498 499.244350 L 803.562498 498.798217 L 802.562498 498.798217 L 802.562498 499.244350 L 802.562498 500.828125 L 802.562498 593.371094 L 802.562498 653.710935 L 803.062498 653.210935 L 674.828105 653.210935 L 664.828112 653.210935 L 664.828112 654.210935 Z M 664.828112 654.210935" fill="#000000" dclass="DKArrowStroke"></path>
+            <path d=" M 803.062498 488.798217 L 799.162498 498.798217 L 806.962498 498.798217 Z M 803.062498 488.798217" stroke-width="1.00" stroke="#000000" fill="#FFFFFF" dclass="DKArrowStroke"></path>
+        </g>
+        <ConnectorEndPoint id_target_sticky_spot="20619A82-54AE-4454-B696-76A8A8B33661_32774" is_start="1" location="{664.82811211866567, 653.71093462981707}"></ConnectorEndPoint>
+        <ConnectorEndPoint id_target_sticky_spot="0ED77B5A-0339-44AD-9050-390F79947588_32770" is_start="0" location="{803.06249803725291, 485.79821706030361}"></ConnectorEndPoint>
+        <text style="font-family:Helvetica; font-size:14.000000; fill: #000000;">
+            <textPath xlink:href="#9508A300-4556-4AFF-A97D-FDDBF129B47E" baseline-shift="0.000000" startOffset="0.000000%"></textPath>
+        </text>
+    </g>
+</svg>
