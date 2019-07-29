@@ -5,20 +5,17 @@
   
 
   
-  <title>王贺的日志</title>
+  <title>日拱一卒，功不唐捐</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="后端技术博客">
-<meta property="og:type" content="website">
-<meta property="og:title" content="王贺的日志">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="日拱一卒，功不唐捐">
 <meta property="og:url" content="http://wanghe4096.github.io/page/2/index.html">
-<meta property="og:site_name" content="王贺的日志">
-<meta property="og:description" content="后端技术博客">
+<meta property="og:site_name" content="日拱一卒，功不唐捐">
 <meta property="og:locale" content="default">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="王贺的日志">
-<meta name="twitter:description" content="后端技术博客">
+<meta name="twitter:title" content="日拱一卒，功不唐捐">
   
-    <link rel="alternate" href="/atom.xml" title="王贺的日志" type="application/atom+xml">
+    <link rel="alternate" href="/atom.xml" title="日拱一卒，功不唐捐" type="application/atom+xml">
   
   
     <link rel="icon" href="/favicon.png">
@@ -37,7 +34,7 @@
   <div id="header-outer" class="outer">
     <div id="header-title" class="inner">
       <h1 id="logo-wrap">
-        <a href="/" id="logo">王贺的日志</a>
+        <a href="/" id="logo">日拱一卒，功不唐捐</a>
       </h1>
       
     </div>
@@ -64,6 +61,107 @@
 </header>
       <div class="outer">
         <section id="main">
+  
+    <article id="post-trie-tree" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/05/12/trie-tree/" class="article-date">
+  <time datetime="2019-05-11T16:00:00.000Z" itemprop="datePublished">2019-05-12</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/05/12/trie-tree/">前缀树</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Trie 树，又叫字典树、前缀树（Prefix Tree) 、单词查找树或键树，是一种多叉树结构.如图：<br><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/be/Trie_example.svg/500px-Trie_example.svg.png" alt></p>
+<p>上图是一棵Trie 树， 表示了关键字集合{“a”, “to”, “tea”, “ted”, “ten”, “i”, “in” , “inn”}</p>
+<ol>
+<li>根结点不包含字符， 除根节点外的每一个子节点都包含一个字符。 </li>
+<li>从根节点到某一个节点， 路径上经过的字符连接起来， 为该节点对应的字符串。 </li>
+<li>每个节点的所有子节点包含的字符互不相同。 </li>
+</ol>
+<p>通常在实现的时候， 会在节点结构中设置一个标志， 用来标记该结点处是否构成一个单词(关键字)。 </p>
+<p>可以看出，Trie树的关键字一般都是字符串，而且Trie树把每个关键字保存在一条路径上，而不是一个结点中。另外，两个有公共前缀的关键字，在Trie树中前缀部分的路径相同，所以Trie树又叫做前缀树（Prefix Tree）</p>
+<p>Trie树的核心思想是空间换时间，利用字符串的公共前缀来减少无谓的字符串比较以达到提高查询效率的目的。<br>
+        
+          </p><p class="article-more-link">
+            <a href="/2019/05/12/trie-tree/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://wanghe4096.github.io/2019/05/12/trie-tree/" data-id="cjyo345ps000c25fyh82y5rd6" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+  
+    <article id="post-go-dynamic-nginx-router" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/04/20/go-dynamic-nginx-router/" class="article-date">
+  <time datetime="2019-04-19T16:00:00.000Z" itemprop="datePublished">2019-04-20</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/04/20/go-dynamic-nginx-router/">(译) 基于Go的动态Nginx 路由</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="导读"><a href="#导读" class="headerlink" title="导读"></a>导读</h2><p>在Nitro 中， 我们需要一款专业的负载均衡器。 经过一番研究之后，Mihai Todor和我构建了基于Nginx、Redis 协议和Go-based 请路由器解决方案，其中nginx负责所有繁重工作，路由器本身并不承载流量。 这个解决方案在过去一年的生产环境中运行顺畅。 以下是我们所做的工作以及我们为什么那样做。<br>
+        
+          </p><p class="article-more-link">
+            <a href="/2019/04/20/go-dynamic-nginx-router/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://wanghe4096.github.io/2019/04/20/go-dynamic-nginx-router/" data-id="cjyo345q0000h25fy8mtwj0cz" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+
+
   
     <article id="post-autotools" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
@@ -97,7 +195,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://wanghe4096.github.io/2019/04/13/autotools/" data-id="cjyjjijxs00020dfyhe9rfj4j" class="article-share-link">Share</a>
+      <a data-url="http://wanghe4096.github.io/2019/04/13/autotools/" data-id="cjyo345pb000025fy5x34l1aj" class="article-share-link">Share</a>
       
       
     </footer>
@@ -145,7 +243,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://wanghe4096.github.io/2019/04/13/writing-a-simple-json-parser/" data-id="cjyjjijyh000h0dfyjrc2jhxh" class="article-share-link">Share</a>
+      <a data-url="http://wanghe4096.github.io/2019/04/13/writing-a-simple-json-parser/" data-id="cjyo345q1000j25fyyc7jg6eh" class="article-share-link">Share</a>
       
       
     </footer>
@@ -192,7 +290,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://wanghe4096.github.io/2019/04/09/tuning-the-go-http-client-library-for-load-testing/" data-id="cjyjjijy6000c0dfy73s8ae78" class="article-share-link">Share</a>
+      <a data-url="http://wanghe4096.github.io/2019/04/09/tuning-the-go-http-client-library-for-load-testing/" data-id="cjyo345pu000e25fysgbwy435" class="article-share-link">Share</a>
       
       
     </footer>
@@ -241,7 +339,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://wanghe4096.github.io/2019/03/13/avoiding-memory-leak-in-golang-api/" data-id="cjyjjijye000e0dfyis7tpp2k" class="article-share-link">Share</a>
+      <a data-url="http://wanghe4096.github.io/2019/03/13/avoiding-memory-leak-in-golang-api/" data-id="cjyo345pz000f25fy69z52bt1" class="article-share-link">Share</a>
       
       
     </footer>
@@ -289,7 +387,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://wanghe4096.github.io/2019/02/21/gotchas-and-common-mistakes-in-go-golang/" data-id="cjyjjijy100080dfyy80ceilk" class="article-share-link">Share</a>
+      <a data-url="http://wanghe4096.github.io/2019/02/21/gotchas-and-common-mistakes-in-go-golang/" data-id="cjyo345pk000725fyg6mew3u2" class="article-share-link">Share</a>
       
       
     </footer>
@@ -336,7 +434,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://wanghe4096.github.io/2019/02/11/context-and-cancellation-of-goroutines/" data-id="cjyjjijxt00030dfyorzou7y1" class="article-share-link">Share</a>
+      <a data-url="http://wanghe4096.github.io/2019/02/11/context-and-cancellation-of-goroutines/" data-id="cjyo345ph000325fy045i2td9" class="article-share-link">Share</a>
       
       
     </footer>
@@ -400,7 +498,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://wanghe4096.github.io/2019/02/01/gophercon-2018-binary-search-tree-algorithms/" data-id="cjyjjijy000070dfy106nsx98" class="article-share-link">Share</a>
+      <a data-url="http://wanghe4096.github.io/2019/02/01/gophercon-2018-binary-search-tree-algorithms/" data-id="cjyo345pj000625fyhi4h0gi0" class="article-share-link">Share</a>
       
       
     </footer>
@@ -484,112 +582,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://wanghe4096.github.io/2019/01/14/alogrithm_linklist/" data-id="cjyjjijxq00010dfyelcb1x63" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-  
-    <article id="post-go2-draft-error-handling-problem-overview" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/01/10/go2-draft-error-handling-problem-overview/" class="article-date">
-  <time datetime="2019-01-09T16:00:00.000Z" itemprop="datePublished">2019-01-10</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/01/10/go2-draft-error-handling-problem-overview/">Go2设计草案——错误处理问题概述</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>原文地址：[Go2 设计草案–错误处理] <a href="https://go.googlesource.com/proposal/+/master/design/go2draft-error-handling-overview.md" target="_blank" rel="noopener">https://go.googlesource.com/proposal/+/master/design/go2draft-error-handling-overview.md</a> </p>
-<p>Russ Cox</p>
-<p>August 27, 2018</p>
-<h1 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h1><p>本概述内容和附属的详细设计草案是Go2设计草案文档的一部分。 Go2相关工作的总体目标是解决Go1在大型代码码与大型团队面临的困境和难题。</p>
-<p>其中一方面， Go开发程序在处理错误检查和错误处理代码灵活扩展的问题。 在一般的go程序中，充斥着大量错误检查代码和没有足够的代码检查错误。 （这将在下面提及) . 设计草案目标指在通过引入比当前贯用的错误处理方法更加轻量的语法来解决此问题。 </p>
-<p>作为Go2 设计草案的一部分， 作为一个单独的问题， 我们还在考虑更改错误值的语义，但本文仅涉及错误检查和处理。 </p>
-<h1 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h1><p>为了扩展到大型代码库， Go程序必须轻量，不能过度重复， 并且还要健壮，优雅的错误处理方式。 </p>
-<p>在Go的设计中， 我们有意识的选择使用显式错误结果和显式错误检查 。 相比之下， C语言通常使用显式检查隐式错误结果，而在许多其他语言中（包括c++, c#,java和Python) ， 发现的异常处理都是隐式表达隐式结果。 </p>
-<p>Raymond Chen的博客文章中关于隐式检查的论述更有微妙之处。 “更整洁、更优雅、更难以识别“（2005） 。 本质上， 由于权本看不陷式检查， 所以很难通过检查验证错误处理代码在检查失败时正确地从程序状态恢复。  </p>
-<p>例如： 考虑一下如下代码， 用Go的伪代码来描述抛出异常：</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">CopyFile</span><span class="params">(src, dst <span class="keyword">string</span>)</span> <span class="title">throws</span> <span class="title">error</span></span> &#123;</span><br><span class="line">	r := os.Open(src)</span><br><span class="line">	<span class="keyword">defer</span> r.Close()</span><br><span class="line"></span><br><span class="line">	w := os.Create(dst)</span><br><span class="line">	io.Copy(w, r)</span><br><span class="line">	w.Close()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://wanghe4096.github.io/2019/01/10/go2-draft-error-handling-problem-overview/" data-id="cjyjjijxy00060dfynwuxbd11" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-  
-    <article id="post-go2-draft-designs" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/01/01/go2-draft-designs/" class="article-date">
-  <time datetime="2018-12-31T16:00:00.000Z" itemprop="datePublished">2019-01-01</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/01/01/go2-draft-designs/">Go 2 设计草案(译)</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>原文： <a href="https://go.googlesource.com/proposal/+/master/design/go2draft.md" target="_blank" rel="noopener">Go 2 draft Designs </a></p>
-<p>作为Go 2设计过程五的一部分， 我们发布了这些设计草案，并在社区开始讨论关于以下三个主题： </p>
-<ul>
-<li>泛型 </li>
-<li>错误处理</li>
-<li>错误值语议</li>
-</ul>
-<p>这些草案并非提案流程中的提案。 它们作为发起计论的起点， 最终目的是能够产生足好的设计，以便转化实际可落地的提案。<br>
-        
-          </p><p class="article-more-link">
-            <a href="/2019/01/01/go2-draft-designs/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://wanghe4096.github.io/2019/01/01/go2-draft-designs/" data-id="cjyjjijxw00050dfy93zcwens" class="article-share-link">Share</a>
+      <a data-url="http://wanghe4096.github.io/2019/01/14/alogrithm_linklist/" data-id="cjyo345pe000125fyyxj5skij" class="article-share-link">Share</a>
       
       
     </footer>
@@ -627,7 +620,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">September 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a></li></ul>
     </div>
   </div>
 
@@ -640,6 +633,14 @@
       <ul>
         
           <li>
+            <a href="/2019/09/28/principle-of-ood/">再谈面象对向的设计原则</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/26/principle-of-design /">七条设计原则与应用实践</a>
+          </li>
+        
+          <li>
             <a href="/2019/06/06/awesome-go-cn/">Go 资源大全中文版</a>
           </li>
         
@@ -649,14 +650,6 @@
         
           <li>
             <a href="/2019/06/05/2019-06-05/">三百个国外优秀网站</a>
-          </li>
-        
-          <li>
-            <a href="/2019/05/24/2019-05-24/">本周阅读</a>
-          </li>
-        
-          <li>
-            <a href="/2019/05/22/关于python/">第1章 Python 入门（Day 1）</a>
           </li>
         
       </ul>

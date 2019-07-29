@@ -5,13 +5,13 @@
   
 
   
-  <title>Gophercon 2018 - 简明二叉搜索树 | 王贺的日志</title>
+  <title>Gophercon 2018 - 简明二叉搜索树 | 日拱一卒，功不唐捐</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="译文原文： https://about.sourcegraph.com/go/gophercon-2018-binary-search-tree-algorithms/ 算法学习一直是一件另沮丧和头疼的事，事实上并非如此， 这次分享中， Kaylyn 使用go语言来解释二叉搜索树算法。    介绍Kaylyn 在最近几年才开始对算法开始产生兴趣， 算法对你来说似乎很奇怪， 尤其对Kaylyn来说，">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Gophercon 2018 - 简明二叉搜索树">
 <meta property="og:url" content="http://wanghe4096.github.io/2019/02/01/gophercon-2018-binary-search-tree-algorithms/index.html">
-<meta property="og:site_name" content="王贺的日志">
+<meta property="og:site_name" content="日拱一卒，功不唐捐">
 <meta property="og:description" content="译文原文： https://about.sourcegraph.com/go/gophercon-2018-binary-search-tree-algorithms/ 算法学习一直是一件另沮丧和头疼的事，事实上并非如此， 这次分享中， Kaylyn 使用go语言来解释二叉搜索树算法。    介绍Kaylyn 在最近几年才开始对算法开始产生兴趣， 算法对你来说似乎很奇怪， 尤其对Kaylyn来说，">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://user-images.githubusercontent.com/9022011/44757761-fdfd3100-aaed-11e8-8efb-bcac3d9aebb4.png">
@@ -21,7 +21,7 @@
 <meta name="twitter:description" content="译文原文： https://about.sourcegraph.com/go/gophercon-2018-binary-search-tree-algorithms/ 算法学习一直是一件另沮丧和头疼的事，事实上并非如此， 这次分享中， Kaylyn 使用go语言来解释二叉搜索树算法。    介绍Kaylyn 在最近几年才开始对算法开始产生兴趣， 算法对你来说似乎很奇怪， 尤其对Kaylyn来说，">
 <meta name="twitter:image" content="https://user-images.githubusercontent.com/9022011/44757761-fdfd3100-aaed-11e8-8efb-bcac3d9aebb4.png">
   
-    <link rel="alternate" href="/atom.xml" title="王贺的日志" type="application/atom+xml">
+    <link rel="alternate" href="/atom.xml" title="日拱一卒，功不唐捐" type="application/atom+xml">
   
   
     <link rel="icon" href="/favicon.png">
@@ -40,7 +40,7 @@
   <div id="header-outer" class="outer">
     <div id="header-title" class="inner">
       <h1 id="logo-wrap">
-        <a href="/" id="logo">王贺的日志</a>
+        <a href="/" id="logo">日拱一卒，功不唐捐</a>
       </h1>
       
     </div>
@@ -115,7 +115,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://wanghe4096.github.io/2019/02/01/gophercon-2018-binary-search-tree-algorithms/" data-id="cjyjjijy000070dfy106nsx98" class="article-share-link">Share</a>
+      <a data-url="http://wanghe4096.github.io/2019/02/01/gophercon-2018-binary-search-tree-algorithms/" data-id="cjyo345pj000625fyhi4h0gi0" class="article-share-link">Share</a>
       
       
     </footer>
@@ -186,7 +186,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">September 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a></li></ul>
     </div>
   </div>
 
@@ -199,6 +199,14 @@
       <ul>
         
           <li>
+            <a href="/2019/09/28/principle-of-ood/">再谈面象对向的设计原则</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/26/principle-of-design /">七条设计原则与应用实践</a>
+          </li>
+        
+          <li>
             <a href="/2019/06/06/awesome-go-cn/">Go 资源大全中文版</a>
           </li>
         
@@ -208,14 +216,6 @@
         
           <li>
             <a href="/2019/06/05/2019-06-05/">三百个国外优秀网站</a>
-          </li>
-        
-          <li>
-            <a href="/2019/05/24/2019-05-24/">本周阅读</a>
-          </li>
-        
-          <li>
-            <a href="/2019/05/22/关于python/">第1章 Python 入门（Day 1）</a>
           </li>
         
       </ul>
