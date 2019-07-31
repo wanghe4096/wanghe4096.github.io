@@ -62,6 +62,154 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-gophercon-2018-binary-search-tree-algorithms" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/02/01/gophercon-2018-binary-search-tree-algorithms/" class="article-date">
+  <time datetime="2019-01-31T16:00:00.000Z" itemprop="datePublished">2019-02-01</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/02/01/gophercon-2018-binary-search-tree-algorithms/">Gophercon 2018 - 简明二叉搜索树</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>译文原文： <a href="https://about.sourcegraph.com/go/gophercon-2018-binary-search-tree-algorithms/" target="_blank" rel="noopener">https://about.sourcegraph.com/go/gophercon-2018-binary-search-tree-algorithms/</a></p>
+<p>算法学习一直是一件另沮丧和头疼的事，事实上并非如此， 这次分享中， Kaylyn 使用go语言来解释二叉搜索树算法。   </p>
+<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>Kaylyn 在最近几年才开始对算法开始产生兴趣， 算法对你来说似乎很奇怪， 尤其对Kaylyn来说，更显示怪异， 大学时Kaylyn非常讨厌学习算法课程。 她的教授总是用一些诲涩难懂的专业名词来解析一个很明显的概念。 最终结果是他只能学到足够的知识， 通过她的工作面试并继续她的剩余的职业生涯。  </p>
+<p>她对算法态度的转变， 缘于她曾经用Go语言重新实现这些算法时。   将那些用C++和java实现的算法用Go语言实现，另人意外的容易， 这是她继大学毕业之后，对算法有了更深刻的理解。  </p>
+<p>Kaylyn 将会解释关于什么是二叉搜索树和怎样在Go中实现这一算法。  但在这之前我们先要搞清楚为什么我们在学习算法的过程中感到如此糟糕。  </p>
+<p><img src="https://user-images.githubusercontent.com/9022011/44757761-fdfd3100-aaed-11e8-8efb-bcac3d9aebb4.png" alt="ffff"></p>
+<p>这张截图来源于CLRS(算法导论）介绍二叉树的算法的章节。 CLRS被认为是算法书籍中的“圣经“， 在作者看来，  在这本书1989年出版之前， 并没有一本算法较好的算法教材。<br>然而，任何读过CLRS的读者都可以看出来， 这本书是由那些具有学术思想的教授们编写的。   </p>
+<p>示例 ： </p>
+<ul>
+<li>本文提及了一些其他地方使用的专业术语， 所以你需要理解像下面内容： <ul>
+<li>什么是卫星数据</li>
+<li>什么是链表</li>
+<li>先序遍历和后序遍历是什么意思</li>
+</ul>
+</li>
+</ul>
+<p>如果你没有在书中作过笔记， 你可以就不知道这些是什么</p>
+<ul>
+<li><p>如果你和Kaylyn 一样， 你第一要做的事就是从书中找到这些代码。 然而， 这些代码只是解释了二叉树的遍历， 这并不是一个真正的二叉搜索树。</p>
+</li>
+<li><p>这一部分的底下的四分之一都定理和证明。 </p>
+</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://wanghe4096.github.io/2019/02/01/gophercon-2018-binary-search-tree-algorithms/" data-id="cjyqpxmx50006jffylscck46m" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+  
+    <article id="post-alogrithm_linklist" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/01/14/alogrithm_linklist/" class="article-date">
+  <time datetime="2019-01-13T16:00:00.000Z" itemprop="datePublished">2019-01-14</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/01/14/alogrithm_linklist/">基础数据结构--链表</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h1><p>这篇文章重点在于描述一个链表的设计和实现</p>
+<h2 id="链表的数据结构"><a href="#链表的数据结构" class="headerlink" title="链表的数据结构"></a>链表的数据结构</h2><ul>
+<li><font color="green"> <strong>单链表</strong> </font>
+
+<p>  最简单的链表。 元素之间由一个单独的指针链接。 这种结构的链表允许从第一个元素开始遍历到最后一个元素。</p>
+</li>
+</ul>
+<ul>
+<li><font color="green"> <strong>双向链表</strong> </font>
+
+<p>  这种形式的链表元素之间通过两个指针链接。 双向链表可以正向遍历， 也可以反向遍历。 </p>
+</li>
+<li><font color="green"> <strong>循环链表</strong> </font>
+
+<p>  这种形式的链表最后个元素的指针指向链表的首元素， 而不是设置为NULL。 这种结构的链表允许循环遍历。 </p>
+</li>
+</ul>
+<h2 id="链表的应用场景："><a href="#链表的应用场景：" class="headerlink" title="链表的应用场景："></a>链表的应用场景：</h2><ul>
+<li><font color="green"> <strong>滚动列表</strong> </font>
+
+<p>  图形用户界面中常能看到这种组件。 通常在滚动列表中与每个条目相关的数据并不显示出来。 一种管理这种“隐藏”数据的方式是维护一个链表， 链表中每个元素保存一个在滚动列表中出现的条目数据。</p>
+</li>
+<li><font color="green"> <strong>多项式计算</strong></font>
+
+<p>  数学中的一个重要组成部分。 但对于大多数编程语言来说，并没有将其作为原生的数据类型加以支持。如果让链表中的每个元素存储多项式中的一项， 那么链表对于表示一个多项式是非常有用的,比如 $3x^2+2x+1$</p>
+</li>
+<li><font color="green"><strong>内存管理</strong></font>
+
+<p>  内存管理是操作系统中一个重要组成部分。 操作系统必须决定如何为系统中运行的进程分配和回收存储空间。 链表能够用来跟踪可供分配的内存片段信息。 </p>
+</li>
+<li><font color="green"><strong>文件的链式分配</strong></font>
+
+<p>  为了消除磁盘上的外部碎片而采用的一种文件分配方式， 但只适合于顺序访问。 文件按照块的方式进行组织， 每一块都包含一个指向文件下一块数据指针。 </p>
+</li>
+<li><font color="green"><strong>其他数据结构</strong></font>
+
+<p>  有一些数据结构的实现需要依赖于链表， 它们是栈、队列、集合、哈希表和图。 </p>
+</li>
+</ul>
+        
+          <p class="article-more-link">
+            <a href="/2019/01/14/alogrithm_linklist/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://wanghe4096.github.io/2019/01/14/alogrithm_linklist/" data-id="cjyqpxmx10003jffyk8fvwzip" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+  
     <article id="post-go2-draft-error-handling-problem-overview" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/01/10/go2-draft-error-handling-problem-overview/" class="article-date">
@@ -99,7 +247,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://wanghe4096.github.io/2019/01/10/go2-draft-error-handling-problem-overview/" data-id="cjyo345pj000525fyverikfrb" class="article-share-link">Share</a>
+      <a data-url="http://wanghe4096.github.io/2019/01/10/go2-draft-error-handling-problem-overview/" data-id="cjyqpxmx60008jffyuxl1kug6" class="article-share-link">Share</a>
       
       
     </footer>
@@ -152,7 +300,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://wanghe4096.github.io/2019/01/01/go2-draft-designs/" data-id="cjyo345pi000425fyzwocgxqm" class="article-share-link">Share</a>
+      <a data-url="http://wanghe4096.github.io/2019/01/01/go2-draft-designs/" data-id="cjyqpxmx60007jffylc1gku23" class="article-share-link">Share</a>
       
       
     </footer>
@@ -198,7 +346,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://wanghe4096.github.io/2018/04/13/yangming-note/" data-id="cjyo345pt000d25fypvelvq4g" class="article-share-link">Share</a>
+      <a data-url="http://wanghe4096.github.io/2018/04/13/yangming-note/" data-id="cjyqpxmxd000gjffym3vmsrj4" class="article-share-link">Share</a>
       
       
     </footer>
@@ -253,19 +401,19 @@
           </li>
         
           <li>
+            <a href="/2019/07/31/study-mongodb/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/30/api-design-guide/">(no title)</a>
+          </li>
+        
+          <li>
             <a href="/2019/07/26/principle-of-design /">七条设计原则与应用实践</a>
           </li>
         
           <li>
             <a href="/2019/06/06/awesome-go-cn/">Go 资源大全中文版</a>
-          </li>
-        
-          <li>
-            <a href="/2019/06/05/developer_getting_started/">开发者零基础入门教程</a>
-          </li>
-        
-          <li>
-            <a href="/2019/06/05/2019-06-05/">三百个国外优秀网站</a>
           </li>
         
       </ul>
