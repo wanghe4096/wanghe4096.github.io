@@ -126,7 +126,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://wanghe4096.github.io/2019/05/22/关于python/" data-id="cjythgdxu000pu3fymq72tcma" class="article-share-link">Share</a>
+      <a data-url="http://wanghe4096.github.io/2019/05/22/关于python/" data-id="cjythz0m6000pi4fykucxfg8s" class="article-share-link">Share</a>
       
       
     </footer>
@@ -173,7 +173,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://wanghe4096.github.io/2019/05/14/mit_alogrithm_introduce/" data-id="cjythgdxc000cu3fy5t8bfmqt" class="article-share-link">Share</a>
+      <a data-url="http://wanghe4096.github.io/2019/05/14/mit_alogrithm_introduce/" data-id="cjythz0ll000bi4fy16kzouvj" class="article-share-link">Share</a>
       
       
     </footer>
@@ -223,7 +223,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://wanghe4096.github.io/2019/05/14/desgin-pattern/" data-id="cjythgdxm000ku3fyig4ymdlm" class="article-share-link">Share</a>
+      <a data-url="http://wanghe4096.github.io/2019/05/14/desgin-pattern/" data-id="cjythz0ly000ki4fyjaf93rwi" class="article-share-link">Share</a>
       
       
     </footer>
@@ -272,7 +272,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://wanghe4096.github.io/2019/05/13/redis-jump-list/" data-id="cjythgdxd000du3fydw9i51ew" class="article-share-link">Share</a>
+      <a data-url="http://wanghe4096.github.io/2019/05/13/redis-jump-list/" data-id="cjythz0ln000di4fyhcp39w4b" class="article-share-link">Share</a>
       
       
     </footer>
@@ -327,7 +327,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://wanghe4096.github.io/2019/05/12/trie-tree/" data-id="cjythgdxg000iu3fylcsrts7d" class="article-share-link">Share</a>
+      <a data-url="http://wanghe4096.github.io/2019/05/12/trie-tree/" data-id="cjythz0lo000fi4fy0lc1u458" class="article-share-link">Share</a>
       
       
     </footer>
@@ -373,54 +373,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://wanghe4096.github.io/2019/04/20/go-dynamic-nginx-router/" data-id="cjythgdxn000lu3fyizvxcs4n" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-  
-    <article id="post-autotools" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/04/13/autotools/" class="article-date">
-  <time datetime="2019-04-12T16:00:00.000Z" itemprop="datePublished">2019-04-13</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/04/13/autotools/">用automake构建你的c项目</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>作为Linux下的程序开发人员，大家都一定遇到过Makefile, 用make命令来编译自己写的程序确实很方便。 一般情况下， 大家都是手工写一个简单的Makefile.例如<br><figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">CC		:= gcc</span><br><span class="line">C_FLAGS := -Wall -Wextra</span><br><span class="line"></span><br><span class="line">BIN		:= bin</span><br><span class="line">SRC		:= src</span><br><span class="line">INCLUDE	:= <span class="keyword">include</span></span><br><span class="line">LIB		:= lib</span><br><span class="line"></span><br><span class="line">LIBRARIES	:= <span class="variable">$(LIB)</span>/ncurses-6.1</span><br><span class="line"></span><br><span class="line"><span class="keyword">ifeq</span> (<span class="variable">$(OS)</span>,Windows_NT)</span><br><span class="line">EXECUTABLE	:= main.exe</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">EXECUTABLE	:= main</span><br><span class="line"><span class="keyword">endif</span></span><br><span class="line"></span><br><span class="line"><span class="section">all: <span class="variable">$(BIN)</span>/<span class="variable">$(EXECUTABLE)</span></span></span><br><span class="line"></span><br><span class="line"><span class="section">clean:</span></span><br><span class="line">	-<span class="variable">$(RM)</span> <span class="variable">$(BIN)</span>/<span class="variable">$(EXECUTABLE)</span></span><br><span class="line"></span><br><span class="line"><span class="section">run: all</span></span><br><span class="line">	./<span class="variable">$(BIN)</span>/<span class="variable">$(EXECUTABLE)</span></span><br><span class="line"></span><br><span class="line"><span class="variable">$(BIN)</span>/<span class="variable">$(EXECUTABLE)</span>: <span class="variable">$(SRC)</span>/*</span><br><span class="line">	<span class="variable">$(CC)</span> <span class="variable">$(C_FLAGS)</span> -I<span class="variable">$(INCLUDE)</span> -L<span class="variable">$(LIB)</span> <span class="variable">$^</span> -o <span class="variable">$@</span> <span class="variable">$(LIBRARIES)</span></span><br></pre></td></tr></table></figure></p>
-<p>本文中， 介绍如何使用autoconf和automake工具来帮助我们自动生成符合自由软件惯例的makefile. 这样可以象常见的GNU程序一样， 只要使用”./configure”, “make”, “make install” 就可以安装l到inux系统。 我们常用的一些开源项目都是用这套工具来管理其项目构建过程的， 如redis、openssl、libcurl、nucurses等开源项目。<br>本文描述了利用autotools 来编写一个hello world的程序过程。 </p>
-        
-          <p class="article-more-link">
-            <a href="/2019/04/13/autotools/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://wanghe4096.github.io/2019/04/13/autotools/" data-id="cjythgdx00003u3fyslusn8io" class="article-share-link">Share</a>
+      <a data-url="http://wanghe4096.github.io/2019/04/20/go-dynamic-nginx-router/" data-id="cjythz0lz000li4fy08r4fmry" class="article-share-link">Share</a>
       
       
     </footer>
@@ -468,7 +421,54 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://wanghe4096.github.io/2019/04/13/writing-a-simple-json-parser/" data-id="cjythgdxo000nu3fy152sybha" class="article-share-link">Share</a>
+      <a data-url="http://wanghe4096.github.io/2019/04/13/writing-a-simple-json-parser/" data-id="cjythz0m0000ni4fypfan97nz" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+  
+    <article id="post-autotools" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/04/13/autotools/" class="article-date">
+  <time datetime="2019-04-12T16:00:00.000Z" itemprop="datePublished">2019-04-13</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/04/13/autotools/">用automake构建你的c项目</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>作为Linux下的程序开发人员，大家都一定遇到过Makefile, 用make命令来编译自己写的程序确实很方便。 一般情况下， 大家都是手工写一个简单的Makefile.例如<br><figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">CC		:= gcc</span><br><span class="line">C_FLAGS := -Wall -Wextra</span><br><span class="line"></span><br><span class="line">BIN		:= bin</span><br><span class="line">SRC		:= src</span><br><span class="line">INCLUDE	:= <span class="keyword">include</span></span><br><span class="line">LIB		:= lib</span><br><span class="line"></span><br><span class="line">LIBRARIES	:= <span class="variable">$(LIB)</span>/ncurses-6.1</span><br><span class="line"></span><br><span class="line"><span class="keyword">ifeq</span> (<span class="variable">$(OS)</span>,Windows_NT)</span><br><span class="line">EXECUTABLE	:= main.exe</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">EXECUTABLE	:= main</span><br><span class="line"><span class="keyword">endif</span></span><br><span class="line"></span><br><span class="line"><span class="section">all: <span class="variable">$(BIN)</span>/<span class="variable">$(EXECUTABLE)</span></span></span><br><span class="line"></span><br><span class="line"><span class="section">clean:</span></span><br><span class="line">	-<span class="variable">$(RM)</span> <span class="variable">$(BIN)</span>/<span class="variable">$(EXECUTABLE)</span></span><br><span class="line"></span><br><span class="line"><span class="section">run: all</span></span><br><span class="line">	./<span class="variable">$(BIN)</span>/<span class="variable">$(EXECUTABLE)</span></span><br><span class="line"></span><br><span class="line"><span class="variable">$(BIN)</span>/<span class="variable">$(EXECUTABLE)</span>: <span class="variable">$(SRC)</span>/*</span><br><span class="line">	<span class="variable">$(CC)</span> <span class="variable">$(C_FLAGS)</span> -I<span class="variable">$(INCLUDE)</span> -L<span class="variable">$(LIB)</span> <span class="variable">$^</span> -o <span class="variable">$@</span> <span class="variable">$(LIBRARIES)</span></span><br></pre></td></tr></table></figure></p>
+<p>本文中， 介绍如何使用autoconf和automake工具来帮助我们自动生成符合自由软件惯例的makefile. 这样可以象常见的GNU程序一样， 只要使用”./configure”, “make”, “make install” 就可以安装l到inux系统。 我们常用的一些开源项目都是用这套工具来管理其项目构建过程的， 如redis、openssl、libcurl、nucurses等开源项目。<br>本文描述了利用autotools 来编写一个hello world的程序过程。 </p>
+        
+          <p class="article-more-link">
+            <a href="/2019/04/13/autotools/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://wanghe4096.github.io/2019/04/13/autotools/" data-id="cjythz0ld0003i4fyv5dnoprq" class="article-share-link">Share</a>
       
       
     </footer>
@@ -515,7 +515,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://wanghe4096.github.io/2019/04/09/tuning-the-go-http-client-library-for-load-testing/" data-id="cjythgdxe000fu3fyxfic7acq" class="article-share-link">Share</a>
+      <a data-url="http://wanghe4096.github.io/2019/04/09/tuning-the-go-http-client-library-for-load-testing/" data-id="cjythz0lp000hi4fyvi3iaqb6" class="article-share-link">Share</a>
       
       
     </footer>
@@ -564,7 +564,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://wanghe4096.github.io/2019/03/13/avoiding-memory-leak-in-golang-api/" data-id="cjythgdxm000ju3fy40zwj2ou" class="article-share-link">Share</a>
+      <a data-url="http://wanghe4096.github.io/2019/03/13/avoiding-memory-leak-in-golang-api/" data-id="cjythz0ly000ji4fyxsz7fogu" class="article-share-link">Share</a>
       
       
     </footer>
@@ -615,7 +615,15 @@
       <ul>
         
           <li>
+            <a href="/2019/08/02/study-mongodb/">(no title)</a>
+          </li>
+        
+          <li>
             <a href="/2019/08/02/refine/">日拱一卒</a>
+          </li>
+        
+          <li>
+            <a href="/2019/08/02/developer_getting_started/">开发者零基础入门教程</a>
           </li>
         
           <li>
@@ -623,15 +631,7 @@
           </li>
         
           <li>
-            <a href="/2019/07/31/study-mongodb/">(no title)</a>
-          </li>
-        
-          <li>
-            <a href="/2019/07/30/api-design-guide/">(no title)</a>
-          </li>
-        
-          <li>
-            <a href="/2019/07/28/principle-of-ood/">再谈面象对向的设计原则</a>
+            <a href="/2019/08/02/api-design-guide/">(no title)</a>
           </li>
         
       </ul>

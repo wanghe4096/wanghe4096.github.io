@@ -62,10 +62,54 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-study-mongodb" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/08/02/study-mongodb/" class="article-date">
+  <time datetime="2019-08-02T02:37:00.983Z" itemprop="datePublished">2019-08-02</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <hr>
+<h2 id="深入学习mongodb"><a href="#深入学习mongodb" class="headerlink" title="深入学习mongodb"></a>深入学习mongodb</h2><p><img src="/images/mongodb.png" alt></p>
+<h1 id="关于分布式数据"><a href="#关于分布式数据" class="headerlink" title="关于分布式数据"></a>关于分布式数据</h1><p><a href="https://juejin.im/entry/589abc01128fe10058fc542c" target="_blank" rel="noopener">关于分布式数据库，你需要知道的一些事</a></p>
+<h2 id="什么是分片？"><a href="#什么是分片？" class="headerlink" title="什么是分片？"></a>什么是分片？</h2><p>分片（sharding） 是MongoDB用来将大型集合分割到不同服务器（或者说一个集群）上所采用的方法。尽管分片起源于关系型数据库分区。但它（像mongodb）完全是两回事。 </p>
+<h2 id="让集群透明"><a href="#让集群透明" class="headerlink" title="让集群透明"></a>让集群透明</h2><p>mongodb 通过一个mongos的一个路由程序， 让跟mongo进行通信的客户端看起来只是一个mongod的实例。<br>mongos 是一个路由进程， 位于mongo集群的最前方， 起到代理的作用， 负责把请求正确无误地转发到集群中的一个或一组服务器上，然后再把获得到响应信息发回给客户端。  </p>
+<h2 id="保证集群的可高用"><a href="#保证集群的可高用" class="headerlink" title="保证集群的可高用"></a>保证集群的可高用</h2><p>任何时候， 我们都很难做到保证集群的永远可用性，不可抗力造成的情况，但是在合理条件下，永远都不应该出现用户无法读写数据的情况。 在功能发生明显降级前， 集群应当允许尽可能多的节点失败。  </p>
+<p>mongoDB通过多种方法来确保集群的最长的正常运行时间。 集群的每一部分数据可以并且应当在其他服务器上（最理想的情况是在其他的数据中心） 有冗余的进程运行，以便当一个进程/机器/数据中心坏掉了， 其他副本可以立即（自动地）接替坏掉的部分继续工作。 </p>
+<h2 id="使集群易于扩展"><a href="#使集群易于扩展" class="headerlink" title="使集群易于扩展"></a>使集群易于扩展</h2><p>当系统需要更多的空间或资源时， 应当可以添加。 mongoDB支持按需扩充系统容量。 </p>
+<p>要实现这些目标，一个集群应该易于使用（就像使用单个节点一样） 和易于管理（否则添加新的分片就不那么容易了）。 MongoDB在扩容方面具有天然优势。 </p>
+        
+          <p class="article-more-link">
+            <a href="/2019/08/02/study-mongodb/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://wanghe4096.github.io/2019/08/02/study-mongodb/" data-id="cjythz0lp000gi4fyxylbhrhn" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+  
     <article id="post-refine" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/08/02/refine/" class="article-date">
-  <time datetime="2019-08-02T02:21:59.564Z" itemprop="datePublished">2019-08-02</time>
+  <time datetime="2019-08-02T02:37:00.983Z" itemprop="datePublished">2019-08-02</time>
 </a>
     
   </div>
@@ -89,7 +133,73 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://wanghe4096.github.io/2019/08/02/refine/" data-id="cjythgdxd000eu3fyjzvo6nlf" class="article-share-link">Share</a>
+      <a data-url="http://wanghe4096.github.io/2019/08/02/refine/" data-id="cjythz0ln000ei4fy1dvigyal" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+  
+    <article id="post-developer_getting_started" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/08/02/developer_getting_started/" class="article-date">
+  <time datetime="2019-08-02T02:37:00.981Z" itemprop="datePublished">2019-08-02</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/08/02/developer_getting_started/">开发者零基础入门教程</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="学习内容大纲"><a href="#学习内容大纲" class="headerlink" title="学习内容大纲"></a>学习内容大纲</h1><h2 id="计算机科学基础"><a href="#计算机科学基础" class="headerlink" title="计算机科学基础"></a>计算机科学基础</h2><h3 id="命令行基础"><a href="#命令行基础" class="headerlink" title="命令行基础"></a>命令行基础</h3><ul>
+<li>cd: change directory , 改变工作目录</li>
+<li>pwd: 查看当前所在的目录</li>
+<li>ls: list, 列出当前目录文件列表 </li>
+<li>open: 打开一个文件</li>
+<li>rm: remove 删除</li>
+<li>mv: move  </li>
+<li>mkdir: make directory </li>
+<li>man: manual </li>
+<li>touch: 创建一个文件 </li>
+<li>echo ： 回显</li>
+</ul>
+<h3 id="语言类"><a href="#语言类" class="headerlink" title="语言类"></a>语言类</h3><pre><code>- C 语言 : 偏向于系统底层的语言，常用来做底层开发，所谓底层开发是： 接近硬件的编程，比如操作系统，驱动软件，或者是对性能要求较为苛刻的场景
+- Java： 流行的，  较为常用的企业级应用开发语言， 或者是大数据相关领域较为常用的开发语言
+- Python: 人工智能，数据挖掘，以及科学计算
+- Go: 互联网公司常用
+</code></pre><h3 id="操作系统"><a href="#操作系统" class="headerlink" title="操作系统"></a>操作系统</h3><pre><code>- Unix / Linux 
+- Microsoft Window
+- MacOs : 基于FreeBSD Unix 操作系统深度定制的
+- iOS / Android
+</code></pre>
+        
+          <p class="article-more-link">
+            <a href="/2019/08/02/developer_getting_started/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://wanghe4096.github.io/2019/08/02/developer_getting_started/" data-id="cjythz0lg0006i4fys85nya7q" class="article-share-link">Share</a>
       
       
     </footer>
@@ -107,7 +217,7 @@
     <article id="post-computer-science-graphic" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/08/02/computer-science-graphic/" class="article-date">
-  <time datetime="2019-08-02T02:18:43.599Z" itemprop="datePublished">2019-08-02</time>
+  <time datetime="2019-08-02T02:37:00.980Z" itemprop="datePublished">2019-08-02</time>
 </a>
     
   </div>
@@ -131,51 +241,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://wanghe4096.github.io/2019/08/02/computer-science-graphic/" data-id="cjythgdx10004u3fyykwnbxfd" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-  
-    <article id="post-study-mongodb" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/07/31/study-mongodb/" class="article-date">
-  <time datetime="2019-07-31T03:51:26.865Z" itemprop="datePublished">2019-07-31</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <hr>
-<h2 id="深入学习mongodb"><a href="#深入学习mongodb" class="headerlink" title="深入学习mongodb"></a>深入学习mongodb</h2><p><img src="/images/mongodb.png" alt></p>
-<h1 id="关于分布式数据"><a href="#关于分布式数据" class="headerlink" title="关于分布式数据"></a>关于分布式数据</h1><p><a href="https://juejin.im/entry/589abc01128fe10058fc542c" target="_blank" rel="noopener">关于分布式数据库，你需要知道的一些事</a></p>
-<h2 id="什么是分片？"><a href="#什么是分片？" class="headerlink" title="什么是分片？"></a>什么是分片？</h2><p>分片（sharding） 是MongoDB用来将大型集合分割到不同服务器（或者说一个集群）上所采用的方法。尽管分片起源于关系型数据库分区。但它（像mongodb）完全是两回事。 </p>
-<h2 id="让集群透明"><a href="#让集群透明" class="headerlink" title="让集群透明"></a>让集群透明</h2><p>mongodb 通过一个mongos的一个路由程序， 让跟mongo进行通信的客户端看起来只是一个mongod的实例。<br>mongos 是一个路由进程， 位于mongo集群的最前方， 起到代理的作用， 负责把请求正确无误地转发到集群中的一个或一组服务器上，然后再把获得到响应信息发回给客户端。  </p>
-<h2 id="保证集群的可高用"><a href="#保证集群的可高用" class="headerlink" title="保证集群的可高用"></a>保证集群的可高用</h2><p>任何时候， 我们都很难做到保证集群的永远可用性，不可抗力造成的情况，但是在合理条件下，永远都不应该出现用户无法读写数据的情况。 在功能发生明显降级前， 集群应当允许尽可能多的节点失败。  </p>
-<p>mongoDB通过多种方法来确保集群的最长的正常运行时间。 集群的每一部分数据可以并且应当在其他服务器上（最理想的情况是在其他的数据中心） 有冗余的进程运行，以便当一个进程/机器/数据中心坏掉了， 其他副本可以立即（自动地）接替坏掉的部分继续工作。 </p>
-<h2 id="使集群易于扩展"><a href="#使集群易于扩展" class="headerlink" title="使集群易于扩展"></a>使集群易于扩展</h2><p>当系统需要更多的空间或资源时， 应当可以添加。 mongoDB支持按需扩充系统容量。 </p>
-<p>要实现这些目标，一个集群应该易于使用（就像使用单个节点一样） 和易于管理（否则添加新的分片就不那么容易了）。 MongoDB在扩容方面具有天然优势。 </p>
-        
-          <p class="article-more-link">
-            <a href="/2019/07/31/study-mongodb/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://wanghe4096.github.io/2019/07/31/study-mongodb/" data-id="cjythgdxf000gu3fyl6ye64d5" class="article-share-link">Share</a>
+      <a data-url="http://wanghe4096.github.io/2019/08/02/computer-science-graphic/" data-id="cjythz0le0004i4fycd7fck4n" class="article-share-link">Share</a>
       
       
     </footer>
@@ -192,8 +258,8 @@
   
     <article id="post-api-design-guide" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2019/07/30/api-design-guide/" class="article-date">
-  <time datetime="2019-07-30T07:36:00.326Z" itemprop="datePublished">2019-07-30</time>
+    <a href="/2019/08/02/api-design-guide/" class="article-date">
+  <time datetime="2019-08-02T02:37:00.978Z" itemprop="datePublished">2019-08-02</time>
 </a>
     
   </div>
@@ -206,7 +272,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://wanghe4096.github.io/2019/07/30/api-design-guide/" data-id="cjythgdwi0000u3fy19pef1i2" class="article-share-link">Share</a>
+      <a data-url="http://wanghe4096.github.io/2019/08/02/api-design-guide/" data-id="cjythz0kw0000i4fyi9arbmmj" class="article-share-link">Share</a>
       
       
     </footer>
@@ -265,7 +331,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://wanghe4096.github.io/2019/07/28/principle-of-ood/" data-id="cjythgdxn000mu3fy58cn3nk7" class="article-share-link">Share</a>
+      <a data-url="http://wanghe4096.github.io/2019/07/28/principle-of-ood/" data-id="cjythz0m0000mi4fy7ndb5acq" class="article-share-link">Share</a>
       
       
     </footer>
@@ -311,7 +377,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://wanghe4096.github.io/2019/07/26/principle-of-design/" data-id="cjythgdx9000bu3fydigm6qvo" class="article-share-link">Share</a>
+      <a data-url="http://wanghe4096.github.io/2019/07/26/principle-of-design/" data-id="cjythz0lm000ci4fymq5vc86o" class="article-share-link">Share</a>
       
       
     </footer>
@@ -368,73 +434,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://wanghe4096.github.io/2019/06/06/awesome-go-cn/" data-id="cjythgdy1000qu3fymqa3dxll" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-  
-    <article id="post-developer_getting_started" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/06/05/developer_getting_started/" class="article-date">
-  <time datetime="2019-06-05T12:04:09.993Z" itemprop="datePublished">2019-06-05</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/06/05/developer_getting_started/">开发者零基础入门教程</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="学习内容大纲"><a href="#学习内容大纲" class="headerlink" title="学习内容大纲"></a>学习内容大纲</h1><h2 id="计算机科学基础"><a href="#计算机科学基础" class="headerlink" title="计算机科学基础"></a>计算机科学基础</h2><h3 id="命令行基础"><a href="#命令行基础" class="headerlink" title="命令行基础"></a>命令行基础</h3><ul>
-<li>cd: change directory , 改变工作目录</li>
-<li>pwd: 查看当前所在的目录</li>
-<li>ls: list, 列出当前目录文件列表 </li>
-<li>open: 打开一个文件</li>
-<li>rm: remove 删除</li>
-<li>mv: move  </li>
-<li>mkdir: make directory </li>
-<li>man: manual </li>
-<li>touch: 创建一个文件 </li>
-<li>echo ： 回显</li>
-</ul>
-<h3 id="语言类"><a href="#语言类" class="headerlink" title="语言类"></a>语言类</h3><pre><code>- C 语言 : 偏向于系统底层的语言，常用来做底层开发，所谓底层开发是： 接近硬件的编程，比如操作系统，驱动软件，或者是对性能要求较为苛刻的场景
-- Java： 流行的，  较为常用的企业级应用开发语言， 或者是大数据相关领域较为常用的开发语言
-- Python: 人工智能，数据挖掘，以及科学计算
-- Go: 互联网公司常用
-</code></pre><h3 id="操作系统"><a href="#操作系统" class="headerlink" title="操作系统"></a>操作系统</h3><pre><code>- Unix / Linux 
-- Microsoft Window
-- MacOs : 基于FreeBSD Unix 操作系统深度定制的
-- iOS / Android
-</code></pre>
-        
-          <p class="article-more-link">
-            <a href="/2019/06/05/developer_getting_started/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://wanghe4096.github.io/2019/06/05/developer_getting_started/" data-id="cjythgdx30006u3fykmdeu90t" class="article-share-link">Share</a>
+      <a data-url="http://wanghe4096.github.io/2019/06/06/awesome-go-cn/" data-id="cjythz0md000qi4fynvp6szxn" class="article-share-link">Share</a>
       
       
     </footer>
@@ -480,7 +480,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://wanghe4096.github.io/2019/06/05/2019-06-05/" data-id="cjythgdxs000ou3fyunkzcne9" class="article-share-link">Share</a>
+      <a data-url="http://wanghe4096.github.io/2019/06/05/2019-06-05/" data-id="cjythz0m5000oi4fyovqefxgf" class="article-share-link">Share</a>
       
       
     </footer>
@@ -528,7 +528,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://wanghe4096.github.io/2019/05/24/2019-05-24/" data-id="cjythgdwx0001u3fytkyt2cea" class="article-share-link">Share</a>
+      <a data-url="http://wanghe4096.github.io/2019/05/24/2019-05-24/" data-id="cjythz0la0001i4fytxuiufqv" class="article-share-link">Share</a>
       
       
     </footer>
@@ -579,7 +579,15 @@
       <ul>
         
           <li>
+            <a href="/2019/08/02/study-mongodb/">(no title)</a>
+          </li>
+        
+          <li>
             <a href="/2019/08/02/refine/">日拱一卒</a>
+          </li>
+        
+          <li>
+            <a href="/2019/08/02/developer_getting_started/">开发者零基础入门教程</a>
           </li>
         
           <li>
@@ -587,15 +595,7 @@
           </li>
         
           <li>
-            <a href="/2019/07/31/study-mongodb/">(no title)</a>
-          </li>
-        
-          <li>
-            <a href="/2019/07/30/api-design-guide/">(no title)</a>
-          </li>
-        
-          <li>
-            <a href="/2019/07/28/principle-of-ood/">再谈面象对向的设计原则</a>
+            <a href="/2019/08/02/api-design-guide/">(no title)</a>
           </li>
         
       </ul>

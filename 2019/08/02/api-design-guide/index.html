@@ -5,19 +5,16 @@
   
 
   
-  <title>利用context终止goroutine | 日拱一卒，功不唐捐</title>
+  <title>日拱一卒，功不唐捐</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="原文：http://dahernan.github.io/2015/02/04/context-and-cancellation-of-goroutines/ 本文讲述了利用golang context 包来管理goroutine 超时终止的方法和思路。">
-<meta property="og:type" content="article">
-<meta property="og:title" content="利用context终止goroutine">
-<meta property="og:url" content="http://wanghe4096.github.io/2019/02/11/context-and-cancellation-of-goroutines/index.html">
+  <meta property="og:type" content="article">
+<meta property="og:title" content="日拱一卒，功不唐捐">
+<meta property="og:url" content="http://wanghe4096.github.io/2019/08/02/api-design-guide/index.html">
 <meta property="og:site_name" content="日拱一卒，功不唐捐">
-<meta property="og:description" content="原文：http://dahernan.github.io/2015/02/04/context-and-cancellation-of-goroutines/ 本文讲述了利用golang context 包来管理goroutine 超时终止的方法和思路。">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-08-02T02:37:00.981Z">
+<meta property="og:updated_time" content="2019-08-02T02:37:00.978Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="利用context终止goroutine">
-<meta name="twitter:description" content="原文：http://dahernan.github.io/2015/02/04/context-and-cancellation-of-goroutines/ 本文讲述了利用golang context 包来管理goroutine 超时终止的方法和思路。">
+<meta name="twitter:title" content="日拱一卒，功不唐捐">
   
     <link rel="alternate" href="/atom.xml" title="日拱一卒，功不唐捐" type="application/atom+xml">
   
@@ -64,35 +61,23 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-context-and-cancellation-of-goroutines" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-api-design-guide" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2019/02/11/context-and-cancellation-of-goroutines/" class="article-date">
-  <time datetime="2019-02-10T16:00:00.000Z" itemprop="datePublished">2019-02-11</time>
+    <a href="/2019/08/02/api-design-guide/" class="article-date">
+  <time datetime="2019-08-02T02:37:00.978Z" itemprop="datePublished">2019-08-02</time>
 </a>
     
   </div>
   <div class="article-inner">
     
     
-      <header class="article-header">
-        
-  
-    <h1 class="article-title" itemprop="name">
-      利用context终止goroutine
-    </h1>
-  
-
-      </header>
-    
     <div class="article-entry" itemprop="articleBody">
       
-        <p>原文：<br><a href="http://dahernan.github.io/2015/02/04/context-and-cancellation-of-goroutines/" target="_blank" rel="noopener">http://dahernan.github.io/2015/02/04/context-and-cancellation-of-goroutines/</a></p>
-<p>本文讲述了利用golang context 包来管理goroutine 超时终止的方法和思路。<br><a id="more"></a></p>
-
+        
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://wanghe4096.github.io/2019/02/11/context-and-cancellation-of-goroutines/" data-id="cjythz0lf0005i4fypqaqz4rq" class="article-share-link">Share</a>
+      <a data-url="http://wanghe4096.github.io/2019/08/02/api-design-guide/" data-id="cjythz0kw0000i4fyi9arbmmj" class="article-share-link">Share</a>
       
       
     </footer>
@@ -101,19 +86,19 @@
     
 <nav id="article-nav">
   
-    <a href="/2019/02/21/gotchas-and-common-mistakes-in-go-golang/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2019/08/02/computer-science-graphic/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
-          Golang新手可能会踩的50个坑
+          计算机知识图普
         
       </div>
     </a>
   
   
-    <a href="/2019/02/01/gophercon-2018-binary-search-tree-algorithms/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2019/07/28/principle-of-ood/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">Gophercon 2018 - 简明二叉搜索树</div>
+      <div class="article-nav-title">再谈面象对向的设计原则</div>
     </a>
   
 </nav>
@@ -135,7 +120,7 @@
   var gitalk = new Gitalk({
     clientID: '676995b3169b0460f579',
     clientSecret: 'fcc2b957d39e2cf013d9289418e59a6e1740aa14',
-    id: "利用context终止goroutine",
+    id: "",
     repo: 'wanghe4096.github.io',
     owner: 'wanghe4096',
     admin: 'wanghe4096',
