@@ -62,6 +62,118 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-benchmark-method-2019-11-08" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/11/08/benchmark-method-2019-11-08/" class="article-date">
+  <time datetime="2019-11-07T16:00:00.000Z" itemprop="datePublished">2019-11-08</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/11/08/benchmark-method-2019-11-08/">性能分析与优化的一般套路</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><img src="/images/tested.jpeg" alt></p>
+<p>#压测性能瓶颈分析的一般套路</p>
+<h2 id="计算实例CPU很高"><a href="#计算实例CPU很高" class="headerlink" title="计算实例CPU很高"></a>计算实例CPU很高</h2><ol>
+<li>代码中存在加密、解密、编码、解码，如何压缩、解压缩、json序列化和反序列化,会非常吃CPU资源<br>尽可能去做本地对象缓存可以避免</li>
+</ol>
+<h2 id="内存很高"><a href="#内存很高" class="headerlink" title="内存很高"></a>内存很高</h2><ol>
+<li>代码中内存泄漏，可能是频繁申请内存， 垃圾回收不及时，或者是操作系统没有来得及回内存<br>利用go pprof 工具排查， 是否存在频繁调用new, make, 或者初始大对象的问题 ， 这里只能扣代码细节 </li>
+</ol>
+<h2 id="网络情况"><a href="#网络情况" class="headerlink" title="网络情况"></a>网络情况</h2><p> 如果计算实例cpu不高，内存也不高，但是并发就是没有上去</p>
+<ol>
+<li>先排除施加压力的机器或程序是否给予足够的压力，比如施压链路中间有瓶颈， 或者施压机器性能不足，或者施压的并发数、连接数设置的太小 </li>
+<li>下游服务的性能瓶颈（可以用火焰图分析) ，比如依赖的业务服务或者是 数据库的瓶颈</li>
+<li>网络的情况如何，例如计算实例的连接数太高或者太低，或者是带宽达到及限（这种情况一般取决请求报文与反回报文的大小) </li>
+</ol>
+<p>类型情况排查细节比较多， 大多数常见问题可能是由于：<br>数据库连接池设置的太高（数据库会报错，too many open files )<br>数据库连接池设置的太低( 不报错， 数据库没有压力， 但是QPS上不去， 计算实例资源占用也不高，RT比较高)<br>数据库有时候也会报 invalid connection ，  这种情况可能是数据有问题， 也有可能是连接池使用了一个释放的连接句柄(可以理解成socket 套接字)) ， 如果不是数据库问题，一般我们用的数据库驱动都重新获取一个连接句柄继续<br>请求下游业务比较慢，超时时间设置的也比较大（可能也会报 too many open files )， 这类情况，如果下游业务可以降级，超时时间不设置的太在，不要超过1s ，一般情况下， 一个接口RT 在100ms以内还算可以接收,大于300ms基本上就是慢接口了</p>
+        
+          <p class="article-more-link">
+            <a href="/2019/11/08/benchmark-method-2019-11-08/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://wanghe4096.github.io/2019/11/08/benchmark-method-2019-11-08/" data-id="ck2prxdcd0004s0fyfz3u05fb" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+  
+    <article id="post-consistent-hashing-algrothym" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/08/21/consistent-hashing-algrothym/" class="article-date">
+  <time datetime="2019-08-20T16:00:00.000Z" itemprop="datePublished">2019-08-21</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/08/21/consistent-hashing-algrothym/">一致性哈稀算法</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>本文旨探讨如下主题：</p>
+<ol>
+<li>什么是一致性哈稀算法；</li>
+<li>一致性哈稀算法解决了什么问题；</li>
+<li>行业应用场景；</li>
+<li>实现一个一致性哈稀。</li>
+</ol>
+        
+          <p class="article-more-link">
+            <a href="/2019/08/21/consistent-hashing-algrothym/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://wanghe4096.github.io/2019/08/21/consistent-hashing-algrothym/" data-id="ck2prxdck0007s0fy652t2n3g" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+  
     <article id="post-10-points" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/08/05/10-points/" class="article-date">
@@ -90,7 +202,49 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://wanghe4096.github.io/2019/08/05/10-points/" data-id="cjyxrnmva000jz7fyfuqld8a3" class="article-share-link">Share</a>
+      <a data-url="http://wanghe4096.github.io/2019/08/05/10-points/" data-id="ck2prxddf000qs0fyosj12y5m" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+  
+    <article id="post-refine" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/08/02/refine/" class="article-date">
+  <time datetime="2019-08-02T02:37:00.983Z" itemprop="datePublished">2019-08-02</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/08/02/refine/">日拱一卒</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><img src="/images/日拱一卒.png" alt></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://wanghe4096.github.io/2019/08/02/refine/" data-id="ck2prxdcs000fs0fyclc11kpi" class="article-share-link">Share</a>
       
       
     </footer>
@@ -134,49 +288,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://wanghe4096.github.io/2019/08/02/study-mongodb/" data-id="cjyxrnmv2000fz7fy4v182y1t" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-  
-    <article id="post-refine" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/08/02/refine/" class="article-date">
-  <time datetime="2019-08-02T02:37:00.983Z" itemprop="datePublished">2019-08-02</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/08/02/refine/">日拱一卒</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><img src="/images/日拱一卒.png" alt></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://wanghe4096.github.io/2019/08/02/refine/" data-id="cjyxrnmv0000dz7fybrhkrpt1" class="article-share-link">Share</a>
+      <a data-url="http://wanghe4096.github.io/2019/08/02/study-mongodb/" data-id="ck2prxdcx000ks0fyg0uaebbf" class="article-share-link">Share</a>
       
       
     </footer>
@@ -242,7 +354,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://wanghe4096.github.io/2019/08/02/developer_getting_started/" data-id="cjyxrnmuu0006z7fyk8gss91f" class="article-share-link">Share</a>
+      <a data-url="http://wanghe4096.github.io/2019/08/02/developer_getting_started/" data-id="ck2prxdcl0008s0fyo9drnh75" class="article-share-link">Share</a>
       
       
     </footer>
@@ -284,7 +396,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://wanghe4096.github.io/2019/08/02/computer-science-graphic/" data-id="cjyxrnmus0004z7fy8sswri0a" class="article-share-link">Share</a>
+      <a data-url="http://wanghe4096.github.io/2019/08/02/computer-science-graphic/" data-id="ck2prxdci0005s0fyq6dr48aj" class="article-share-link">Share</a>
       
       
     </footer>
@@ -315,7 +427,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://wanghe4096.github.io/2019/08/02/api-design-guide/" data-id="cjyxrnmu70000z7fywtf4xm7z" class="article-share-link">Share</a>
+      <a data-url="http://wanghe4096.github.io/2019/08/02/api-design-guide/" data-id="ck2prxdbi0000s0fy7x0j9d8u" class="article-share-link">Share</a>
       
       
     </footer>
@@ -374,7 +486,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://wanghe4096.github.io/2019/07/28/principle-of-ood/" data-id="cjyxrnmvc000nz7fylt6bo9u1" class="article-share-link">Share</a>
+      <a data-url="http://wanghe4096.github.io/2019/07/28/principle-of-ood/" data-id="ck2prxdd6000os0fyy2dlg0ev" class="article-share-link">Share</a>
       
       
     </footer>
@@ -420,110 +532,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://wanghe4096.github.io/2019/07/26/principle-of-design/" data-id="cjyxrnmv0000cz7fyq6xsmnh1" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-  
-    <article id="post-awesome-go-cn" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/06/06/awesome-go-cn/" class="article-date">
-  <time datetime="2019-06-05T16:00:00.000Z" itemprop="datePublished">2019-06-06</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/06/06/awesome-go-cn/">Go 资源大全中文版</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><a href="https://github.com/jobbole/awesome-go-cn" target="_blank" rel="noopener">Go 资源大全中文版</a></p>
-<h1 id="Go-资源大全中文版"><a href="#Go-资源大全中文版" class="headerlink" title="Go 资源大全中文版"></a>Go 资源大全中文版</h1><p>我想很多程序员应该记得 GitHub 上有一个 Awesome - XXX 系列的资源整理。本列表翻译自<a href="https://github.com/avelino/awesome-Go" target="_blank" rel="noopener">awesome-Go</a><br>Awesome 系列虽然挺全，但基本只对收录的资源做了极为简要的介绍，如果有更详细的中文介绍，对相应开发者的帮助会更大。这也是我们发起这个开源项目的初衷。</p>
-<h3 id="如何为列表贡献新资源？"><a href="#如何为列表贡献新资源？" class="headerlink" title="如何为列表贡献新资源？"></a>如何为列表贡献新资源？</h3><p>欢迎大家为列表贡献高质量的新资源，提交 PR 时请参照以下要求：</p>
-<ul>
-<li>请确保推荐的资源自己使用过</li>
-<li>提交 PR 时请注明推荐理由</li>
-</ul>
-<p>资源列表管理收到 PR 请求后，会定期（每周）在微博转发本周提交的 PR 列表，并在微博上面听取使用过这些资源的意见。确认通过后，会加入资源大全。</p>
-<p>感谢您的贡献！</p>
-<p>本项目的参与者<br>维护者：tangyouhua</p>
-<p>贡献者：<a href="https://github.com/hanxiaomax" target="_blank" rel="noopener">艾凌风</a></p>
-<p>注：名单不分排名，不定期补充更新</p>
-        
-          <p class="article-more-link">
-            <a href="/2019/06/06/awesome-go-cn/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://wanghe4096.github.io/2019/06/06/awesome-go-cn/" data-id="cjyxrnmvq000rz7fymtnbraxz" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-  
-    <article id="post-2019-06-05" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/06/05/2019-06-05/" class="article-date">
-  <time datetime="2019-06-04T16:00:00.000Z" itemprop="datePublished">2019-06-05</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/06/05/2019-06-05/">三百个国外优秀网站</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><a href="https://www.douban.com/group/topic/4002607/" target="_blank" rel="noopener">豆瓣</a></p>
-        
-          <p class="article-more-link">
-            <a href="/2019/06/05/2019-06-05/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://wanghe4096.github.io/2019/06/05/2019-06-05/" data-id="cjyxrnmvi000pz7fy4b3060vg" class="article-share-link">Share</a>
+      <a data-url="http://wanghe4096.github.io/2019/07/26/principle-of-design/" data-id="ck2prxdcr000ds0fysob0rmhf" class="article-share-link">Share</a>
       
       
     </footer>
@@ -561,7 +570,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">August 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">November 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">August 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a></li></ul>
     </div>
   </div>
 
@@ -574,11 +583,15 @@
       <ul>
         
           <li>
-            <a href="/2019/08/05/10-points/">(no title)</a>
+            <a href="/2019/11/08/benchmark-method-2019-11-08/">性能分析与优化的一般套路</a>
           </li>
         
           <li>
-            <a href="/2019/08/02/study-mongodb/">(no title)</a>
+            <a href="/2019/08/21/consistent-hashing-algrothym/">一致性哈稀算法</a>
+          </li>
+        
+          <li>
+            <a href="/2019/08/05/10-points/">(no title)</a>
           </li>
         
           <li>
@@ -586,11 +599,7 @@
           </li>
         
           <li>
-            <a href="/2019/08/02/developer_getting_started/">开发者零基础入门教程</a>
-          </li>
-        
-          <li>
-            <a href="/2019/08/02/computer-science-graphic/">计算机知识图普</a>
+            <a href="/2019/08/02/study-mongodb/">(no title)</a>
           </li>
         
       </ul>

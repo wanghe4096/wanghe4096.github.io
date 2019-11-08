@@ -62,6 +62,100 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-autotools" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/04/13/autotools/" class="article-date">
+  <time datetime="2019-04-12T16:00:00.000Z" itemprop="datePublished">2019-04-13</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/04/13/autotools/">用automake构建你的c项目</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>作为Linux下的程序开发人员，大家都一定遇到过Makefile, 用make命令来编译自己写的程序确实很方便。 一般情况下， 大家都是手工写一个简单的Makefile.例如<br><figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">CC		:= gcc</span><br><span class="line">C_FLAGS := -Wall -Wextra</span><br><span class="line"></span><br><span class="line">BIN		:= bin</span><br><span class="line">SRC		:= src</span><br><span class="line">INCLUDE	:= <span class="keyword">include</span></span><br><span class="line">LIB		:= lib</span><br><span class="line"></span><br><span class="line">LIBRARIES	:= <span class="variable">$(LIB)</span>/ncurses-6.1</span><br><span class="line"></span><br><span class="line"><span class="keyword">ifeq</span> (<span class="variable">$(OS)</span>,Windows_NT)</span><br><span class="line">EXECUTABLE	:= main.exe</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">EXECUTABLE	:= main</span><br><span class="line"><span class="keyword">endif</span></span><br><span class="line"></span><br><span class="line"><span class="section">all: <span class="variable">$(BIN)</span>/<span class="variable">$(EXECUTABLE)</span></span></span><br><span class="line"></span><br><span class="line"><span class="section">clean:</span></span><br><span class="line">	-<span class="variable">$(RM)</span> <span class="variable">$(BIN)</span>/<span class="variable">$(EXECUTABLE)</span></span><br><span class="line"></span><br><span class="line"><span class="section">run: all</span></span><br><span class="line">	./<span class="variable">$(BIN)</span>/<span class="variable">$(EXECUTABLE)</span></span><br><span class="line"></span><br><span class="line"><span class="variable">$(BIN)</span>/<span class="variable">$(EXECUTABLE)</span>: <span class="variable">$(SRC)</span>/*</span><br><span class="line">	<span class="variable">$(CC)</span> <span class="variable">$(C_FLAGS)</span> -I<span class="variable">$(INCLUDE)</span> -L<span class="variable">$(LIB)</span> <span class="variable">$^</span> -o <span class="variable">$@</span> <span class="variable">$(LIBRARIES)</span></span><br></pre></td></tr></table></figure></p>
+<p>本文中， 介绍如何使用autoconf和automake工具来帮助我们自动生成符合自由软件惯例的makefile. 这样可以象常见的GNU程序一样， 只要使用”./configure”, “make”, “make install” 就可以安装l到inux系统。 我们常用的一些开源项目都是用这套工具来管理其项目构建过程的， 如redis、openssl、libcurl、nucurses等开源项目。<br>本文描述了利用autotools 来编写一个hello world的程序过程。 </p>
+        
+          <p class="article-more-link">
+            <a href="/2019/04/13/autotools/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://wanghe4096.github.io/2019/04/13/autotools/" data-id="ck2prxdcc0003s0fy5qu560pl" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+  
+    <article id="post-tuning-the-go-http-client-library-for-load-testing" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/04/09/tuning-the-go-http-client-library-for-load-testing/" class="article-date">
+  <time datetime="2019-04-08T16:00:00.000Z" itemprop="datePublished">2019-04-09</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/04/09/tuning-the-go-http-client-library-for-load-testing/">压力测试中的Go http Client 参数调优</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>原文： <a href="http://tleyden.github.io/blog/2016/11/21/tuning-the-go-http-client-library-for-load-testing/" target="_blank" rel="noopener">http://tleyden.github.io/blog/2016/11/21/tuning-the-go-http-client-library-for-load-testing/</a></p>
+<p>在Go中使用压力测试工具时，遇到了有数万个socket 处于TIME_WAIT的状态。<br>本文列出发生这种情况的几原因， 并给出了如何修复这种情况。<br>
+        
+          </p><p class="article-more-link">
+            <a href="/2019/04/09/tuning-the-go-http-client-library-for-load-testing/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://wanghe4096.github.io/2019/04/09/tuning-the-go-http-client-library-for-load-testing/" data-id="ck2prxdcu000is0fyo7rfoa80" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+  
     <article id="post-avoiding-memory-leak-in-golang-api" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/03/13/avoiding-memory-leak-in-golang-api/" class="article-date">
@@ -96,7 +190,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://wanghe4096.github.io/2019/03/13/avoiding-memory-leak-in-golang-api/" data-id="cjyxrnmvb000lz7fy62jvivzc" class="article-share-link">Share</a>
+      <a data-url="http://wanghe4096.github.io/2019/03/13/avoiding-memory-leak-in-golang-api/" data-id="ck2prxdd4000ls0fy211imgbr" class="article-share-link">Share</a>
       
       
     </footer>
@@ -144,7 +238,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://wanghe4096.github.io/2019/02/21/gotchas-and-common-mistakes-in-go-golang/" data-id="cjyxrnmuy000az7fypmpmb1uy" class="article-share-link">Share</a>
+      <a data-url="http://wanghe4096.github.io/2019/02/21/gotchas-and-common-mistakes-in-go-golang/" data-id="ck2prxdcn000as0fy8jya9qqn" class="article-share-link">Share</a>
       
       
     </footer>
@@ -191,7 +285,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://wanghe4096.github.io/2019/02/11/context-and-cancellation-of-goroutines/" data-id="cjyxrnmut0005z7fy3ifzvbuk" class="article-share-link">Share</a>
+      <a data-url="http://wanghe4096.github.io/2019/02/11/context-and-cancellation-of-goroutines/" data-id="ck2prxdck0006s0fy47ievo9s" class="article-share-link">Share</a>
       
       
     </footer>
@@ -255,7 +349,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://wanghe4096.github.io/2019/02/01/gophercon-2018-binary-search-tree-algorithms/" data-id="cjyxrnmuw0008z7fy6oyb30d9" class="article-share-link">Share</a>
+      <a data-url="http://wanghe4096.github.io/2019/02/01/gophercon-2018-binary-search-tree-algorithms/" data-id="ck2prxdcp000bs0fyh9tim8aq" class="article-share-link">Share</a>
       
       
     </footer>
@@ -339,7 +433,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://wanghe4096.github.io/2019/01/14/alogrithm_linklist/" data-id="cjyxrnmuo0002z7fy2kndx9g4" class="article-share-link">Share</a>
+      <a data-url="http://wanghe4096.github.io/2019/01/14/alogrithm_linklist/" data-id="ck2prxdc90001s0fynnj8hd29" class="article-share-link">Share</a>
       
       
     </footer>
@@ -391,7 +485,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://wanghe4096.github.io/2019/01/10/go2-draft-error-handling-problem-overview/" data-id="cjyxrnmux0009z7fyldx81pz4" class="article-share-link">Share</a>
+      <a data-url="http://wanghe4096.github.io/2019/01/10/go2-draft-error-handling-problem-overview/" data-id="ck2prxdcq000cs0fyrkurz0ne" class="article-share-link">Share</a>
       
       
     </footer>
@@ -444,7 +538,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://wanghe4096.github.io/2019/01/01/go2-draft-designs/" data-id="cjyxrnmuv0007z7fyo1s3po7e" class="article-share-link">Share</a>
+      <a data-url="http://wanghe4096.github.io/2019/01/01/go2-draft-designs/" data-id="ck2prxdcm0009s0fyx6m0wd3v" class="article-share-link">Share</a>
       
       
     </footer>
@@ -490,7 +584,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://wanghe4096.github.io/2018/04/13/yangming-note/" data-id="cjyxrnmv3000iz7fytg049qjh" class="article-share-link">Share</a>
+      <a data-url="http://wanghe4096.github.io/2018/04/13/yangming-note/" data-id="ck2prxdcv000js0fyk5tkq1b7" class="article-share-link">Share</a>
       
       
     </footer>
@@ -528,7 +622,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">August 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">November 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">August 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a></li></ul>
     </div>
   </div>
 
@@ -541,11 +635,15 @@
       <ul>
         
           <li>
-            <a href="/2019/08/05/10-points/">(no title)</a>
+            <a href="/2019/11/08/benchmark-method-2019-11-08/">性能分析与优化的一般套路</a>
           </li>
         
           <li>
-            <a href="/2019/08/02/study-mongodb/">(no title)</a>
+            <a href="/2019/08/21/consistent-hashing-algrothym/">一致性哈稀算法</a>
+          </li>
+        
+          <li>
+            <a href="/2019/08/05/10-points/">(no title)</a>
           </li>
         
           <li>
@@ -553,11 +651,7 @@
           </li>
         
           <li>
-            <a href="/2019/08/02/developer_getting_started/">开发者零基础入门教程</a>
-          </li>
-        
-          <li>
-            <a href="/2019/08/02/computer-science-graphic/">计算机知识图普</a>
+            <a href="/2019/08/02/study-mongodb/">(no title)</a>
           </li>
         
       </ul>

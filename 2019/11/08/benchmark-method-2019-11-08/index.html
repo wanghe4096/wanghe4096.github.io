@@ -5,19 +5,21 @@
   
 
   
-  <title>Go2设计草案——错误处理问题概述 | 日拱一卒，功不唐捐</title>
+  <title>性能分析与优化的一般套路 | 日拱一卒，功不唐捐</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="原文地址：[Go2 设计草案–错误处理] https://go.googlesource.com/proposal/+/master/design/go2draft-error-handling-overview.md  Russ Cox August 27, 2018 介绍本概述内容和附属的详细设计草案是Go2设计草案文档的一部分。 Go2相关工作的总体目标是解决Go1在大型代码码与大型团队面">
+  <meta name="description" content="#压测性能瓶颈分析的一般套路 计算实例CPU很高 代码中存在加密、解密、编码、解码，如何压缩、解压缩、json序列化和反序列化,会非常吃CPU资源尽可能去做本地对象缓存可以避免  内存很高 代码中内存泄漏，可能是频繁申请内存， 垃圾回收不及时，或者是操作系统没有来得及回内存利用go pprof 工具排查， 是否存在频繁调用new, make, 或者初始大对象的问题 ， 这里只能扣代码细节   网">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Go2设计草案——错误处理问题概述">
-<meta property="og:url" content="http://wanghe4096.github.io/2019/01/10/go2-draft-error-handling-problem-overview/index.html">
+<meta property="og:title" content="性能分析与优化的一般套路">
+<meta property="og:url" content="http://wanghe4096.github.io/2019/11/08/benchmark-method-2019-11-08/index.html">
 <meta property="og:site_name" content="日拱一卒，功不唐捐">
-<meta property="og:description" content="原文地址：[Go2 设计草案–错误处理] https://go.googlesource.com/proposal/+/master/design/go2draft-error-handling-overview.md  Russ Cox August 27, 2018 介绍本概述内容和附属的详细设计草案是Go2设计草案文档的一部分。 Go2相关工作的总体目标是解决Go1在大型代码码与大型团队面">
+<meta property="og:description" content="#压测性能瓶颈分析的一般套路 计算实例CPU很高 代码中存在加密、解密、编码、解码，如何压缩、解压缩、json序列化和反序列化,会非常吃CPU资源尽可能去做本地对象缓存可以避免  内存很高 代码中内存泄漏，可能是频繁申请内存， 垃圾回收不及时，或者是操作系统没有来得及回内存利用go pprof 工具排查， 是否存在频繁调用new, make, 或者初始大对象的问题 ， 这里只能扣代码细节   网">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-08-02T02:37:00.982Z">
+<meta property="og:image" content="http://wanghe4096.github.io/images/tested.jpeg">
+<meta property="og:updated_time" content="2019-11-08T06:46:30.131Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Go2设计草案——错误处理问题概述">
-<meta name="twitter:description" content="原文地址：[Go2 设计草案–错误处理] https://go.googlesource.com/proposal/+/master/design/go2draft-error-handling-overview.md  Russ Cox August 27, 2018 介绍本概述内容和附属的详细设计草案是Go2设计草案文档的一部分。 Go2相关工作的总体目标是解决Go1在大型代码码与大型团队面">
+<meta name="twitter:title" content="性能分析与优化的一般套路">
+<meta name="twitter:description" content="#压测性能瓶颈分析的一般套路 计算实例CPU很高 代码中存在加密、解密、编码、解码，如何压缩、解压缩、json序列化和反序列化,会非常吃CPU资源尽可能去做本地对象缓存可以避免  内存很高 代码中内存泄漏，可能是频繁申请内存， 垃圾回收不及时，或者是操作系统没有来得及回内存利用go pprof 工具排查， 是否存在频繁调用new, make, 或者初始大对象的问题 ， 这里只能扣代码细节   网">
+<meta name="twitter:image" content="http://wanghe4096.github.io/images/tested.jpeg">
   
     <link rel="alternate" href="/atom.xml" title="日拱一卒，功不唐捐" type="application/atom+xml">
   
@@ -64,10 +66,10 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-go2-draft-error-handling-problem-overview" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-benchmark-method-2019-11-08" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2019/01/10/go2-draft-error-handling-problem-overview/" class="article-date">
-  <time datetime="2019-01-09T16:00:00.000Z" itemprop="datePublished">2019-01-10</time>
+    <a href="/2019/11/08/benchmark-method-2019-11-08/" class="article-date">
+  <time datetime="2019-11-07T16:00:00.000Z" itemprop="datePublished">2019-11-08</time>
 </a>
     
   </div>
@@ -78,7 +80,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Go2设计草案——错误处理问题概述
+      性能分析与优化的一般套路
     </h1>
   
 
@@ -86,22 +88,27 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>原文地址：[Go2 设计草案–错误处理] <a href="https://go.googlesource.com/proposal/+/master/design/go2draft-error-handling-overview.md" target="_blank" rel="noopener">https://go.googlesource.com/proposal/+/master/design/go2draft-error-handling-overview.md</a> </p>
-<p>Russ Cox</p>
-<p>August 27, 2018</p>
-<h1 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h1><p>本概述内容和附属的详细设计草案是Go2设计草案文档的一部分。 Go2相关工作的总体目标是解决Go1在大型代码码与大型团队面临的困境和难题。</p>
-<p>其中一方面， Go开发程序在处理错误检查和错误处理代码灵活扩展的问题。 在一般的go程序中，充斥着大量错误检查代码和没有足够的代码检查错误。 （这将在下面提及) . 设计草案目标指在通过引入比当前贯用的错误处理方法更加轻量的语法来解决此问题。 </p>
-<p>作为Go2 设计草案的一部分， 作为一个单独的问题， 我们还在考虑更改错误值的语义，但本文仅涉及错误检查和处理。 </p>
-<h1 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h1><p>为了扩展到大型代码库， Go程序必须轻量，不能过度重复， 并且还要健壮，优雅的错误处理方式。 </p>
-<p>在Go的设计中， 我们有意识的选择使用显式错误结果和显式错误检查 。 相比之下， C语言通常使用显式检查隐式错误结果，而在许多其他语言中（包括c++, c#,java和Python) ， 发现的异常处理都是隐式表达隐式结果。 </p>
-<p>Raymond Chen的博客文章中关于隐式检查的论述更有微妙之处。 “更整洁、更优雅、更难以识别“（2005） 。 本质上， 由于权本看不陷式检查， 所以很难通过检查验证错误处理代码在检查失败时正确地从程序状态恢复。  </p>
-<p>例如： 考虑一下如下代码， 用Go的伪代码来描述抛出异常：</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">CopyFile</span><span class="params">(src, dst <span class="keyword">string</span>)</span> <span class="title">throws</span> <span class="title">error</span></span> &#123;</span><br><span class="line">	r := os.Open(src)</span><br><span class="line">	<span class="keyword">defer</span> r.Close()</span><br><span class="line"></span><br><span class="line">	w := os.Create(dst)</span><br><span class="line">	io.Copy(w, r)</span><br><span class="line">	w.Close()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        <p><img src="/images/tested.jpeg" alt></p>
+<p>#压测性能瓶颈分析的一般套路</p>
+<h2 id="计算实例CPU很高"><a href="#计算实例CPU很高" class="headerlink" title="计算实例CPU很高"></a>计算实例CPU很高</h2><ol>
+<li>代码中存在加密、解密、编码、解码，如何压缩、解压缩、json序列化和反序列化,会非常吃CPU资源<br>尽可能去做本地对象缓存可以避免</li>
+</ol>
+<h2 id="内存很高"><a href="#内存很高" class="headerlink" title="内存很高"></a>内存很高</h2><ol>
+<li>代码中内存泄漏，可能是频繁申请内存， 垃圾回收不及时，或者是操作系统没有来得及回内存<br>利用go pprof 工具排查， 是否存在频繁调用new, make, 或者初始大对象的问题 ， 这里只能扣代码细节 </li>
+</ol>
+<h2 id="网络情况"><a href="#网络情况" class="headerlink" title="网络情况"></a>网络情况</h2><p> 如果计算实例cpu不高，内存也不高，但是并发就是没有上去</p>
+<ol>
+<li>先排除施加压力的机器或程序是否给予足够的压力，比如施压链路中间有瓶颈， 或者施压机器性能不足，或者施压的并发数、连接数设置的太小 </li>
+<li>下游服务的性能瓶颈（可以用火焰图分析) ，比如依赖的业务服务或者是 数据库的瓶颈</li>
+<li>网络的情况如何，例如计算实例的连接数太高或者太低，或者是带宽达到及限（这种情况一般取决请求报文与反回报文的大小) </li>
+</ol>
+<p>类型情况排查细节比较多， 大多数常见问题可能是由于：<br>数据库连接池设置的太高（数据库会报错，too many open files )<br>数据库连接池设置的太低( 不报错， 数据库没有压力， 但是QPS上不去， 计算实例资源占用也不高，RT比较高)<br>数据库有时候也会报 invalid connection ，  这种情况可能是数据有问题， 也有可能是连接池使用了一个释放的连接句柄(可以理解成socket 套接字)) ， 如果不是数据库问题，一般我们用的数据库驱动都重新获取一个连接句柄继续<br>请求下游业务比较慢，超时时间设置的也比较大（可能也会报 too many open files )， 这类情况，如果下游业务可以降级，超时时间不设置的太在，不要超过1s ，一般情况下， 一个接口RT 在100ms以内还算可以接收,大于300ms基本上就是慢接口了</p>
+<a id="more"></a>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://wanghe4096.github.io/2019/01/10/go2-draft-error-handling-problem-overview/" data-id="ck2prxdcq000cs0fyrkurz0ne" class="article-share-link">Share</a>
+      <a data-url="http://wanghe4096.github.io/2019/11/08/benchmark-method-2019-11-08/" data-id="ck2prxdcd0004s0fyfz3u05fb" class="article-share-link">Share</a>
       
       
     </footer>
@@ -110,19 +117,10 @@
     
 <nav id="article-nav">
   
-    <a href="/2019/01/14/alogrithm_linklist/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          基础数据结构--链表
-        
-      </div>
-    </a>
   
-  
-    <a href="/2019/01/01/go2-draft-designs/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2019/08/21/consistent-hashing-algrothym/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">Go 2 设计草案(译)</div>
+      <div class="article-nav-title">一致性哈稀算法</div>
     </a>
   
 </nav>
@@ -144,7 +142,7 @@
   var gitalk = new Gitalk({
     clientID: '676995b3169b0460f579',
     clientSecret: 'fcc2b957d39e2cf013d9289418e59a6e1740aa14',
-    id: "Go2设计草案——错误处理问题概述",
+    id: "性能分析与优化的一般套路",
     repo: 'wanghe4096.github.io',
     owner: 'wanghe4096',
     admin: 'wanghe4096',
