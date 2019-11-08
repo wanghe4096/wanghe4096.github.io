@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>日拱一卒，功不唐捐</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="深入学习mongodb 关于分布式数据关于分布式数据库，你需要知道的一些事 什么是分片？分片（sharding） 是MongoDB用来将大型集合分割到不同服务器（或者说一个集群）上所采用的方法。尽管分片起源于关系型数据库分区。但它（像mongodb）完全是两回事。  让集群透明mongodb 通过一个mongos的一个路由程序， 让跟mongo进行通信的客户端看起来只是一个mongod的实例。m">
+<meta property="og:type" content="article">
+<meta property="og:title" content="日拱一卒，功不唐捐">
+<meta property="og:url" content="http://wanghe4096.github.io/2019/11/08/study-mongodb/index.html">
+<meta property="og:site_name" content="日拱一卒，功不唐捐">
+<meta property="og:description" content="深入学习mongodb 关于分布式数据关于分布式数据库，你需要知道的一些事 什么是分片？分片（sharding） 是MongoDB用来将大型集合分割到不同服务器（或者说一个集群）上所采用的方法。尽管分片起源于关系型数据库分区。但它（像mongodb）完全是两回事。  让集群透明mongodb 通过一个mongos的一个路由程序， 让跟mongo进行通信的客户端看起来只是一个mongod的实例。m">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://wanghe4096.github.io/images/mongodb.png">
+<meta property="og:image" content="http://wanghe4096.github.io/images/sharding1.png">
+<meta property="og:updated_time" content="2019-11-08T06:55:28.986Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="日拱一卒，功不唐捐">
+<meta name="twitter:description" content="深入学习mongodb 关于分布式数据关于分布式数据库，你需要知道的一些事 什么是分片？分片（sharding） 是MongoDB用来将大型集合分割到不同服务器（或者说一个集群）上所采用的方法。尽管分片起源于关系型数据库分区。但它（像mongodb）完全是两回事。  让集群透明mongodb 通过一个mongos的一个路由程序， 让跟mongo进行通信的客户端看起来只是一个mongod的实例。m">
+<meta name="twitter:image" content="http://wanghe4096.github.io/images/mongodb.png">
+  
+    <link rel="alternate" href="/atom.xml" title="日拱一卒，功不唐捐" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">日拱一卒，功不唐捐</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://wanghe4096.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-study-mongodb" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/11/08/study-mongodb/" class="article-date">
+  <time datetime="2019-11-08T06:55:28.986Z" itemprop="datePublished">2019-11-08</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <hr>
+<h2 id="深入学习mongodb"><a href="#深入学习mongodb" class="headerlink" title="深入学习mongodb"></a>深入学习mongodb</h2><p><img src="/images/mongodb.png" alt></p>
+<h1 id="关于分布式数据"><a href="#关于分布式数据" class="headerlink" title="关于分布式数据"></a>关于分布式数据</h1><p><a href="https://juejin.im/entry/589abc01128fe10058fc542c" target="_blank" rel="noopener">关于分布式数据库，你需要知道的一些事</a></p>
+<h2 id="什么是分片？"><a href="#什么是分片？" class="headerlink" title="什么是分片？"></a>什么是分片？</h2><p>分片（sharding） 是MongoDB用来将大型集合分割到不同服务器（或者说一个集群）上所采用的方法。尽管分片起源于关系型数据库分区。但它（像mongodb）完全是两回事。 </p>
+<h2 id="让集群透明"><a href="#让集群透明" class="headerlink" title="让集群透明"></a>让集群透明</h2><p>mongodb 通过一个mongos的一个路由程序， 让跟mongo进行通信的客户端看起来只是一个mongod的实例。<br>mongos 是一个路由进程， 位于mongo集群的最前方， 起到代理的作用， 负责把请求正确无误地转发到集群中的一个或一组服务器上，然后再把获得到响应信息发回给客户端。  </p>
+<h2 id="保证集群的可高用"><a href="#保证集群的可高用" class="headerlink" title="保证集群的可高用"></a>保证集群的可高用</h2><p>任何时候， 我们都很难做到保证集群的永远可用性，不可抗力造成的情况，但是在合理条件下，永远都不应该出现用户无法读写数据的情况。 在功能发生明显降级前， 集群应当允许尽可能多的节点失败。  </p>
+<p>mongoDB通过多种方法来确保集群的最长的正常运行时间。 集群的每一部分数据可以并且应当在其他服务器上（最理想的情况是在其他的数据中心） 有冗余的进程运行，以便当一个进程/机器/数据中心坏掉了， 其他副本可以立即（自动地）接替坏掉的部分继续工作。 </p>
+<h2 id="使集群易于扩展"><a href="#使集群易于扩展" class="headerlink" title="使集群易于扩展"></a>使集群易于扩展</h2><p>当系统需要更多的空间或资源时， 应当可以添加。 mongoDB支持按需扩充系统容量。 </p>
+<p>要实现这些目标，一个集群应该易于使用（就像使用单个节点一样） 和易于管理（否则添加新的分片就不那么容易了）。 MongoDB在扩容方面具有天然优势。 </p>
+<a id="more"></a>
+<h1 id="理解分片"><a href="#理解分片" class="headerlink" title="理解分片"></a>理解分片</h1><h2 id="分割数据"><a href="#分割数据" class="headerlink" title="分割数据"></a>分割数据</h2><p>分片（shard）是集群中负责数据某一子集的一台或多台服务器。一个分片可由多台服务器组成。 如果分片包含不止一台服务器， 则每台服务器都有一份完全相同的数据子集要的副本。 在一生产环境中，一个分片通常是一个副本集（replica set)。<br><img src="/images/sharding1.png" alt></p>
+<p>上图: 一个分片包含数据的某一子项。 若某一分片包含多台服务器，则每台服务器拥有一份完整的数据副本</p>
+<p>为了在分片间均匀的分配数据，MongoDB会在不同的分片间移动数据子集。 它会根据片键（key）来决定移动哪些数据。 例如我们可能选择按用户名(username)字段来划分用户集合。 MongoDB使用基于区间的方法进行划分， 即按照给定区间将数据分割 成不同块。 </p>
+<h3 id="分配数据"><a href="#分配数据" class="headerlink" title="分配数据"></a>分配数据</h3><h3 id="平衡"><a href="#平衡" class="headerlink" title="平衡"></a>平衡</h3>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://wanghe4096.github.io/2019/11/08/study-mongodb/" data-id="ck2psf1k2000hodfy4cbxnfpj" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2019/11/08/refine/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">日拱一卒</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+
+
+
+
+  <div id="gitalk-container"></div>
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+<script type="text/javascript">
+  
+  
+  var gitalk = new Gitalk({
+    clientID: '676995b3169b0460f579',
+    clientSecret: 'fcc2b957d39e2cf013d9289418e59a6e1740aa14',
+    id: "",
+    repo: 'wanghe4096.github.io',
+    owner: 'wanghe4096',
+    admin: 'wanghe4096',
+    distractionFreeMode: 'true',
+  })
+
+  gitalk.render('gitalk-container')
+</script>
+
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">November 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">August 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/11/08/study-mongodb/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/11/08/refine/">日拱一卒</a>
+          </li>
+        
+          <li>
+            <a href="/2019/11/08/developer_getting_started/">开发者零基础入门教程</a>
+          </li>
+        
+          <li>
+            <a href="/2019/11/08/computer-science-graphic/">计算机知识图普</a>
+          </li>
+        
+          <li>
+            <a href="/2019/11/08/api-design-guide/">(no title)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 王贺<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

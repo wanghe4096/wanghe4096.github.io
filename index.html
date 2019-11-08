@@ -62,6 +62,274 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-study-mongodb" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/11/08/study-mongodb/" class="article-date">
+  <time datetime="2019-11-08T06:55:28.986Z" itemprop="datePublished">2019-11-08</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <hr>
+<h2 id="深入学习mongodb"><a href="#深入学习mongodb" class="headerlink" title="深入学习mongodb"></a>深入学习mongodb</h2><p><img src="/images/mongodb.png" alt></p>
+<h1 id="关于分布式数据"><a href="#关于分布式数据" class="headerlink" title="关于分布式数据"></a>关于分布式数据</h1><p><a href="https://juejin.im/entry/589abc01128fe10058fc542c" target="_blank" rel="noopener">关于分布式数据库，你需要知道的一些事</a></p>
+<h2 id="什么是分片？"><a href="#什么是分片？" class="headerlink" title="什么是分片？"></a>什么是分片？</h2><p>分片（sharding） 是MongoDB用来将大型集合分割到不同服务器（或者说一个集群）上所采用的方法。尽管分片起源于关系型数据库分区。但它（像mongodb）完全是两回事。 </p>
+<h2 id="让集群透明"><a href="#让集群透明" class="headerlink" title="让集群透明"></a>让集群透明</h2><p>mongodb 通过一个mongos的一个路由程序， 让跟mongo进行通信的客户端看起来只是一个mongod的实例。<br>mongos 是一个路由进程， 位于mongo集群的最前方， 起到代理的作用， 负责把请求正确无误地转发到集群中的一个或一组服务器上，然后再把获得到响应信息发回给客户端。  </p>
+<h2 id="保证集群的可高用"><a href="#保证集群的可高用" class="headerlink" title="保证集群的可高用"></a>保证集群的可高用</h2><p>任何时候， 我们都很难做到保证集群的永远可用性，不可抗力造成的情况，但是在合理条件下，永远都不应该出现用户无法读写数据的情况。 在功能发生明显降级前， 集群应当允许尽可能多的节点失败。  </p>
+<p>mongoDB通过多种方法来确保集群的最长的正常运行时间。 集群的每一部分数据可以并且应当在其他服务器上（最理想的情况是在其他的数据中心） 有冗余的进程运行，以便当一个进程/机器/数据中心坏掉了， 其他副本可以立即（自动地）接替坏掉的部分继续工作。 </p>
+<h2 id="使集群易于扩展"><a href="#使集群易于扩展" class="headerlink" title="使集群易于扩展"></a>使集群易于扩展</h2><p>当系统需要更多的空间或资源时， 应当可以添加。 mongoDB支持按需扩充系统容量。 </p>
+<p>要实现这些目标，一个集群应该易于使用（就像使用单个节点一样） 和易于管理（否则添加新的分片就不那么容易了）。 MongoDB在扩容方面具有天然优势。 </p>
+        
+          <p class="article-more-link">
+            <a href="/2019/11/08/study-mongodb/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://wanghe4096.github.io/2019/11/08/study-mongodb/" data-id="ck2psf1k2000hodfy4cbxnfpj" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+  
+    <article id="post-refine" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/11/08/refine/" class="article-date">
+  <time datetime="2019-11-08T06:55:28.985Z" itemprop="datePublished">2019-11-08</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/11/08/refine/">日拱一卒</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><img src="/images/日拱一卒.png" alt></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://wanghe4096.github.io/2019/11/08/refine/" data-id="ck2psf1k1000godfydx30xlma" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+  
+    <article id="post-developer_getting_started" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/11/08/developer_getting_started/" class="article-date">
+  <time datetime="2019-11-08T06:55:28.982Z" itemprop="datePublished">2019-11-08</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/11/08/developer_getting_started/">开发者零基础入门教程</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="学习内容大纲"><a href="#学习内容大纲" class="headerlink" title="学习内容大纲"></a>学习内容大纲</h1><h2 id="计算机科学基础"><a href="#计算机科学基础" class="headerlink" title="计算机科学基础"></a>计算机科学基础</h2><h3 id="命令行基础"><a href="#命令行基础" class="headerlink" title="命令行基础"></a>命令行基础</h3><ul>
+<li>cd: change directory , 改变工作目录</li>
+<li>pwd: 查看当前所在的目录</li>
+<li>ls: list, 列出当前目录文件列表 </li>
+<li>open: 打开一个文件</li>
+<li>rm: remove 删除</li>
+<li>mv: move  </li>
+<li>mkdir: make directory </li>
+<li>man: manual </li>
+<li>touch: 创建一个文件 </li>
+<li>echo ： 回显</li>
+</ul>
+<h3 id="语言类"><a href="#语言类" class="headerlink" title="语言类"></a>语言类</h3><pre><code>- C 语言 : 偏向于系统底层的语言，常用来做底层开发，所谓底层开发是： 接近硬件的编程，比如操作系统，驱动软件，或者是对性能要求较为苛刻的场景
+- Java： 流行的，  较为常用的企业级应用开发语言， 或者是大数据相关领域较为常用的开发语言
+- Python: 人工智能，数据挖掘，以及科学计算
+- Go: 互联网公司常用
+</code></pre><h3 id="操作系统"><a href="#操作系统" class="headerlink" title="操作系统"></a>操作系统</h3><pre><code>- Unix / Linux 
+- Microsoft Window
+- MacOs : 基于FreeBSD Unix 操作系统深度定制的
+- iOS / Android
+</code></pre>
+        
+          <p class="article-more-link">
+            <a href="/2019/11/08/developer_getting_started/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://wanghe4096.github.io/2019/11/08/developer_getting_started/" data-id="ck2psf1jv0008odfy6g19udza" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+  
+    <article id="post-computer-science-graphic" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/11/08/computer-science-graphic/" class="article-date">
+  <time datetime="2019-11-08T06:55:28.981Z" itemprop="datePublished">2019-11-08</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/11/08/computer-science-graphic/">计算机知识图普</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><img src="/images/计算机知识图普.png" alt></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://wanghe4096.github.io/2019/11/08/computer-science-graphic/" data-id="ck2psf1jq0004odfyqacnkdg6" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+  
+    <article id="post-api-design-guide" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/11/08/api-design-guide/" class="article-date">
+  <time datetime="2019-11-08T06:55:28.977Z" itemprop="datePublished">2019-11-08</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://wanghe4096.github.io/2019/11/08/api-design-guide/" data-id="ck2psf1j30000odfyy9vu5j3q" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+  
+    <article id="post-10-points" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/11/08/10-points/" class="article-date">
+  <time datetime="2019-11-08T06:55:28.975Z" itemprop="datePublished">2019-11-08</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <hr>
+<h2 id="程序员的自我修养"><a href="#程序员的自我修养" class="headerlink" title="程序员的自我修养"></a>程序员的自我修养</h2><p><img src="/images/duang.jpeg" alt></p>
+<h1 id="写给年轻程序员的10点启示"><a href="#写给年轻程序员的10点启示" class="headerlink" title="写给年轻程序员的10点启示"></a>写给年轻程序员的10点启示</h1><h2 id="正确认识自己"><a href="#正确认识自己" class="headerlink" title="正确认识自己"></a>正确认识自己</h2><p>相比码农、程序猿、软件工程师、张江男、屌丝程序员等等这些网络词汇，当你把自己看作是一个屌丝程序员的话，那你也可能就是那个衣食不愁，但整天浑浑噩噩、无所追求的屌丝。我更愿意用技匠这个词来形容程序员，就像我给自己起的花名一样。程序员应该是那些不断追求更高技术，并有着自己产品梦的工匠。当你通过对自己技术不断打磨，一次又一次做出那些优秀产品的时候，你会发现自己不再是他人口中的码农或是屌丝，而更多被称为了大师、大神，而受到大家的尊重。</p>
+<p>##比一般人更加努力<br>优秀的程序员往往会被同天才或高智商的人联系在一起，但我想告诉你，你周围所看到的那些天才（身边的优秀程序员）只是在你没看到的时候花了更多时间工作或者学习而已，当你也坚持这么做时，你也会变得和他们一样优秀。</p>
+<h2 id="适时建立个人权威"><a href="#适时建立个人权威" class="headerlink" title="适时建立个人权威"></a>适时建立个人权威</h2><p>建立个人权威，这能让其他人看到你的不同之处，并为你在公司或团队内部构建起良好的影响力。当然，这一切的前提是你通过不断努力积累了自己的实力，并在恰当的时候去展现它。</p>
+<h2 id="遵循最佳实践"><a href="#遵循最佳实践" class="headerlink" title="遵循最佳实践"></a>遵循最佳实践</h2><p>技术更新太快，作为程序员，如何才能适应这种变化呢？其实，就像每年都会有新的流行设计趋势，然而设计的本质和原则却始终不变一样。这些最佳实践或由此衍生出来的框架、工具都是那些富有经验的程序员通过大量实践，总结出来的最优秀的软件开发思想。通过理解和对它们的有效实践，能够让你站到前人的肩膀之上，对软件开发本身获得更深入的理解和认识。</p>
+<h2 id="保持好奇心并乐于探索新的事物"><a href="#保持好奇心并乐于探索新的事物" class="headerlink" title="保持好奇心并乐于探索新的事物"></a>保持好奇心并乐于探索新的事物</h2><p>优秀的程序员们也往往非常乐于探索那些看似与工作无关的技术。比如，做后端的程序员去学习前端的技能，前端工程师则去学习UI设计，等等，这些虽不会让他们成为那一个领域的专家，但技术往往是相通的，当你在探索这些新鲜事物的同时，你会发现你原有的技能也得到了提升。</p>
+<h2 id="抛开代码与人沟通"><a href="#抛开代码与人沟通" class="headerlink" title="抛开代码与人沟通"></a>抛开代码与人沟通</h2><p>“紧盯着电脑屏幕，不断敲击键盘，目光有些呆滞。”这可能是程序员给人的印象。而我所看到的那些优秀的程序员却都不是这样的，他们往往兴趣广泛，并且都乐于与人沟通交流。程序员们很容易会忽视与人的沟通，这其实对他们的职业生涯发展是不利的。我很支持那些年轻的程序员们坚持去走技术路线，但这不应该成为你排斥与人沟通的理由。你需要与人沟通来获得他人的帮助；你需要与人沟通来建立良好的工作关系；当你的能力不断提升，被赋予更多职责时，你更需要与人沟通来管理好自己的团队，以及与老板或客户进行有效的沟通等。<br>
+        
+          </p><p class="article-more-link">
+            <a href="/2019/11/08/10-points/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://wanghe4096.github.io/2019/11/08/10-points/" data-id="ck2psf1kk000qodfygye7kghj" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+  
     <article id="post-benchmark-method-2019-11-08" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/11/08/benchmark-method-2019-11-08/" class="article-date">
@@ -84,7 +352,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p><img src="/images/tested.jpeg" alt></p>
+        <p><img src="/images/tested.jpg" alt></p>
 <p>#压测性能瓶颈分析的一般套路</p>
 <h2 id="计算实例CPU很高"><a href="#计算实例CPU很高" class="headerlink" title="计算实例CPU很高"></a>计算实例CPU很高</h2><ol>
 <li>代码中存在加密、解密、编码、解码，如何压缩、解压缩、json序列化和反序列化,会非常吃CPU资源<br>尽可能去做本地对象缓存可以避免</li>
@@ -107,7 +375,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://wanghe4096.github.io/2019/11/08/benchmark-method-2019-11-08/" data-id="ck2prxdcd0004s0fyfz3u05fb" class="article-share-link">Share</a>
+      <a data-url="http://wanghe4096.github.io/2019/11/08/benchmark-method-2019-11-08/" data-id="ck2psf1jt0005odfytk9rnnoe" class="article-share-link">Share</a>
       
       
     </footer>
@@ -159,275 +427,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://wanghe4096.github.io/2019/08/21/consistent-hashing-algrothym/" data-id="ck2prxdck0007s0fy652t2n3g" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-  
-    <article id="post-10-points" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/08/05/10-points/" class="article-date">
-  <time datetime="2019-08-05T02:14:43.159Z" itemprop="datePublished">2019-08-05</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <hr>
-<h2 id="程序员的自我修养"><a href="#程序员的自我修养" class="headerlink" title="程序员的自我修养"></a>程序员的自我修养</h2><p><img src="/images/duang.jpeg" alt></p>
-<h1 id="写给年轻程序员的10点启示"><a href="#写给年轻程序员的10点启示" class="headerlink" title="写给年轻程序员的10点启示"></a>写给年轻程序员的10点启示</h1><h2 id="正确认识自己"><a href="#正确认识自己" class="headerlink" title="正确认识自己"></a>正确认识自己</h2><p>相比码农、程序猿、软件工程师、张江男、屌丝程序员等等这些网络词汇，当你把自己看作是一个屌丝程序员的话，那你也可能就是那个衣食不愁，但整天浑浑噩噩、无所追求的屌丝。我更愿意用技匠这个词来形容程序员，就像我给自己起的花名一样。程序员应该是那些不断追求更高技术，并有着自己产品梦的工匠。当你通过对自己技术不断打磨，一次又一次做出那些优秀产品的时候，你会发现自己不再是他人口中的码农或是屌丝，而更多被称为了大师、大神，而受到大家的尊重。</p>
-<p>##比一般人更加努力<br>优秀的程序员往往会被同天才或高智商的人联系在一起，但我想告诉你，你周围所看到的那些天才（身边的优秀程序员）只是在你没看到的时候花了更多时间工作或者学习而已，当你也坚持这么做时，你也会变得和他们一样优秀。</p>
-<h2 id="适时建立个人权威"><a href="#适时建立个人权威" class="headerlink" title="适时建立个人权威"></a>适时建立个人权威</h2><p>建立个人权威，这能让其他人看到你的不同之处，并为你在公司或团队内部构建起良好的影响力。当然，这一切的前提是你通过不断努力积累了自己的实力，并在恰当的时候去展现它。</p>
-<h2 id="遵循最佳实践"><a href="#遵循最佳实践" class="headerlink" title="遵循最佳实践"></a>遵循最佳实践</h2><p>技术更新太快，作为程序员，如何才能适应这种变化呢？其实，就像每年都会有新的流行设计趋势，然而设计的本质和原则却始终不变一样。这些最佳实践或由此衍生出来的框架、工具都是那些富有经验的程序员通过大量实践，总结出来的最优秀的软件开发思想。通过理解和对它们的有效实践，能够让你站到前人的肩膀之上，对软件开发本身获得更深入的理解和认识。</p>
-<h2 id="保持好奇心并乐于探索新的事物"><a href="#保持好奇心并乐于探索新的事物" class="headerlink" title="保持好奇心并乐于探索新的事物"></a>保持好奇心并乐于探索新的事物</h2><p>优秀的程序员们也往往非常乐于探索那些看似与工作无关的技术。比如，做后端的程序员去学习前端的技能，前端工程师则去学习UI设计，等等，这些虽不会让他们成为那一个领域的专家，但技术往往是相通的，当你在探索这些新鲜事物的同时，你会发现你原有的技能也得到了提升。</p>
-<h2 id="抛开代码与人沟通"><a href="#抛开代码与人沟通" class="headerlink" title="抛开代码与人沟通"></a>抛开代码与人沟通</h2><p>“紧盯着电脑屏幕，不断敲击键盘，目光有些呆滞。”这可能是程序员给人的印象。而我所看到的那些优秀的程序员却都不是这样的，他们往往兴趣广泛，并且都乐于与人沟通交流。程序员们很容易会忽视与人的沟通，这其实对他们的职业生涯发展是不利的。我很支持那些年轻的程序员们坚持去走技术路线，但这不应该成为你排斥与人沟通的理由。你需要与人沟通来获得他人的帮助；你需要与人沟通来建立良好的工作关系；当你的能力不断提升，被赋予更多职责时，你更需要与人沟通来管理好自己的团队，以及与老板或客户进行有效的沟通等。<br>
-        
-          </p><p class="article-more-link">
-            <a href="/2019/08/05/10-points/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://wanghe4096.github.io/2019/08/05/10-points/" data-id="ck2prxddf000qs0fyosj12y5m" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-  
-    <article id="post-refine" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/08/02/refine/" class="article-date">
-  <time datetime="2019-08-02T02:37:00.983Z" itemprop="datePublished">2019-08-02</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/08/02/refine/">日拱一卒</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><img src="/images/日拱一卒.png" alt></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://wanghe4096.github.io/2019/08/02/refine/" data-id="ck2prxdcs000fs0fyclc11kpi" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-  
-    <article id="post-study-mongodb" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/08/02/study-mongodb/" class="article-date">
-  <time datetime="2019-08-02T02:37:00.983Z" itemprop="datePublished">2019-08-02</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <hr>
-<h2 id="深入学习mongodb"><a href="#深入学习mongodb" class="headerlink" title="深入学习mongodb"></a>深入学习mongodb</h2><p><img src="/images/mongodb.png" alt></p>
-<h1 id="关于分布式数据"><a href="#关于分布式数据" class="headerlink" title="关于分布式数据"></a>关于分布式数据</h1><p><a href="https://juejin.im/entry/589abc01128fe10058fc542c" target="_blank" rel="noopener">关于分布式数据库，你需要知道的一些事</a></p>
-<h2 id="什么是分片？"><a href="#什么是分片？" class="headerlink" title="什么是分片？"></a>什么是分片？</h2><p>分片（sharding） 是MongoDB用来将大型集合分割到不同服务器（或者说一个集群）上所采用的方法。尽管分片起源于关系型数据库分区。但它（像mongodb）完全是两回事。 </p>
-<h2 id="让集群透明"><a href="#让集群透明" class="headerlink" title="让集群透明"></a>让集群透明</h2><p>mongodb 通过一个mongos的一个路由程序， 让跟mongo进行通信的客户端看起来只是一个mongod的实例。<br>mongos 是一个路由进程， 位于mongo集群的最前方， 起到代理的作用， 负责把请求正确无误地转发到集群中的一个或一组服务器上，然后再把获得到响应信息发回给客户端。  </p>
-<h2 id="保证集群的可高用"><a href="#保证集群的可高用" class="headerlink" title="保证集群的可高用"></a>保证集群的可高用</h2><p>任何时候， 我们都很难做到保证集群的永远可用性，不可抗力造成的情况，但是在合理条件下，永远都不应该出现用户无法读写数据的情况。 在功能发生明显降级前， 集群应当允许尽可能多的节点失败。  </p>
-<p>mongoDB通过多种方法来确保集群的最长的正常运行时间。 集群的每一部分数据可以并且应当在其他服务器上（最理想的情况是在其他的数据中心） 有冗余的进程运行，以便当一个进程/机器/数据中心坏掉了， 其他副本可以立即（自动地）接替坏掉的部分继续工作。 </p>
-<h2 id="使集群易于扩展"><a href="#使集群易于扩展" class="headerlink" title="使集群易于扩展"></a>使集群易于扩展</h2><p>当系统需要更多的空间或资源时， 应当可以添加。 mongoDB支持按需扩充系统容量。 </p>
-<p>要实现这些目标，一个集群应该易于使用（就像使用单个节点一样） 和易于管理（否则添加新的分片就不那么容易了）。 MongoDB在扩容方面具有天然优势。 </p>
-        
-          <p class="article-more-link">
-            <a href="/2019/08/02/study-mongodb/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://wanghe4096.github.io/2019/08/02/study-mongodb/" data-id="ck2prxdcx000ks0fyg0uaebbf" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-  
-    <article id="post-developer_getting_started" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/08/02/developer_getting_started/" class="article-date">
-  <time datetime="2019-08-02T02:37:00.981Z" itemprop="datePublished">2019-08-02</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/08/02/developer_getting_started/">开发者零基础入门教程</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="学习内容大纲"><a href="#学习内容大纲" class="headerlink" title="学习内容大纲"></a>学习内容大纲</h1><h2 id="计算机科学基础"><a href="#计算机科学基础" class="headerlink" title="计算机科学基础"></a>计算机科学基础</h2><h3 id="命令行基础"><a href="#命令行基础" class="headerlink" title="命令行基础"></a>命令行基础</h3><ul>
-<li>cd: change directory , 改变工作目录</li>
-<li>pwd: 查看当前所在的目录</li>
-<li>ls: list, 列出当前目录文件列表 </li>
-<li>open: 打开一个文件</li>
-<li>rm: remove 删除</li>
-<li>mv: move  </li>
-<li>mkdir: make directory </li>
-<li>man: manual </li>
-<li>touch: 创建一个文件 </li>
-<li>echo ： 回显</li>
-</ul>
-<h3 id="语言类"><a href="#语言类" class="headerlink" title="语言类"></a>语言类</h3><pre><code>- C 语言 : 偏向于系统底层的语言，常用来做底层开发，所谓底层开发是： 接近硬件的编程，比如操作系统，驱动软件，或者是对性能要求较为苛刻的场景
-- Java： 流行的，  较为常用的企业级应用开发语言， 或者是大数据相关领域较为常用的开发语言
-- Python: 人工智能，数据挖掘，以及科学计算
-- Go: 互联网公司常用
-</code></pre><h3 id="操作系统"><a href="#操作系统" class="headerlink" title="操作系统"></a>操作系统</h3><pre><code>- Unix / Linux 
-- Microsoft Window
-- MacOs : 基于FreeBSD Unix 操作系统深度定制的
-- iOS / Android
-</code></pre>
-        
-          <p class="article-more-link">
-            <a href="/2019/08/02/developer_getting_started/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://wanghe4096.github.io/2019/08/02/developer_getting_started/" data-id="ck2prxdcl0008s0fyo9drnh75" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-  
-    <article id="post-computer-science-graphic" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/08/02/computer-science-graphic/" class="article-date">
-  <time datetime="2019-08-02T02:37:00.980Z" itemprop="datePublished">2019-08-02</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/08/02/computer-science-graphic/">计算机知识图普</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><img src="/images/计算机知识图普.png" alt></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://wanghe4096.github.io/2019/08/02/computer-science-graphic/" data-id="ck2prxdci0005s0fyq6dr48aj" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-  
-    <article id="post-api-design-guide" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/08/02/api-design-guide/" class="article-date">
-  <time datetime="2019-08-02T02:37:00.978Z" itemprop="datePublished">2019-08-02</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://wanghe4096.github.io/2019/08/02/api-design-guide/" data-id="ck2prxdbi0000s0fy7x0j9d8u" class="article-share-link">Share</a>
+      <a data-url="http://wanghe4096.github.io/2019/08/21/consistent-hashing-algrothym/" data-id="ck2psf1jt0006odfy9ec4x5g1" class="article-share-link">Share</a>
       
       
     </footer>
@@ -486,7 +486,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://wanghe4096.github.io/2019/07/28/principle-of-ood/" data-id="ck2prxdd6000os0fyy2dlg0ev" class="article-share-link">Share</a>
+      <a data-url="http://wanghe4096.github.io/2019/07/28/principle-of-ood/" data-id="ck2psf1ka000oodfy9cxgxr5l" class="article-share-link">Share</a>
       
       
     </footer>
@@ -532,7 +532,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://wanghe4096.github.io/2019/07/26/principle-of-design/" data-id="ck2prxdcr000ds0fysob0rmhf" class="article-share-link">Share</a>
+      <a data-url="http://wanghe4096.github.io/2019/07/26/principle-of-design/" data-id="ck2psf1k0000eodfy0rut7qoy" class="article-share-link">Share</a>
       
       
     </footer>
@@ -583,23 +583,23 @@
       <ul>
         
           <li>
-            <a href="/2019/11/08/benchmark-method-2019-11-08/">性能分析与优化的一般套路</a>
+            <a href="/2019/11/08/study-mongodb/">(no title)</a>
           </li>
         
           <li>
-            <a href="/2019/08/21/consistent-hashing-algrothym/">一致性哈稀算法</a>
+            <a href="/2019/11/08/refine/">日拱一卒</a>
           </li>
         
           <li>
-            <a href="/2019/08/05/10-points/">(no title)</a>
+            <a href="/2019/11/08/developer_getting_started/">开发者零基础入门教程</a>
           </li>
         
           <li>
-            <a href="/2019/08/02/refine/">日拱一卒</a>
+            <a href="/2019/11/08/computer-science-graphic/">计算机知识图普</a>
           </li>
         
           <li>
-            <a href="/2019/08/02/study-mongodb/">(no title)</a>
+            <a href="/2019/11/08/api-design-guide/">(no title)</a>
           </li>
         
       </ul>
