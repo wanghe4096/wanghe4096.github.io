@@ -2,7 +2,7 @@
 title: 性能分析与优化的一般套路
 date: 2019-11-08
 ---
-![](/images/tested.jpeg)
+![](/images/tested.jpg)
 
 
 #压测性能瓶颈分析的一般套路
